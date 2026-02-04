@@ -268,10 +268,10 @@ export const FeaturesListSection = ({ section, currentLang }) => {
 
 // Benefits Grid Component - supports columns option
 export const BenefitsSection = ({ section, currentLang }) => {
-  const { headline, subheadline, items, columns = 3 } = section.content || {};
+  const { headline, subheadline, items = [], columns = 3 } = section.content || {};
   const lang = currentLang || 'en';
-  
-  // Determine grid columns
+
+  // Determine grid columns for desktop
   const getGridCols = () => {
     switch (columns) {
       case 1: return 'grid-cols-1';
@@ -280,6 +280,23 @@ export const BenefitsSection = ({ section, currentLang }) => {
       case 4: return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4';
       default: return 'grid-cols-1 md:grid-cols-3';
     }
+  };
+
+  const [startIndex, setStartIndex] = React.useState(0);
+  const total = items.length;
+  const visibleCount = Math.min(columns || 3, total || 0) || 1;
+  const visibleItems = items.slice(startIndex, startIndex + visibleCount);
+  const canPrev = startIndex > 0;
+  const canNext = startIndex + visibleCount < total;
+
+  const goPrev = () => {
+    if (!canPrev) return;
+    setStartIndex((prev) => Math.max(prev - visibleCount, 0));
+  };
+
+  const goNext = () => {
+    if (!canNext) return;
+    setStartIndex((prev) => Math.min(prev + visibleCount, total - visibleCount));
   };
   
   return (
@@ -298,7 +315,7 @@ export const BenefitsSection = ({ section, currentLang }) => {
           )}
         </div>
         <div className={`grid ${getGridCols()} gap-8`}>
-          {(items || []).map((item, index) => {
+          {visibleItems.map((item, index) => {
             const IconComponent = getIcon(item.icon);
             const hasImage = !!item.image_url;
             const size = item.image_size || 'icon';
@@ -343,6 +360,30 @@ export const BenefitsSection = ({ section, currentLang }) => {
             );
           })}
         </div>
+
+        {total > visibleCount && (
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={!canPrev}
+              className={`px-3 py-1 text-sm rounded border ${canPrev ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
+            >
+              Prev
+            </button>
+            <span className="text-xs text-gray-500">
+              {startIndex + 1}–{Math.min(startIndex + visibleCount, total)} of {total}
+            </span>
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!canNext}
+              className={`px-3 py-1 text-sm rounded border ${canNext ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -385,8 +426,34 @@ export const CTASection = ({ section, currentLang }) => {
 
 // Testimonials Section Component
 export const TestimonialsSection = ({ section, currentLang }) => {
-  const { headline, items } = section.content || {};
+  const { headline, items = [], columns = 3 } = section.content || {};
   const lang = currentLang || 'en';
+
+  const getGridCols = () => {
+    switch (columns) {
+      case 1: return 'grid-cols-1';
+      case 2: return 'grid-cols-1 md:grid-cols-2';
+      case 3: return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+      default: return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+    }
+  };
+
+  const [startIndex, setStartIndex] = React.useState(0);
+  const total = items.length;
+  const visibleCount = Math.min(columns || 3, total || 0) || 1;
+  const visibleItems = items.slice(startIndex, startIndex + visibleCount);
+  const canPrev = startIndex > 0;
+  const canNext = startIndex + visibleCount < total;
+
+  const goPrev = () => {
+    if (!canPrev) return;
+    setStartIndex((prev) => Math.max(prev - visibleCount, 0));
+  };
+
+  const goNext = () => {
+    if (!canNext) return;
+    setStartIndex((prev) => Math.min(prev + visibleCount, total - visibleCount));
+  };
   
   return (
     <section className="py-16 md:py-24 bg-[#F8FAFB]" data-testid={`section-${section.id}`}>
@@ -396,8 +463,8 @@ export const TestimonialsSection = ({ section, currentLang }) => {
             {getText(headline, lang)}
           </h2>
         )}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {(items || []).map((item, index) => (
+        <div className={`grid ${getGridCols()} gap-8`}>
+          {visibleItems.map((item, index) => (
             <div key={item.id || index} className="bg-white p-6 rounded-xl shadow-sm">
               <Quote className="h-8 w-8 text-[#00BFB3] mb-4" />
               {getText(item.quote, lang) && (
@@ -414,6 +481,30 @@ export const TestimonialsSection = ({ section, currentLang }) => {
             </div>
           ))}
         </div>
+
+        {total > visibleCount && (
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={!canPrev}
+              className={`px-3 py-1 text-sm rounded border ${canPrev ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
+            >
+              Prev
+            </button>
+            <span className="text-xs text-gray-500">
+              {startIndex + 1}–{Math.min(startIndex + visibleCount, total)} of {total}
+            </span>
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!canNext}
+              className={`px-3 py-1 text-sm rounded border ${canNext ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
