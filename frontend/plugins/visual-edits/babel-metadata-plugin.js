@@ -626,23 +626,10 @@ const babelMetadataPlugin = ({ types: t }) => {
     if (t.isIdentifier(rootObj)) {
       const rootName = rootObj.name;
 
-      // Check if we're inside an array iteration (like .map())
-      const arrayContext = getArrayIterationContext(exprPath, state);
-
-      if (arrayContext && arrayContext.itemParam === rootName) {
-        // This is item.property where item comes from array.map(item => ...)
-        return {
-          type: "static-imported",
-          varName: arrayContext.arrayVar,
-          file: arrayContext.arrayFile,
-          absFile: arrayContext.absFile,
-          line: arrayContext.arrayLine,
-          path: propPath,
-          isEditable: arrayContext.isEditable,
-          valueType: "array-item",
-          arrayContext: arrayContext,
-        };
-      }
+      // NOTE: We deliberately avoid calling getArrayIterationContext here to
+      // prevent potential recursive cycles between analyzeMemberExpression
+      // and getArrayIterationContext. For member expressions we fall back to
+      // simpler identifier-based analysis below.
 
       // Analyze the root identifier
       const rootInfo = analyzeIdentifier(rootName, exprPath, state);
