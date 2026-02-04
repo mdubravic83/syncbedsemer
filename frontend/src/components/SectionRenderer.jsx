@@ -571,7 +571,7 @@ export const TestimonialsSection = ({ section, currentLang }) => {
 
 // FAQ Section Component
 export const FAQSection = ({ section, currentLang }) => {
-  const { headline, items } = section.content || {};
+  const { headline, headline_highlight, items } = section.content || {};
   const [openIndex, setOpenIndex] = React.useState(null);
   const lang = currentLang || 'en';
   
