@@ -629,7 +629,7 @@ export const FAQSection = ({ section, currentLang }) => {
 
 // Gallery Section Component
 export const GallerySection = ({ section, currentLang }) => {
-  const { headline, headline_highlight, images } = section.content || {};
+  const { headline, headline_highlight, headline_highlight_color, images } = section.content || {};
   const lang = currentLang || 'en';
   
   return (
