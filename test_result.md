@@ -100,4 +100,38 @@
 
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
+---
+user_problem_statement: "Stabilizirati frontend, dovršiti carousel, proširiti headline highlight i Promo Grid sekciju"
+backend: []
+frontend:
+  - task: "Stabilizacija frontenda i SectionRenderer headline highlight + Promo Grid"
+    implemented: true
+    working: false
+    file: "frontend/src/components/SectionRenderer.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Frontend sada renderira home, dodan headline highlight na hero/content/benefits/testimonials/FAQ/gallery i Promo Grid komponenta, ali još nije kompletno testirano kroz sve stranice. Potrebno proći osnovne scenarije prikaza sekcija i karusela."
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+
+test_plan:
+  current_focus:
+    - "Home stranica render bez runtime errora"
+    - "Carousel Benefits & Testimonials (strelice, broj kartica, mobilni prikaz)"
+    - "Headline highlight kroz razne vrste sekcija"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Molim provjeri osnovnu funkcionalnost sekcija na home stranici, posebno carousel i headline highlight. CMS login: admin/admin123 (ako treba)."
+
 #====================================================================================================
