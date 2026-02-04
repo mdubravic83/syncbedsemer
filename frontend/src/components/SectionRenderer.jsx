@@ -466,7 +466,7 @@ export const CTASection = ({ section, currentLang }) => {
 
 // Testimonials Section Component
 export const TestimonialsSection = ({ section, currentLang }) => {
-  const { headline, items = [], columns = 3 } = section.content || {};
+  const { headline, headline_highlight, items = [], columns = 3 } = section.content || {};
   const lang = currentLang || 'en';
 
   const getGridCols = () => {
