@@ -216,7 +216,7 @@ export const FeaturesListSection = ({ section, currentLang }) => {
 
 // Promo Grid Section - headline, subheadline, image and columns of items
 export const PromoGridSection = ({ section, currentLang }) => {
-  const { headline, subheadline, headline_highlight, items = [], columns = 3, image_url } = section.content || {};
+  const { headline, subheadline, headline_highlight, headline_highlight_color, items = [], columns = 3, image_url } = section.content || {};
   const lang = currentLang || 'en';
 
   const getGridCols = () => {
@@ -240,7 +240,11 @@ export const PromoGridSection = ({ section, currentLang }) => {
           )}
           {getText(headline, lang) && (
             <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] mb-4">
-              {renderHighlightedHeadline(getText(headline, lang), getText(headline_highlight, lang))}
+              {renderHighlightedHeadline(
+                getText(headline, lang),
+                getText(headline_highlight, lang),
+                section.content?.headline_highlight_color || 'primary'
+              )}
             </h2>
           )}
         </div>
