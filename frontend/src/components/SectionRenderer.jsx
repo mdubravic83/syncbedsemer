@@ -178,6 +178,91 @@ export const FeaturesListSection = ({ section, currentLang }) => {
       default: return 'grid-cols-1 md:grid-cols-2';
     }
   };
+// Promo Grid Section - headline, subheadline, image and columns of items
+export const PromoGridSection = ({ section, currentLang }) => {
+  const { headline, subheadline, headline_highlight, items = [], columns = 3, image_url } = section.content || {};
+  const lang = currentLang || 'en';
+
+  const getGridCols = () => {
+    switch (columns) {
+      case 1: return 'grid-cols-1';
+      case 2: return 'grid-cols-1 md:grid-cols-2';
+      case 3: return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+      case 4: return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4';
+      default: return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+    }
+  };
+
+  return (
+    <section className="py-16 md:py-24 bg-white" data-testid={`section-${section.id}`}>
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          {getText(subheadline, lang) && (
+            <span className="text-[#00BFB3] text-xs font-semibold tracking-wider uppercase block mb-2">
+              {getText(subheadline, lang)}
+            </span>
+          )}
+          {getText(headline, lang) && (
+            <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] mb-4">
+              {renderHighlightedHeadline(getText(headline, lang), getText(headline_highlight, lang))}
+            </h2>
+          )}
+        </div>
+
+        {image_url && (
+          <div className="mb-10 flex justify-center">
+            <img
+              src={image_url}
+              alt={getText(headline, lang) || 'Promo image'}
+              className="rounded-xl shadow-lg max-w-full h-auto"
+            />
+          </div>
+        )}
+
+        <div className={`grid ${getGridCols()} gap-8`}>
+          {items.map((item, index) => {
+            const IconComponent = getIcon(item.icon);
+            const hasImage = !!item.image_url;
+            return (
+              <div
+                key={item.id || index}
+                className="bg-white p-6 rounded-xl border border-gray-100 hover:shadow-md transition-shadow text-left"
+              >
+                {hasImage ? (
+                  <div className="w-16 h-16 mb-4 rounded-xl overflow-hidden bg-[#00BFB3]/10 flex items-center justify-center">
+                    <img
+                      src={item.image_url}
+                      alt={getText(item.title, lang) || 'Promo icon'}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  item.icon && (
+                    <div className="w-12 h-12 mb-4 rounded-xl bg-[#00BFB3]/10 flex items-center justify-center">
+                      <IconComponent className="h-6 w-6 text-[#00BFB3]" />
+                    </div>
+                  )
+                )}
+
+                {getText(item.title, lang) && (
+                  <h3 className="text-lg font-semibold text-[#0A1628] mb-2">
+                    {getText(item.title, lang)}
+                  </h3>
+                )}
+                {getText(item.description, lang) && (
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {getText(item.description, lang)}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
   // Render feature item based on layout
   const renderFeatureItem = (item, index) => {
