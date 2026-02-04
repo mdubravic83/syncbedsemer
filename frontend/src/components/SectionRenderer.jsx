@@ -320,7 +320,7 @@ export const BenefitsSection = ({ section, currentLang }) => {
           )}
           {getText(headline, lang) && (
             <h2 className="text-3xl md:text-4xl font-bold font-heading mt-2 text-[#0A1628]">
-              {getText(headline, lang)}
+              {renderHighlightedHeadline(getText(headline, lang), getText(section.content?.headline_highlight, lang))}
             </h2>
           )}
         </div>
