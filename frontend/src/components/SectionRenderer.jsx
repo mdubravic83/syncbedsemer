@@ -18,6 +18,24 @@ const getText = (obj, lang) => {
   return obj[lang] || obj[lang?.split('-')[0]] || obj.en || obj.hr || Object.values(obj)[0];
 };
 
+// Helper to render highlighted headline
+const renderHighlightedHeadline = (headline, highlight) => {
+  if (!headline) return null;
+  if (!highlight) return headline;
+  
+  // Replace the highlight text with a styled version
+  const parts = headline.split(highlight);
+  if (parts.length === 1) return headline;
+  
+  return (
+    <>
+      {parts[0]}
+      <span className="text-[#00BFB3]">{highlight}</span>
+      {parts[1]}
+    </>
+  );
+};
+
 // Hero Section Component
 export const HeroSection = ({ section, currentLang, feature, t }) => {
   const { headline, subheadline, body, button_text, button_url, image_url, background_color } = section.content || {};
