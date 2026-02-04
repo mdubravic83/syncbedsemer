@@ -1095,8 +1095,6 @@ async def upload_media(file: UploadFile = File(...)):
     # Build URL relative to backend base (frontend will prefix with REACT_APP_BACKEND_URL)
     url = f"/api/media/{unique_name}"
     return MediaUploadResponse(url=url, filename=unique_name)
-    
-    return {"message": "Initial data seeded successfully", "blog_posts": len(blog_posts), "testimonials": len(testimonials), "faqs": len(faqs)}
 
 
 @api_router.post("/seed/pages-menus")
