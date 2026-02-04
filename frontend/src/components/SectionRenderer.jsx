@@ -284,7 +284,17 @@ export const BenefitsSection = ({ section, currentLang }) => {
 
   const [startIndex, setStartIndex] = React.useState(0);
   const total = items.length;
-  const visibleCount = Math.min(columns || 3, total || 0) || 1;
+
+  const [isMobile, setIsMobile] = React.useState(false);
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const baseCount = columns || 3;
+  const visibleCount = Math.min(isMobile ? 1 : baseCount, total || 0) || 1;
   const visibleItems = items.slice(startIndex, startIndex + visibleCount);
   const canPrev = startIndex > 0;
   const canNext = startIndex + visibleCount < total;
