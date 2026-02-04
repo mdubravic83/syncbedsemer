@@ -1038,6 +1038,43 @@ async def seed_initial_data():
             "id": str(uuid.uuid4()),
             "question": {
                 "en": "How does the Channel Manager prevent double bookings?",
+
+# ==================== MEDIA UPLOAD API ====================
+
+class MediaUploadResponse(BaseModel):
+    url: str
+    filename: str
+
+
+@api_router.post("/media/upload", response_model=MediaUploadResponse)
+async def upload_media(file: UploadFile = File(...)):
+    """Upload a media file (image) and return a URL that can be used in the CMS.
+
+    Files are stored under /app/backend/media and served via /api/media/{filename}.
+    """
+    # Basic content-type check (image/*)
+    content_type = file.content_type or ""
+    if not content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="Only image uploads are allowed")
+
+    # Create unique filename
+    ext = os.path.splitext(file.filename or "")[1] or ".png"
+    unique_name = f"{uuid.uuid4().hex}{ext}"
+    dest_path = MEDIA_ROOT / unique_name
+
+    # Save file to disk
+    try:
+        with dest_path.open("wb") as out_file:
+            data = await file.read()
+            out_file.write(data)
+    except Exception as exc:
+        logging.exception("Failed to save uploaded file")
+        raise HTTPException(status_code=500, detail="Failed to save file") from exc
+
+    # Build URL relative to backend base (frontend will prefix with REACT_APP_BACKEND_URL)
+    url = f"/api/media/{unique_name}"
+    return MediaUploadResponse(url=url, filename=unique_name)
+
                 "hr": "Kako Channel Manager sprječava dvostruke rezervacije?",
                 "de": "Wie verhindert der Channel Manager Doppelbuchungen?"
             },
