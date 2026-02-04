@@ -400,6 +400,7 @@ const createInitialContent = (sectionType) => {
   typeConfig.fields.forEach(field => {
     switch(field) {
       case 'headline':
+      case 'headline_highlight':
       case 'subheadline':
       case 'body':
       case 'button_text':
