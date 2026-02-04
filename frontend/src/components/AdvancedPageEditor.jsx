@@ -582,6 +582,16 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
 
           {sectionType.fields.includes('headline_highlight') && (
             <MultiLangInput
+              label="Headline Highlighted Words"
+              value={section.content?.headline_highlight}
+              onChange={(v) => updateContent('headline_highlight', v)}
+              currentLang={currentLang}
+              placeholder="Words to highlight (optional)"
+            />
+          )}
+
+          {sectionType.fields.includes('headline_highlight') && (
+            <MultiLangInput
               label="Headline Highlight"
               value={section.content?.headline_highlight}
               onChange={(v) => updateContent('headline_highlight', v)}
