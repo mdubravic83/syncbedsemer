@@ -510,7 +510,10 @@ export const TestimonialsSection = ({ section, currentLang }) => {
       <div className="container mx-auto px-4 md:px-6">
         {getText(headline, lang) && (
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] text-center mb-12">
-            {getText(headline, lang)}
+            {renderHighlightedHeadline(
+              getText(headline, lang),
+              getText(headline_highlight, lang)
+            )}
           </h2>
         )}
         <div className="relative">
@@ -577,7 +580,10 @@ export const FAQSection = ({ section, currentLang }) => {
       <div className="container mx-auto px-4 md:px-6 max-w-3xl">
         {getText(headline, lang) && (
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] text-center mb-12">
-            {getText(headline, lang)}
+            {renderHighlightedHeadline(
+              getText(headline, lang),
+              getText(headline_highlight, lang)
+            )}
           </h2>
         )}
         <div className="space-y-4">
@@ -613,7 +619,10 @@ export const GallerySection = ({ section, currentLang }) => {
       <div className="container mx-auto px-4 md:px-6">
         {getText(headline, lang) && (
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] text-center mb-12">
-            {getText(headline, lang)}
+            {renderHighlightedHeadline(
+              getText(headline, lang),
+              getText(headline_highlight, lang)
+            )}
           </h2>
         )}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
