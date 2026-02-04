@@ -16,6 +16,7 @@ const getText = (obj, lang) => {
   if (!obj) return null;
   // Try exact match first, then try base language (e.g., 'en' from 'en-GB'), then fallback to 'en'
   return obj[lang] || obj[lang?.split('-')[0]] || obj.en || obj.hr || Object.values(obj)[0];
+};
 
 const HIGHLIGHT_COLORS = {
   primary: '#00BFB3',
