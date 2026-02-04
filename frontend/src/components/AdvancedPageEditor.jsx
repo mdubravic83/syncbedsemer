@@ -328,6 +328,23 @@ const ItemsEditor = ({ items = [], onChange, itemFields = ['title', 'description
                 </div>
               </div>
             )}
+
+            {itemFields.includes('image_size') && (
+              <div className="space-y-1">
+                <Label className="text-xs font-medium text-gray-600">Image size</Label>
+                <select
+                  value={item.image_size || 'icon'}
+                  onChange={(e) => updateItem(index, 'image_size', e.target.value)}
+                  className="w-full text-sm border border-gray-200 rounded-md p-2"
+                >
+                  <option value="icon">Icon (small square)</option>
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                  <option value="original">Original (auto)</option>
+                </select>
+              </div>
+            )}
             {itemFields.includes('quote') && (
               <Textarea
                 value={item.quote?.[currentLang] || ''}
@@ -486,8 +503,8 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
       case 'faq':
         return ['question', 'answer'];
       case 'benefits':
-        // In benefits grid we want both an icon and an optional custom image
-        return ['title', 'description', 'icon', 'image_url'];
+        // U benefits gridu želimo i ikonu i opcionalnu custom sliku + kontrolu veličine slike
+        return ['title', 'description', 'icon', 'image_url', 'image_size'];
       default:
         return ['title', 'description', 'icon'];
     }
