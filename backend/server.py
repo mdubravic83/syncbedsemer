@@ -1,4 +1,5 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Query, Body
+from fastapi import FastAPI, APIRouter, HTTPException, Query, Body, UploadFile, File
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -14,6 +15,10 @@ from enum import Enum
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
+# Media directory for uploaded files
+MEDIA_ROOT = ROOT_DIR / "media"
+MEDIA_ROOT.mkdir(exist_ok=True)
+
 # MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
@@ -21,6 +26,9 @@ db = client[os.environ['DB_NAME']]
 
 # Create the main app
 app = FastAPI(title="SyncBeds CMS API", version="1.0.0")
+
+# Serve uploaded media files (must still be under /api for ingress rules)
+app.mount("/api/media", StaticFiles(directory=MEDIA_ROOT), name="media")
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
