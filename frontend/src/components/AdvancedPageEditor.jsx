@@ -57,11 +57,11 @@ const SECTION_TYPES = {
   },
   testimonials: {
     label: 'Testimonials',
-    fields: ['headline', 'items', 'columns', 'carousel_direction', 'transition_enabled']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'items', 'columns', 'carousel_direction', 'transition_enabled']
   },
   faq: {
     label: 'FAQ Section',
-    fields: ['headline', 'items']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'items']
   },
   custom_html: {
     label: 'Custom HTML',
