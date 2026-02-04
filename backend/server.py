@@ -1041,6 +1041,8 @@ async def seed_initial_data():
 
 # ==================== MEDIA UPLOAD API ====================
 
+
+
 class MediaUploadResponse(BaseModel):
     url: str
     filename: str
