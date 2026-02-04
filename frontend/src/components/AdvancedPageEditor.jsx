@@ -105,16 +105,62 @@ const MultiLangInput = ({ label, value, onChange, currentLang, type = 'input', p
 };
 
 const ImageField = ({ label, value, onChange }) => {
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/media/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      if (data.url) {
+        onChange(data.url);
+      }
+    } catch (err) {
+      console.error('Image upload failed', err);
+      // TODO: hook into toast if available
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   return (
     <div className="space-y-2">
       <Label className="text-xs font-medium text-gray-600">{label}</Label>
-      <div className="flex gap-2">
-        <Input
-          value={value || ''}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Image URL or upload..."
-          className="text-sm flex-1"
-        />
+      <div className="flex flex-col gap-2">
+        <div className="flex gap-2">
+          <Input
+            value={value || ''}
+            onChange={(e) => onChange(e.target.value)}
+            placeholder="Image URL or upload..."
+            className="text-sm flex-1"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="text-xs"
+            data-testid="image-upload-input"
+          />
+          {isUploading && (
+            <span className="text-xs text-gray-500">Uploading...</span>
+          )}
+        </div>
       </div>
       {value && (
         <img src={value} alt="Preview" className="w-full h-32 object-cover rounded-lg mt-2" />
