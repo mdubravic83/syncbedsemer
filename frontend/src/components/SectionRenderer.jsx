@@ -111,7 +111,7 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
 
 // Content Block Component
 export const ContentSection = ({ section, currentLang, feature }) => {
-  const { headline, body, html_content, image_url, image_position } = section.content || {};
+  const { headline, headline_highlight, headline_highlight_color, body, html_content, image_url, image_position } = section.content || {};
   const isImageLeft = image_position === 'left';
   const lang = currentLang || 'en';
   
@@ -133,7 +133,8 @@ export const ContentSection = ({ section, currentLang, feature }) => {
               <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] mb-6">
                 {renderHighlightedHeadline(
                   getText(headline, lang),
-                  getText(section.content?.headline_highlight, lang)
+                  getText(headline_highlight, lang),
+                  section.content?.headline_highlight_color || 'primary'
                 )}
               </h2>
             )}
