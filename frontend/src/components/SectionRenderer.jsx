@@ -535,6 +535,7 @@ export const TestimonialsSection = ({ section, currentLang }) => {
               </div>
             </div>
           ))}
+          </div>
         </div>
 
         {total > visibleCount && (
