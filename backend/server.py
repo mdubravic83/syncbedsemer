@@ -28,7 +28,8 @@ db = client[os.environ['DB_NAME']]
 app = FastAPI(title="SyncBeds CMS API", version="1.0.0")
 
 # Serve uploaded media files (must still be under /api for ingress rules)
-app.mount("/api/media", StaticFiles(directory=MEDIA_ROOT), name="media")
+# We use /api/uploads for static files to avoid clashing with the /api/media/upload API route.
+app.mount("/api/uploads", StaticFiles(directory=MEDIA_ROOT), name="uploads")
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
@@ -1093,7 +1094,7 @@ async def upload_media(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail="Failed to save file") from exc
 
     # Build URL relative to backend base (frontend will prefix with REACT_APP_BACKEND_URL)
-    url = f"/api/media/{unique_name}"
+    url = f"/api/uploads/{unique_name}"
     return MediaUploadResponse(url=url, filename=unique_name)
 
 
