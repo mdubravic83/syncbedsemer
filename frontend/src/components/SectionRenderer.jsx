@@ -25,8 +25,6 @@ const HIGHLIGHT_COLORS = {
   info: '#297AF4',
 };
 
-};
-
 // Helper to render highlighted headline with optional color
 const renderHighlightedHeadline = (headline, highlight, colorKey = 'primary') => {
   if (!headline) return null;
