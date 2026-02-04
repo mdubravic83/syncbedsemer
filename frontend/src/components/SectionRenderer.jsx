@@ -605,7 +605,7 @@ export const FAQSection = ({ section, currentLang }) => {
 
 // Gallery Section Component
 export const GallerySection = ({ section, currentLang }) => {
-  const { headline, images } = section.content || {};
+  const { headline, headline_highlight, images } = section.content || {};
   const lang = currentLang || 'en';
   
   return (
