@@ -140,7 +140,10 @@ export const ContentSection = ({ section, currentLang, feature }) => {
           <div className={isImageLeft ? '' : 'lg:col-start-1 lg:row-start-1'}>
             {getText(headline, lang) && (
               <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] mb-6">
-                {getText(headline, lang)}
+                {renderHighlightedHeadline(
+                  getText(headline, lang),
+                  getText(section.content?.headline_highlight, lang)
+                )}
               </h2>
             )}
             {getText(html_content, lang) ? (
