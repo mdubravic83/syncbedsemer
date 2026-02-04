@@ -91,30 +91,6 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
       </div>
     </section>
 
-// Helper to render highlighted words in a headline
-const renderHighlightedHeadline = (headline, highlight) => {
-  if (!headline) return null;
-  if (!highlight) return headline;
-
-  const parts = headline.split(highlight);
-  if (parts.length === 1) {
-    return headline;
-  }
-
-  return (
-    <>
-      {parts.map((part, index) => (
-        <React.Fragment key={index}>
-          {part}
-          {index < parts.length - 1 && (
-            <span className="text-[#00BFB3]">{highlight}</span>
-          )}
-        </React.Fragment>
-      ))}
-    </>
-  );
-};
-
 // Content Block Component
 export const ContentSection = ({ section, currentLang, feature }) => {
   const { headline, body, html_content, image_url, image_position } = section.content || {};
