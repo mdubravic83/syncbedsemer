@@ -7,7 +7,6 @@ import { cmsApi } from '../services/api';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 
-// Full content copied from original repo
 // Submenu Item Editor (child item)
 const SubmenuItemEditor = ({ item, index, onUpdate, onRemove, onMove, totalItems, currentLang }) => {
   return (
@@ -288,6 +287,7 @@ export const HeaderFooterEditor = ({ type = 'header', onClose }) => {
     try {
       await cmsApi.updateMenu(menuName, menu);
       toast.success(`${title} saved successfully!`);
+      // Trigger page reload to reflect menu changes
       window.location.reload();
     } catch (error) {
       toast.error(`Failed to save ${title.toLowerCase()}`);

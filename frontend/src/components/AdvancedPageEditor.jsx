@@ -25,4 +25,873 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-// (rest of AdvancedPageEditor code from repo_syncbed, already copied earlier)
+// Available section types with their schemas
+const SECTION_TYPES = {
+  hero: {
+    label: 'Hero Section',
+    fields: ['headline', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
+  },
+  content: {
+    label: 'Content Block',
+    fields: ['headline', 'body', 'html_content', 'image_url', 'image_position']
+  },
+  features_list: {
+    label: 'Features List',
+    fields: ['headline', 'subheadline', 'items', 'image_url', 'columns', 'layout']
+  },
+  benefits: {
+    label: 'Benefits Grid',
+    fields: ['headline', 'subheadline', 'items', 'columns']
+  },
+  cta: {
+    label: 'Call to Action',
+    fields: ['headline', 'body', 'button_text', 'button_url', 'background_color']
+  },
+  gallery: {
+    label: 'Image Gallery',
+    fields: ['headline', 'images', 'columns']
+  },
+  testimonials: {
+    label: 'Testimonials',
+    fields: ['headline', 'items']
+  },
+  faq: {
+    label: 'FAQ Section',
+    fields: ['headline', 'items']
+  },
+  custom_html: {
+    label: 'Custom HTML',
+    fields: ['html_content']
+  }
+};
+
+const LanguageTabs = ({ currentLang, onChange }) => {
+  const languages = ['en', 'hr', 'de'];
+  return (
+    <div className="flex gap-1 mb-2">
+      {languages.map(lang => (
+        <button
+          key={lang}
+          type="button"
+          onClick={() => onChange(lang)}
+          className={`px-2 py-1 text-xs font-medium rounded ${
+            currentLang === lang 
+              ? 'bg-[#00BFB3] text-white' 
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          {lang.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+const MultiLangInput = ({ label, value, onChange, currentLang, type = 'input', placeholder = '' }) => {
+  const InputComponent = type === 'textarea' ? Textarea : Input;
+  
+  return (
+    <div className="space-y-1">
+      <Label className="text-xs font-medium text-gray-600">{label}</Label>
+      <InputComponent
+        value={value?.[currentLang] || ''}
+        onChange={(e) => onChange({ ...value, [currentLang]: e.target.value })}
+        placeholder={placeholder}
+        className="text-sm"
+        rows={type === 'textarea' ? 3 : undefined}
+      />
+    </div>
+  );
+};
+
+const ImageField = ({ label, value, onChange }) => {
+  return (
+    <div className="space-y-2">
+      <Label className="text-xs font-medium text-gray-600">{label}</Label>
+      <div className="flex gap-2">
+        <Input
+          value={value || ''}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="Image URL or upload..."
+          className="text-sm flex-1"
+        />
+      </div>
+      {value && (
+        <img src={value} alt="Preview" className="w-full h-32 object-cover rounded-lg mt-2" />
+      )}
+    </div>
+  );
+};
+
+const ItemsEditor = ({ items = [], onChange, itemFields = ['title', 'description', 'icon'] }) => {
+  const [currentLang, setCurrentLang] = useState('en');
+  
+  const addItem = () => {
+    const newItem = { id: Date.now().toString() };
+    itemFields.forEach(field => {
+      if (field === 'icon') {
+        newItem[field] = 'Check';
+      } else if (['title', 'description', 'quote', 'question', 'answer'].includes(field)) {
+        newItem[field] = { en: '', hr: '', de: '' };
+      } else {
+        newItem[field] = '';
+      }
+    });
+    onChange([...items, newItem]);
+  };
+
+  const updateItem = (index, field, value) => {
+    const updated = [...items];
+    updated[index] = { ...updated[index], [field]: value };
+    onChange(updated);
+  };
+
+  const removeItem = (index) => {
+    onChange(items.filter((_, i) => i !== index));
+  };
+
+  const moveItem = (index, direction) => {
+    const newItems = [...items];
+    const newIndex = direction === 'up' ? index - 1 : index + 1;
+    if (newIndex < 0 || newIndex >= items.length) return;
+    [newItems[index], newItems[newIndex]] = [newItems[newIndex], newItems[index]];
+    onChange(newItems);
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex justify-between items-center">
+        <Label className="text-xs font-medium text-gray-600">Items ({items.length})</Label>
+        <LanguageTabs currentLang={currentLang} onChange={setCurrentLang} />
+      </div>
+      
+      <div className="space-y-2 max-h-[300px] overflow-y-auto">
+        {items.map((item, index) => (
+          <div key={item.id || index} className="p-3 bg-gray-50 rounded-lg space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-medium text-gray-500">Item {index + 1}</span>
+              <div className="flex gap-1">
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => moveItem(index, 'up')}
+                  disabled={index === 0}
+                  className="h-6 w-6 p-0"
+                >
+                  <ChevronUp className="h-3 w-3" />
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => moveItem(index, 'down')}
+                  disabled={index === items.length - 1}
+                  className="h-6 w-6 p-0"
+                >
+                  <ChevronDown className="h-3 w-3" />
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => removeItem(index)}
+                  className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              </div>
+            </div>
+            
+            {itemFields.includes('title') && (
+              <Input
+                value={item.title?.[currentLang] || ''}
+                onChange={(e) => updateItem(index, 'title', { ...item.title, [currentLang]: e.target.value })}
+                placeholder="Title"
+                className="text-sm"
+              />
+            )}
+            {itemFields.includes('description') && (
+              <Textarea
+                value={item.description?.[currentLang] || ''}
+                onChange={(e) => updateItem(index, 'description', { ...item.description, [currentLang]: e.target.value })}
+                placeholder="Description"
+                rows={2}
+                className="text-sm"
+              />
+            )}
+            {itemFields.includes('icon') && (
+              <select
+                value={item.icon || 'Check'}
+                onChange={(e) => updateItem(index, 'icon', e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                <option value="Check">✓ Check</option>
+                <option value="Globe">🌐 Globe</option>
+                <option value="Users">👥 Users</option>
+                <option value="Zap">⚡ Zap</option>
+                <option value="Shield">🛡 Shield</option>
+                <option value="BarChart">📊 BarChart</option>
+                <option value="RefreshCw">🔄 RefreshCw</option>
+                <option value="Clock">🕐 Clock</option>
+                <option value="Calendar">📅 Calendar</option>
+                <option value="ArrowRight">→ Arrow</option>
+              </select>
+            )}
+            {itemFields.includes('image_url') && (
+              <Input
+                value={item.image_url || ''}
+                onChange={(e) => updateItem(index, 'image_url', e.target.value)}
+                placeholder="Image URL"
+                className="text-sm"
+              />
+            )}
+            {itemFields.includes('quote') && (
+              <Textarea
+                value={item.quote?.[currentLang] || ''}
+                onChange={(e) => updateItem(index, 'quote', { ...item.quote, [currentLang]: e.target.value })}
+                placeholder="Quote text"
+                rows={2}
+                className="text-sm"
+              />
+            )}
+            {itemFields.includes('author') && (
+              <Input
+                value={item.author || ''}
+                onChange={(e) => updateItem(index, 'author', e.target.value)}
+                placeholder="Author name"
+                className="text-sm"
+              />
+            )}
+            {itemFields.includes('question') && (
+              <Input
+                value={item.question?.[currentLang] || ''}
+                onChange={(e) => updateItem(index, 'question', { ...item.question, [currentLang]: e.target.value })}
+                placeholder="Question"
+                className="text-sm"
+              />
+            )}
+            {itemFields.includes('answer') && (
+              <Textarea
+                value={item.answer?.[currentLang] || ''}
+                onChange={(e) => updateItem(index, 'answer', { ...item.answer, [currentLang]: e.target.value })}
+                placeholder="Answer"
+                rows={2}
+                className="text-sm"
+              />
+            )}
+          </div>
+        ))}
+      </div>
+      
+      <Button type="button" variant="outline" size="sm" onClick={addItem} className="w-full">
+        <Plus className="h-3 w-3 mr-1" /> Add Item
+      </Button>
+    </div>
+  );
+};
+
+// Helper to create initial content for a section type
+const createInitialContent = (sectionType) => {
+  const typeConfig = SECTION_TYPES[sectionType];
+  if (!typeConfig) return {};
+  
+  const content = {};
+  
+  typeConfig.fields.forEach(field => {
+    switch(field) {
+      case 'headline':
+      case 'subheadline':
+      case 'body':
+      case 'button_text':
+        content[field] = { en: '', hr: '', de: '' };
+        break;
+      case 'html_content':
+        content[field] = { en: '', hr: '', de: '' };
+        break;
+      case 'button_url':
+      case 'image_url':
+        content[field] = '';
+        break;
+      case 'image_position':
+        content[field] = 'right';
+        break;
+      case 'background_color':
+        content[field] = 'white';
+        break;
+      case 'columns':
+        content[field] = 2;
+        break;
+      case 'layout':
+        content[field] = 'list-with-image';
+        break;
+      case 'items':
+      case 'images':
+        content[field] = [];
+        break;
+      default:
+        content[field] = '';
+    }
+  });
+  
+  return content;
+};
+
+// Sortable Section Item for Drag and Drop
+const SortableSectionItem = ({ section, index, onChange, onRemove, totalSections, children }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: section.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 1000 : 1,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes}>
+      {React.cloneElement(children, { dragListeners: listeners })}
+    </div>
+  );
+};
+
+const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSections, dragListeners }) => {
+  const [expanded, setExpanded] = useState(true);
+  const [currentLang, setCurrentLang] = useState('en');
+  const sectionType = SECTION_TYPES[section.section_type] || SECTION_TYPES.content;
+  
+  const updateContent = (field, value) => {
+    const newContent = {
+      ...(section.content || {}),
+      [field]: value
+    };
+    onChange({
+      ...section,
+      content: newContent
+    });
+  };
+
+  // Handle section type change - reinitialize content
+  const handleTypeChange = (newType) => {
+    const newContent = createInitialContent(newType);
+    // Preserve existing values if they exist in new type
+    const typeConfig = SECTION_TYPES[newType];
+    if (typeConfig && section.content) {
+      typeConfig.fields.forEach(field => {
+        if (section.content[field] !== undefined) {
+          newContent[field] = section.content[field];
+        }
+      });
+    }
+    onChange({
+      ...section,
+      section_type: newType,
+      content: newContent
+    });
+  };
+
+  const getItemFields = () => {
+    switch (section.section_type) {
+      case 'testimonials':
+        return ['quote', 'author', 'image_url'];
+      case 'faq':
+        return ['question', 'answer'];
+      default:
+        return ['title', 'description', 'icon'];
+    }
+  };
+
+  return (
+    <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+      {/* Section Header */}
+      <div 
+        className="flex items-center justify-between p-3 bg-gray-50 cursor-pointer"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div className="flex items-center gap-2">
+          <div {...dragListeners} className="cursor-grab active:cursor-grabbing p-1 hover:bg-gray-200 rounded">
+            <GripVertical className="h-4 w-4 text-gray-400" />
+          </div>
+          <span className="text-sm font-medium">{sectionType.label}</span>
+          <span className="text-xs text-gray-500">#{index + 1}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <Button 
+            type="button"
+            variant="ghost" 
+            size="sm"
+            onClick={(e) => { e.stopPropagation(); onChange({ ...section, visible: !section.visible }); }}
+            className="h-7 w-7 p-0"
+          >
+            {section.visible !== false ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4 text-gray-400" />}
+          </Button>
+          <Button 
+            type="button"
+            variant="ghost" 
+            size="sm"
+            onClick={(e) => { e.stopPropagation(); onRemove(); }}
+            className="h-7 w-7 p-0 text-red-500 hover:text-red-700"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+          {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+        </div>
+      </div>
+
+      {/* Section Content */}
+      {expanded && (
+        <div className="p-4 space-y-4">
+          {/* Section Type Selector */}
+          <div className="space-y-1">
+            <Label className="text-xs font-medium text-gray-600">Section Type</Label>
+            <select
+              value={section.section_type}
+              onChange={(e) => handleTypeChange(e.target.value)}
+              className="w-full text-sm border border-gray-200 rounded-md p-2"
+            >
+              {Object.entries(SECTION_TYPES).map(([key, type]) => (
+                <option key={key} value={key}>{type.label}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Language Tabs for multi-lang fields */}
+          <LanguageTabs currentLang={currentLang} onChange={setCurrentLang} />
+
+          {/* Dynamic Fields based on section type */}
+          {sectionType.fields.includes('headline') && (
+            <MultiLangInput
+              label="Headline"
+              value={section.content?.headline}
+              onChange={(v) => updateContent('headline', v)}
+              currentLang={currentLang}
+              placeholder="Enter headline..."
+            />
+          )}
+
+          {sectionType.fields.includes('subheadline') && (
+            <MultiLangInput
+              label="Subheadline"
+              value={section.content?.subheadline}
+              onChange={(v) => updateContent('subheadline', v)}
+              currentLang={currentLang}
+              placeholder="Enter subheadline..."
+            />
+          )}
+
+          {sectionType.fields.includes('body') && (
+            <MultiLangInput
+              label="Body Text"
+              value={section.content?.body}
+              onChange={(v) => updateContent('body', v)}
+              currentLang={currentLang}
+              type="textarea"
+              placeholder="Enter body text..."
+            />
+          )}
+
+          {sectionType.fields.includes('html_content') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">HTML Content ({currentLang.toUpperCase()})</Label>
+              <RichTextEditor
+                content={section.content?.html_content?.[currentLang] || ''}
+                onChange={(html) => updateContent('html_content', { 
+                  ...section.content?.html_content, 
+                  [currentLang]: html 
+                })}
+                placeholder="Enter rich content..."
+                minHeight="200px"
+              />
+            </div>
+          )}
+
+          {sectionType.fields.includes('button_text') && (
+            <MultiLangInput
+              label="Button Text"
+              value={section.content?.button_text}
+              onChange={(v) => updateContent('button_text', v)}
+              currentLang={currentLang}
+              placeholder="Button label..."
+            />
+          )}
+
+          {sectionType.fields.includes('button_url') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Button URL</Label>
+              <Input
+                value={section.content?.button_url || ''}
+                onChange={(e) => updateContent('button_url', e.target.value)}
+                placeholder="/contact or https://..."
+                className="text-sm"
+              />
+            </div>
+          )}
+
+          {sectionType.fields.includes('image_url') && (
+            <ImageField
+              label="Featured Image"
+              value={section.content?.image_url}
+              onChange={(v) => updateContent('image_url', v)}
+            />
+          )}
+
+          {sectionType.fields.includes('image_position') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Image Position</Label>
+              <select
+                value={section.content?.image_position || 'right'}
+                onChange={(e) => updateContent('image_position', e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+                <option value="top">Top</option>
+                <option value="bottom">Bottom</option>
+                <option value="background">Background</option>
+              </select>
+            </div>
+          )}
+
+          {sectionType.fields.includes('background_color') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Background</Label>
+              <select
+                value={section.content?.background_color || 'white'}
+                onChange={(e) => updateContent('background_color', e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                <option value="white">White</option>
+                <option value="light">Light Gray</option>
+                <option value="dark">Dark (Navy)</option>
+                <option value="primary">Primary (Teal)</option>
+              </select>
+            </div>
+          )}
+
+          {/* Columns selector for features_list, benefits, gallery */}
+          {sectionType.fields.includes('columns') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Number of Columns</Label>
+              <select
+                value={section.content?.columns || 2}
+                onChange={(e) => updateContent('columns', parseInt(e.target.value))}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                <option value={1}>1 Column (Full width)</option>
+                <option value={2}>2 Columns</option>
+                <option value={3}>3 Columns</option>
+                <option value={4}>4 Columns</option>
+              </select>
+            </div>
+          )}
+
+          {/* Layout selector for features_list */}
+          {sectionType.fields.includes('layout') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Layout Style</Label>
+              <select
+                value={section.content?.layout || 'list-with-image'}
+                onChange={(e) => updateContent('layout', e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                <option value="list-with-image">List with Image (side by side)</option>
+                <option value="grid">Grid Only (no side image)</option>
+                <option value="list-only">List Only (single column)</option>
+                <option value="cards">Feature Cards</option>
+              </select>
+            </div>
+          )}
+
+          {sectionType.fields.includes('items') && (
+            <ItemsEditor
+              items={section.content?.items || []}
+              onChange={(items) => updateContent('items', items)}
+              itemFields={getItemFields()}
+            />
+          )}
+
+          {sectionType.fields.includes('images') && (
+            <ItemsEditor
+              items={section.content?.images || []}
+              onChange={(images) => updateContent('images', images)}
+              itemFields={['image_url', 'title']}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const AdvancedPageEditor = ({ page, onClose, onSaved }) => {
+  const { i18n } = useTranslation();
+  const [editedPage, setEditedPage] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [currentLang, setCurrentLang] = useState(i18n.language || 'en');
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  useEffect(() => {
+    if (page) {
+      // Deep clone and ensure sections is an array with proper IDs
+      const clonedPage = JSON.parse(JSON.stringify(page));
+      if (!Array.isArray(clonedPage.sections)) {
+        clonedPage.sections = [];
+      }
+      // Ensure all sections have IDs
+      clonedPage.sections = clonedPage.sections.map((s, i) => ({
+        ...s,
+        id: s.id || `section-${Date.now()}-${i}`
+      }));
+      setEditedPage(clonedPage);
+    }
+  }, [page]);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    
+    if (over && active.id !== over.id) {
+      setEditedPage(prev => {
+        if (!prev) return prev;
+        const oldIndex = prev.sections.findIndex(s => s.id === active.id);
+        const newIndex = prev.sections.findIndex(s => s.id === over.id);
+        
+        const newSections = arrayMove(prev.sections, oldIndex, newIndex);
+        // Update order values
+        newSections.forEach((s, i) => s.order = i);
+        
+        return { ...prev, sections: newSections };
+      });
+    }
+  };
+
+  const handleSave = async () => {
+    if (!editedPage) return;
+    setSaving(true);
+    try {
+      // Ensure all sections have proper structure before saving
+      const sectionsToSave = (editedPage.sections || []).map((section, idx) => ({
+        id: section.id || Date.now().toString() + idx,
+        section_type: section.section_type || 'content',
+        order: section.order ?? idx,
+        visible: section.visible !== false,
+        content: section.content || {}
+      }));
+      
+      console.log('Saving sections:', sectionsToSave);
+      
+      const updated = await cmsApi.updatePage(editedPage.id, {
+        title: editedPage.title,
+        meta_description: editedPage.meta_description,
+        sections: sectionsToSave
+      });
+      toast.success('Page saved successfully!');
+      onSaved?.(updated);
+    } catch (error) {
+      toast.error('Failed to save page');
+      console.error('Save error:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const updateSection = (index, updatedSection) => {
+    setEditedPage(prev => {
+      if (!prev) return prev;
+      const newSections = [...(prev.sections || [])];
+      newSections[index] = updatedSection;
+      return { ...prev, sections: newSections };
+    });
+  };
+
+  const removeSection = (index) => {
+    setEditedPage(prev => {
+      if (!prev) return prev;
+      const newSections = (prev.sections || []).filter((_, i) => i !== index);
+      // Reorder
+      newSections.forEach((s, i) => s.order = i);
+      return { ...prev, sections: newSections };
+    });
+  };
+
+  const moveSection = (index, direction) => {
+    setEditedPage(prev => {
+      if (!prev) return prev;
+      const newSections = [...(prev.sections || [])];
+      const newIndex = direction === 'up' ? index - 1 : index + 1;
+      if (newIndex < 0 || newIndex >= newSections.length) return prev;
+      
+      // Swap
+      [newSections[index], newSections[newIndex]] = [newSections[newIndex], newSections[index]];
+      // Update order
+      newSections.forEach((s, i) => s.order = i);
+      return { ...prev, sections: newSections };
+    });
+  };
+
+  const addSection = (type = 'content') => {
+    setEditedPage(prev => {
+      if (!prev) return prev;
+      const newSection = {
+        id: `section-${Date.now()}`,
+        section_type: type,
+        order: (prev.sections?.length || 0),
+        visible: true,
+        content: createInitialContent(type)
+      };
+      return { 
+        ...prev, 
+        sections: [...(prev.sections || []), newSection] 
+      };
+    });
+  };
+
+  if (!editedPage) return null;
+
+  const sortedSections = [...(editedPage.sections || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+  return (
+    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-xl bg-white shadow-2xl flex flex-col border-l border-gray-200">
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
+        <div>
+          <h2 className="text-lg font-semibold">Page Editor</h2>
+          <p className="text-xs text-gray-500">/{editedPage.slug}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            onClick={handleSave}
+            disabled={saving}
+            className="bg-[#00BFB3] hover:bg-[#00A399]"
+          >
+            <Save className="h-4 w-4 mr-1" />
+            {saving ? 'Saving...' : 'Save'}
+          </Button>
+          <Button type="button" variant="ghost" size="icon" onClick={onClose}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-6">
+        {/* Page Meta */}
+        <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
+          <h3 className="text-sm font-semibold text-gray-700">Page Settings</h3>
+          <LanguageTabs currentLang={currentLang} onChange={setCurrentLang} />
+          
+          <MultiLangInput
+            label="Page Title"
+            value={editedPage.title}
+            onChange={(v) => setEditedPage({ ...editedPage, title: v })}
+            currentLang={currentLang}
+            placeholder="Page title..."
+          />
+          
+          <MultiLangInput
+            label="Meta Description (SEO)"
+            value={editedPage.meta_description}
+            onChange={(v) => setEditedPage({ ...editedPage, meta_description: v })}
+            currentLang={currentLang}
+            type="textarea"
+            placeholder="Description for search engines..."
+          />
+        </div>
+
+        {/* Sections with Drag and Drop */}
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <h3 className="text-sm font-semibold text-gray-700">
+              Sections ({editedPage.sections?.length || 0})
+            </h3>
+            <span className="text-xs text-gray-500">Drag to reorder</span>
+          </div>
+
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={sortedSections.map(s => s.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {sortedSections.map((section, index) => (
+                <SortableSectionItem
+                  key={section.id}
+                  section={section}
+                  index={index}
+                  totalSections={sortedSections.length}
+                  onChange={(updated) => {
+                    const actualIndex = editedPage.sections.findIndex(s => s.id === section.id);
+                    updateSection(actualIndex, updated);
+                  }}
+                  onRemove={() => {
+                    const actualIndex = editedPage.sections.findIndex(s => s.id === section.id);
+                    removeSection(actualIndex);
+                  }}
+                >
+                  <SectionEditor
+                    section={section}
+                    index={index}
+                    totalSections={sortedSections.length}
+                    onChange={(updated) => {
+                      const actualIndex = editedPage.sections.findIndex(s => s.id === section.id);
+                      updateSection(actualIndex, updated);
+                    }}
+                    onRemove={() => {
+                      const actualIndex = editedPage.sections.findIndex(s => s.id === section.id);
+                      removeSection(actualIndex);
+                    }}
+                    onMove={(dir) => {
+                      const actualIndex = editedPage.sections.findIndex(s => s.id === section.id);
+                      moveSection(actualIndex, dir);
+                    }}
+                  />
+                </SortableSectionItem>
+              ))}
+            </SortableContext>
+          </DndContext>
+
+          {/* Add Section */}
+          <div className="pt-2">
+            <Label className="text-xs font-medium text-gray-600 mb-2 block">Add New Section</Label>
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(SECTION_TYPES).map(([key, type]) => (
+                <Button
+                  key={key}
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addSection(key)}
+                  className="text-xs"
+                >
+                  <Plus className="h-3 w-3 mr-1" /> {type.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdvancedPageEditor;
