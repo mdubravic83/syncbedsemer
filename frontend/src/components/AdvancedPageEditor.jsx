@@ -510,6 +510,7 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
     }
   };
 
+
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
       {/* Section Header */}
