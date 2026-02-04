@@ -696,6 +696,8 @@ export const SectionRenderer = ({ section, currentLang, feature, t }) => {
       return <FAQSection {...props} />;
     case 'gallery':
       return <GallerySection {...props} />;
+    case 'promo_grid':
+      return <PromoGridSection {...props} />;
     case 'custom_html':
       return <CustomHTMLSection {...props} />;
     default:
