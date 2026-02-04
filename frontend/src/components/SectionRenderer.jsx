@@ -301,17 +301,31 @@ export const BenefitsSection = ({ section, currentLang }) => {
           {(items || []).map((item, index) => {
             const IconComponent = getIcon(item.icon);
             const hasImage = !!item.image_url;
+            const size = item.image_size || 'icon';
+
+            const sizeClasses = {
+              icon: 'w-16 h-16',
+              small: 'w-20 h-20',
+              medium: 'w-28 h-28',
+              large: 'w-40 h-40',
+              original: 'w-auto h-auto',
+            };
+
+            const wrapperSizeClass = sizeClasses[size] || sizeClasses.icon;
+
             return (
               <div
                 key={item.id || index}
                 className="bg-white p-8 rounded-xl border border-gray-100 hover:shadow-lg transition-all duration-300 text-center"
               >
-                <div className="w-16 h-16 bg-[#00BFB3]/10 rounded-xl flex items-center justify-center mx-auto mb-6 overflow-hidden">
+                <div
+                  className={`bg-[#00BFB3]/10 rounded-xl flex items-center justify-center mx-auto mb-6 overflow-hidden ${wrapperSizeClass}`}
+                >
                   {hasImage ? (
                     <img
                       src={item.image_url}
                       alt={getText(item.title, lang) || 'Benefit icon'}
-                      className="w-full h-full object-contain"
+                      className={size === 'original' ? 'max-w-full max-h-full object-contain' : 'w-full h-full object-contain'}
                     />
                   ) : (
                     <IconComponent className="h-8 w-8 text-[#00BFB3]" />
