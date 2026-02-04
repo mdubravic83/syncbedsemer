@@ -678,20 +678,46 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
             </div>
           )}
 
-          {/* Columns selector for features_list, benefits, gallery */}
+          {/* Columns selector for features_list, benefits, testimonials, gallery */}
           {sectionType.fields.includes('columns') && (
             <div className="space-y-1">
-              <Label className="text-xs font-medium text-gray-600">Number of Columns</Label>
+              <Label className="text-xs font-medium text-gray-600">Number of Columns (desktop)</Label>
               <select
                 value={section.content?.columns || 2}
                 onChange={(e) => updateContent('columns', parseInt(e.target.value))}
                 className="w-full text-sm border border-gray-200 rounded-md p-2"
               >
-                <option value={1}>1 Column (Full width)</option>
+                <option value={1}>1 Column</option>
                 <option value={2}>2 Columns</option>
                 <option value={3}>3 Columns</option>
                 <option value={4}>4 Columns</option>
               </select>
+            </div>
+          )}
+
+          {/* Carousel settings for benefits & testimonials */}
+          {sectionType.fields.includes('carousel_direction') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Carousel Direction</Label>
+              <select
+                value={section.content?.carousel_direction || 'right'}
+                onChange={(e) => updateContent('carousel_direction', e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                <option value="right">Right (Next moves content left)</option>
+                <option value="left">Left (Next moves content right)</option>
+              </select>
+            </div>
+          )}
+
+          {sectionType.fields.includes('transition_enabled') && (
+            <div className="flex items-center justify-between">
+              <Label className="text-xs font-medium text-gray-600">Enable slide transition</Label>
+              <input
+                type="checkbox"
+                checked={section.content?.transition_enabled ?? true}
+                onChange={(e) => updateContent('transition_enabled', e.target.checked)}
+              />
             </div>
           )}
 
