@@ -151,6 +151,50 @@ export const FeaturesListSection = ({ section, currentLang }) => {
       default: return 'grid-cols-1 md:grid-cols-2';
     }
   };
+  
+  // This component needs to be implemented based on the layout prop
+  // For now, return a placeholder
+  return (
+    <section className="py-16 md:py-24 bg-[#F8FAFB]" data-testid={`section-${section.id}`}>
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center mb-12">
+          {getText(headline, lang) && (
+            <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] mb-4">
+              {getText(headline, lang)}
+            </h2>
+          )}
+          {getText(subheadline, lang) && (
+            <p className="text-gray-600 max-w-2xl mx-auto">{getText(subheadline, lang)}</p>
+          )}
+        </div>
+        
+        <div className={`grid ${getGridCols()} gap-6`}>
+          {(items || []).map((item, index) => {
+            const IconComponent = getIcon(item.icon);
+            return (
+              <div key={item.id || index} className="flex items-start space-x-4">
+                <div className="w-8 h-8 bg-[#00BFB3] rounded-full flex items-center justify-center flex-shrink-0">
+                  <IconComponent className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  {getText(item.title, lang) && (
+                    <h3 className="text-lg font-semibold text-[#0A1628] mb-1">
+                      {getText(item.title, lang)}
+                    </h3>
+                  )}
+                  {getText(item.description, lang) && (
+                    <p className="text-gray-600 text-sm">{getText(item.description, lang)}</p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Promo Grid Section - headline, subheadline, image and columns of items
 export const PromoGridSection = ({ section, currentLang }) => {
   const { headline, subheadline, headline_highlight, items = [], columns = 3, image_url } = section.content || {};
