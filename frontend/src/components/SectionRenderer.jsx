@@ -399,29 +399,7 @@ export const BenefitsSection = ({ section, currentLang }) => {
           </div>
         </div>
 
-        {total > visibleCount && (
-          <div className="flex justify-center items-center gap-4 mt-8">
-            <button
-              type="button"
-              onClick={goPrev}
-              disabled={!canPrev}
-              className={`px-3 py-1 text-sm rounded border ${canPrev ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
-            >
-              Prev
-            </button>
-            <span className="text-xs text-gray-500">
-              {startIndex + 1}–{Math.min(startIndex + visibleCount, total)} of {total}
-            </span>
-            <button
-              type="button"
-              onClick={goNext}
-              disabled={!canNext}
-              className={`px-3 py-1 text-sm rounded border ${canNext ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
-            >
-              Next
-            </button>
-          </div>
-        )}
+        {/* Pagination status removed as per design */}
       </div>
     </section>
   );
@@ -558,29 +536,7 @@ export const TestimonialsSection = ({ section, currentLang }) => {
           </div>
         </div>
 
-        {total > visibleCount && (
-          <div className="flex justify-center items-center gap-4 mt-8">
-            <button
-              type="button"
-              onClick={goPrev}
-              disabled={!canPrev}
-              className={`px-3 py-1 text-sm rounded border ${canPrev ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
-            >
-              Prev
-            </button>
-            <span className="text-xs text-gray-500">
-              {startIndex + 1}–{Math.min(startIndex + visibleCount, total)} of {total}
-            </span>
-            <button
-              type="button"
-              onClick={goNext}
-              disabled={!canNext}
-              className={`px-3 py-1 text-sm rounded border ${canNext ? 'border-gray-300 text-gray-700 hover:bg-gray-100' : 'border-gray-100 text-gray-300 cursor-not-allowed'}`}
-            >
-              Next
-            </button>
-          </div>
-        )}
+        {/* Pagination status removed as per design */}
       </div>
     </section>
   );
