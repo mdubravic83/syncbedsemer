@@ -601,6 +601,10 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
               label="Headline Highlighted Words"
               value={section.content?.headline_highlight}
               onChange={(v) => updateContent('headline_highlight', v)}
+              currentLang={currentLang}
+              placeholder="Words to highlight (optional)"
+            />
+          )}
 
           {sectionType.fields.includes('headline_highlight_color') && (
             <div className="space-y-1">
@@ -617,11 +621,6 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
                 ))}
               </select>
             </div>
-          )}
-
-              currentLang={currentLang}
-              placeholder="Words to highlight (optional)"
-            />
           )}
 
           {sectionType.fields.includes('subheadline') && (
