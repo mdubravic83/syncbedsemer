@@ -1038,6 +1038,25 @@ async def seed_initial_data():
             "id": str(uuid.uuid4()),
             "question": {
                 "en": "How does the Channel Manager prevent double bookings?",
+                "hr": "Kako Channel Manager sprječava dvostruke rezervacije?",
+                "de": "Wie verhindert der Channel Manager Doppelbuchungen?"
+            },
+            "answer": {
+                "en": "The channel manager synchronizes your calendar across all platforms in real-time, ensuring that when a booking is made on one platform, the availability is instantly updated on all others.",
+                "hr": "Channel manager sinkronizira vaš kalendar na svim platformama u stvarnom vremenu, osiguravajući da se kada se napravi rezervacija na jednoj platformi, dostupnost odmah ažurira na svim ostalima.",
+                "de": "Der Channel Manager synchronisiert Ihren Kalender in Echtzeit über alle Plattformen und stellt sicher, dass bei einer Buchung auf einer Plattform die Verfügbarkeit sofort auf allen anderen aktualisiert wird."
+            },
+            "category": "channel-manager",
+            "order": 2,
+            "active": True,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+    ]
+    
+    await db.faqs.insert_many(faqs)
+    
+    return {"message": "Initial data seeded successfully", "blog_posts": len(blog_posts), "testimonials": len(testimonials), "faqs": len(faqs)}
+
 
 # ==================== MEDIA UPLOAD API ====================
 
