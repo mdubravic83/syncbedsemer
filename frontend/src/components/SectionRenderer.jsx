@@ -529,7 +529,8 @@ export const TestimonialsSection = ({ section, currentLang }) => {
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] text-center mb-12">
             {renderHighlightedHeadline(
               getText(headline, lang),
-              getText(headline_highlight, lang)
+              getText(headline_highlight, lang),
+              section.content?.headline_highlight_color || 'primary'
             )}
           </h2>
         )}
@@ -599,7 +600,8 @@ export const FAQSection = ({ section, currentLang }) => {
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] text-center mb-12">
             {renderHighlightedHeadline(
               getText(headline, lang),
-              getText(headline_highlight, lang)
+              getText(headline_highlight, lang),
+              section.content?.headline_highlight_color || 'primary'
             )}
           </h2>
         )}
@@ -638,7 +640,8 @@ export const GallerySection = ({ section, currentLang }) => {
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-[#0A1628] text-center mb-12">
             {renderHighlightedHeadline(
               getText(headline, lang),
-              getText(headline_highlight, lang)
+              getText(headline_highlight, lang),
+              section.content?.headline_highlight_color || 'primary'
             )}
           </h2>
         )}
