@@ -490,7 +490,34 @@ export const TestimonialsSection = ({ section, currentLang }) => {
             {getText(headline, lang)}
           </h2>
         )}
-        <div className={`grid ${getGridCols()} gap-8`}>
+        <div className="relative">
+          {total > visibleCount && (
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={!canPrev}
+              className={`hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border shadow-md bg-white text-[#0A1628] transition-colors ${
+                canPrev ? 'hover:bg-[#00BFB3] hover:text-white' : 'opacity-40 cursor-not-allowed'
+              }`}
+            >
+              <ChevronDown className="h-5 w-5 rotate-90" />
+            </button>
+          )}
+
+          {total > visibleCount && (
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!canNext}
+              className={`hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border shadow-md bg-white text-[#0A1628] transition-colors ${
+                canNext ? 'hover:bg-[#00BFB3] hover:text-white' : 'opacity-40 cursor-not-allowed'
+              }`}
+            >
+              <ChevronDown className="h-5 w-5 -rotate-90" />
+            </button>
+          )}
+
+          <div className={`grid ${getGridCols()} gap-8`}>
           {visibleItems.map((item, index) => (
             <div key={item.id || index} className="bg-white p-6 rounded-xl shadow-sm">
               <Quote className="h-8 w-8 text-[#00BFB3] mb-4" />
