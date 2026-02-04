@@ -301,7 +301,7 @@ export const PromoGridSection = ({ section, currentLang }) => {
 
 // Benefits Grid Component - supports columns option
 export const BenefitsSection = ({ section, currentLang }) => {
-  const { headline, subheadline, items = [], columns = 3 } = section.content || {};
+  const { headline, headline_highlight, headline_highlight_color, subheadline, items = [], columns = 3 } = section.content || {};
   const lang = currentLang || 'en';
 
   // Determine grid columns for desktop
@@ -355,9 +355,8 @@ export const BenefitsSection = ({ section, currentLang }) => {
             <h2 className="text-3xl md:text-4xl font-bold font-heading mt-2 text-[#0A1628]">
               {renderHighlightedHeadline(
                 getText(headline, lang),
-                section.content?.headline_highlight
-                  ? getText(section.content.headline_highlight, lang)
-                  : null
+                getText(headline_highlight, lang),
+                section.content?.headline_highlight_color || 'primary'
               )}
             </h2>
           )}
