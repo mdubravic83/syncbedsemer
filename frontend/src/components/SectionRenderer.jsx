@@ -27,19 +27,22 @@ const HIGHLIGHT_COLORS = {
 
 };
 
-// Helper to render highlighted headline
-const renderHighlightedHeadline = (headline, highlight) => {
+// Helper to render highlighted headline with optional color
+const renderHighlightedHeadline = (headline, highlight, colorKey = 'primary') => {
   if (!headline) return null;
   if (!highlight) return headline;
-  
-  // Replace the highlight text with a styled version
+
+  const color = HIGHLIGHT_COLORS[colorKey] || HIGHLIGHT_COLORS.primary;
+
   const parts = headline.split(highlight);
   if (parts.length === 1) return headline;
   
   return (
     <>
       {parts[0]}
-      <span className="text-[#00BFB3]">{highlight}</span>
+      <span className="font-semibold" style={{ color }}>
+        {highlight}
+      </span>
       {parts[1]}
     </>
   );
