@@ -58,6 +58,15 @@ const SECTION_TYPES = {
   testimonials: {
     label: 'Testimonials',
     fields: ['headline', 'items', 'columns', 'carousel_direction', 'transition_enabled']
+
+const HIGHLIGHT_COLOR_OPTIONS = [
+  { value: 'primary', label: 'Primary (turquoise)', hex: '#00BFB3' },
+  { value: 'primary-dark', label: 'Primary Dark', hex: '#00A0D3' },
+  { value: 'primary-100', label: 'Primary 100', hex: '#00D8FF' },
+  { value: 'grey-100', label: 'Grey 100', hex: '#25252E' },
+  { value: 'info', label: 'Information', hex: '#297AF4' },
+];
+
   },
   faq: {
     label: 'FAQ Section',
