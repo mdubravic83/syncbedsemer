@@ -330,11 +330,11 @@ export const BenefitsSection = ({ section, currentLang }) => {
               type="button"
               onClick={goPrev}
               disabled={!canPrev}
-              className={`hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border shadow-md bg-white text-[#0A1628] transition-colors ${
+              className={`flex items-center justify-center absolute -left-6 md:-left-10 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border shadow-md bg-white text-[#0A1628] transition-colors ${
                 canPrev ? 'hover:bg-[#00BFB3] hover:text-white' : 'opacity-40 cursor-not-allowed'
               }`}
             >
-              <ChevronDown className="h-5 w-5 rotate-90" />
+              <ChevronDown className="h-6 w-6 rotate-90" />
             </button>
           )}
 
@@ -343,11 +343,11 @@ export const BenefitsSection = ({ section, currentLang }) => {
               type="button"
               onClick={goNext}
               disabled={!canNext}
-              className={`hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border shadow-md bg-white text-[#0A1628] transition-colors ${
+              className={`flex items-center justify-center absolute -right-6 md:-right-10 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border shadow-md bg-white text-[#0A1628] transition-colors ${
                 canNext ? 'hover:bg-[#00BFB3] hover:text-white' : 'opacity-40 cursor-not-allowed'
               }`}
             >
-              <ChevronDown className="h-5 w-5 -rotate-90" />
+              <ChevronDown className="h-6 w-6 -rotate-90" />
             </button>
           )}
 
