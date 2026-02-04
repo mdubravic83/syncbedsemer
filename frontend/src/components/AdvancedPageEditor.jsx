@@ -285,12 +285,48 @@ const ItemsEditor = ({ items = [], onChange, itemFields = ['title', 'description
               </select>
             )}
             {itemFields.includes('image_url') && (
-              <Input
-                value={item.image_url || ''}
-                onChange={(e) => updateItem(index, 'image_url', e.target.value)}
-                placeholder="Image URL"
-                className="text-sm"
-              />
+              <div className="space-y-1">
+                <Label className="text-xs font-medium text-gray-600">Item Image</Label>
+                <div className="flex flex-col gap-1">
+                  <Input
+                    value={item.image_url || ''}
+                    onChange={(e) => updateItem(index, 'image_url', e.target.value)}
+                    placeholder="Image URL or upload..."
+                    className="text-sm"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="text-xs"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      try {
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/media/upload`, {
+                          method: 'POST',
+                          body: formData,
+                        });
+                        if (!response.ok) throw new Error('Upload failed');
+                        const data = await response.json();
+                        if (data.url) {
+                          updateItem(index, 'image_url', data.url);
+                        }
+                      } catch (err) {
+                        console.error('Item image upload failed', err);
+                      }
+                    }}
+                  />
+                  {item.image_url && (
+                    <img
+                      src={item.image_url}
+                      alt="Item preview"
+                      className="w-full h-20 object-cover rounded-md mt-1"
+                    />
+                  )}
+                </div>
+              </div>
             )}
             {itemFields.includes('quote') && (
               <Textarea
