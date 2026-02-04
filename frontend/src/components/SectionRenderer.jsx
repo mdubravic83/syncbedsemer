@@ -342,7 +342,7 @@ export const BenefitsSection = ({ section, currentLang }) => {
           )}
 
           <div className={`grid ${getGridCols()} gap-8`}>
-          {visibleItems.map((item, index) => {
+            {visibleItems.map((item, index) => {
             const IconComponent = getIcon(item.icon);
             const hasImage = !!item.image_url;
             const size = item.image_size || 'icon';
