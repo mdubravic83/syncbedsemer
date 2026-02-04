@@ -29,11 +29,11 @@ import { CSS } from '@dnd-kit/utilities';
 const SECTION_TYPES = {
   hero: {
     label: 'Hero Section',
-    fields: ['headline', 'headline_highlight', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
   },
   content: {
     label: 'Content Block',
-    fields: ['headline', 'headline_highlight', 'body', 'html_content', 'image_url', 'image_position']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'body', 'html_content', 'image_url', 'image_position']
   },
   features_list: {
     label: 'Features List',
@@ -41,7 +41,7 @@ const SECTION_TYPES = {
   },
   benefits: {
     label: 'Benefits Grid',
-    fields: ['headline', 'headline_highlight', 'subheadline', 'items', 'columns', 'carousel_direction', 'transition_enabled']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'items', 'columns', 'carousel_direction', 'transition_enabled']
   },
   cta: {
     label: 'Call to Action',
@@ -49,11 +49,11 @@ const SECTION_TYPES = {
   },
   gallery: {
     label: 'Image Gallery',
-    fields: ['headline', 'headline_highlight', 'images', 'columns']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'images', 'columns']
   },
   promo_grid: {
     label: 'Promo Grid',
-    fields: ['headline', 'headline_highlight', 'subheadline', 'columns', 'items']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'columns', 'items']
   },
   testimonials: {
     label: 'Testimonials',
@@ -68,6 +68,15 @@ const SECTION_TYPES = {
     fields: ['html_content']
   }
 };
+
+const HIGHLIGHT_COLOR_OPTIONS = [
+  { value: 'primary', label: 'Primary (turquoise)', hex: '#00BFB3' },
+  { value: 'primary-dark', label: 'Primary Dark', hex: '#00A0D3' },
+  { value: 'primary-100', label: 'Primary 100', hex: '#00D8FF' },
+  { value: 'grey-100', label: 'Grey 100', hex: '#25252E' },
+  { value: 'info', label: 'Information', hex: '#297AF4' },
+];
+
 
 const LanguageTabs = ({ currentLang, onChange }) => {
   const languages = ['en', 'hr', 'de'];
@@ -410,6 +419,9 @@ const createInitialContent = (sectionType) => {
       case 'button_text':
         content[field] = { en: '', hr: '', de: '' };
         break;
+      case 'headline_highlight_color':
+        content[field] = 'primary';
+        break;
       case 'html_content':
         content[field] = { en: '', hr: '', de: '' };
         break;
@@ -589,6 +601,24 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
               label="Headline Highlighted Words"
               value={section.content?.headline_highlight}
               onChange={(v) => updateContent('headline_highlight', v)}
+
+          {sectionType.fields.includes('headline_highlight_color') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Highlight color</Label>
+              <select
+                value={section.content?.headline_highlight_color || 'primary'}
+                onChange={(e) => updateContent('headline_highlight_color', e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                {HIGHLIGHT_COLOR_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label} ({opt.hex})
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
               currentLang={currentLang}
               placeholder="Words to highlight (optional)"
             />
