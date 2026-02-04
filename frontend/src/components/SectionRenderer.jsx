@@ -386,6 +386,7 @@ export const BenefitsSection = ({ section, currentLang }) => {
               </div>
             );
           })}
+          </div>
         </div>
 
         {total > visibleCount && (
