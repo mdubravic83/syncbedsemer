@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 
 // Icon mapping for dynamic icon rendering
 const ICONS = {
-  Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp
+  Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight
 };
 
 const getIcon = (iconName) => {
