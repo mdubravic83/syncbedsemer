@@ -485,6 +485,9 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
         return ['quote', 'author', 'image_url'];
       case 'faq':
         return ['question', 'answer'];
+      case 'benefits':
+        // In benefits grid we want both an icon and an optional custom image
+        return ['title', 'description', 'icon', 'image_url'];
       default:
         return ['title', 'description', 'icon'];
     }

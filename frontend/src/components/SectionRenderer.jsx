@@ -300,10 +300,22 @@ export const BenefitsSection = ({ section, currentLang }) => {
         <div className={`grid ${getGridCols()} gap-8`}>
           {(items || []).map((item, index) => {
             const IconComponent = getIcon(item.icon);
+            const hasImage = !!item.image_url;
             return (
-              <div key={item.id || index} className="bg-white p-8 rounded-xl border border-gray-100 hover:shadow-lg transition-all duration-300 text-center">
-                <div className="w-16 h-16 bg-[#00BFB3]/10 rounded-xl flex items-center justify-center mx-auto mb-6">
-                  <IconComponent className="h-8 w-8 text-[#00BFB3]" />
+              <div
+                key={item.id || index}
+                className="bg-white p-8 rounded-xl border border-gray-100 hover:shadow-lg transition-all duration-300 text-center"
+              >
+                <div className="w-16 h-16 bg-[#00BFB3]/10 rounded-xl flex items-center justify-center mx-auto mb-6 overflow-hidden">
+                  {hasImage ? (
+                    <img
+                      src={item.image_url}
+                      alt={getText(item.title, lang) || 'Benefit icon'}
+                      className="w-full h-full object-contain"
+                    />
+                  ) : (
+                    <IconComponent className="h-8 w-8 text-[#00BFB3]" />
+                  )}
                 </div>
                 {getText(item.title, lang) && (
                   <h3 className="text-xl font-semibold font-heading text-[#0A1628] mb-3">
