@@ -523,7 +523,7 @@ export const TestimonialsSection = ({ section, currentLang }) => {
             <div key={item.id || index} className="bg-white p-6 rounded-xl shadow-sm">
               <Quote className="h-8 w-8 text-[#00BFB3] mb-4" />
               {getText(item.quote, lang) && (
-                <p className="text-gray-600 mb-4 italic">"{getText(item.quote, lang)}"</p>
+                <p className="text-gray-600 mb-4 italic">&ldquo;{getText(item.quote, lang)}&rdquo;</p>
               )}
               <div className="flex items-center gap-3">
                 {item.image_url && (
