@@ -41,7 +41,7 @@ const SECTION_TYPES = {
   },
   benefits: {
     label: 'Benefits Grid',
-    fields: ['headline', 'subheadline', 'items', 'columns', 'carousel_direction', 'transition_enabled']
+    fields: ['headline', 'headline_highlight', 'subheadline', 'items', 'columns', 'carousel_direction', 'transition_enabled']
   },
   cta: {
     label: 'Call to Action',
