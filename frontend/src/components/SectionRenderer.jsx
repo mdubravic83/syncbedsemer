@@ -115,9 +115,6 @@ const renderHighlightedHeadline = (headline, highlight) => {
   );
 };
 
-  );
-};
-
 // Content Block Component
 export const ContentSection = ({ section, currentLang, feature }) => {
   const { headline, body, html_content, image_url, image_position } = section.content || {};
