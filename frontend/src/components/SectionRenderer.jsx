@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 
 // Icon mapping for dynamic icon rendering
