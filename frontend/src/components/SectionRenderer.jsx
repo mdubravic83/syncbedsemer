@@ -90,6 +90,8 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
         </div>
       </div>
     </section>
+  );
+};
 
 // Content Block Component
 export const ContentSection = ({ section, currentLang, feature }) => {
