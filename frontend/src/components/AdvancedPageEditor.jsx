@@ -49,7 +49,11 @@ const SECTION_TYPES = {
   },
   gallery: {
     label: 'Image Gallery',
-    fields: ['headline', 'images', 'columns']
+    fields: ['headline', 'headline_highlight', 'images', 'columns']
+  },
+  promo_grid: {
+    label: 'Promo Grid',
+    fields: ['headline', 'headline_highlight', 'subheadline', 'columns', 'items']
   },
   testimonials: {
     label: 'Testimonials',
