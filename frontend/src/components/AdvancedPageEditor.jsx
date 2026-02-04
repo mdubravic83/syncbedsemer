@@ -29,11 +29,11 @@ import { CSS } from '@dnd-kit/utilities';
 const SECTION_TYPES = {
   hero: {
     label: 'Hero Section',
-    fields: ['headline', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
+    fields: ['headline', 'headline_highlight', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
   },
   content: {
     label: 'Content Block',
-    fields: ['headline', 'body', 'html_content', 'image_url', 'image_position']
+    fields: ['headline', 'headline_highlight', 'body', 'html_content', 'image_url', 'image_position']
   },
   features_list: {
     label: 'Features List',
