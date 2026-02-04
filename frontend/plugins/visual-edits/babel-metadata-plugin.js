@@ -970,18 +970,19 @@ const babelMetadataPlugin = ({ types: t }) => {
       }
     } else if (t.isMemberExpression(arrayNode)) {
       // Handle cases like data.items.map(...)
-      const memberInfo = analyzeMemberExpression(
-        callExprParent.get("callee.object"),
-        state
-      );
-      if (memberInfo) {
-        arrayVar = memberInfo.varName;
-        arrayFile = memberInfo.file || null;
-        absFile = memberInfo.absFile || null;
-        arrayLine = memberInfo.line || null;
-        // Array within object is more complex, mark as not editable for now
-        isEditable = false;
-      }
+      // IMPORTANT: do NOT call analyzeMemberExpression here, because it itself
+      // calls getArrayIterationContext which can easily lead to infinite
+      // recursion (analyzeMemberExpression -> getArrayIterationContext ->
+      // analyzeMemberExpression ...).
+      // For our metadata purposes, it's enough to know that we're inside an
+      // array iteration, without trying to fully trace nested member
+      // expressions. We therefore intentionally skip deep analysis and simply
+      // mark this context as non-editable.
+      arrayVar = null;
+      arrayFile = null;
+      absFile = null;
+      arrayLine = null;
+      isEditable = false;
     }
 
     return {
