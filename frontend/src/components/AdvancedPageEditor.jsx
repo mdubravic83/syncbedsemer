@@ -1056,6 +1056,13 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
               itemFields={['image_url', 'title']}
             />
           )}
+
+          {sectionType.fields.includes('plans') && (
+            <PricingPlansEditor
+              plans={section.content?.plans || []}
+              onChange={(plans) => updateContent('plans', plans)}
+            />
+          )}
         </div>
       )}
     </div>
