@@ -72,8 +72,8 @@ const SECTION_TYPES = {
     fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'items']
   },
   custom_html: {
-    label: 'Custom HTML',
-    fields: ['html_content']
+    label: 'Custom HTML / SVG',
+    fields: ['html_content', 'use_raw_code', 'raw_code']
   }
 };
 
