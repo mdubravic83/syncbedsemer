@@ -1016,6 +1016,15 @@ export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) 
 
   const sortedSections = [...(editedPage.sections || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
+  // Scroll into view when activeSectionId changes
+  useEffect(() => {
+    if (!activeSectionId) return;
+    const el = document.getElementById(`editor-section-${activeSectionId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [activeSectionId]);
+
   return (
     <div className="fixed inset-y-0 right-0 z-50 w-full max-w-xl bg-white shadow-2xl flex flex-col border-l border-gray-200">
       {/* Header */}
