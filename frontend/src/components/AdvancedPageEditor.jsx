@@ -74,6 +74,10 @@ const SECTION_TYPES = {
   custom_html: {
     label: 'Custom HTML / SVG',
     fields: ['html_content', 'use_raw_code', 'raw_code', 'max_width', 'alignment']
+  },
+  pricing: {
+    label: 'Pricing Table',
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'tabs', 'plans', 'background_color']
   }
 };
 
