@@ -49,7 +49,7 @@ const renderHighlightedHeadline = (headline, highlight, colorKey = 'primary') =>
 
 // Hero Section Component
 export const HeroSection = ({ section, currentLang, feature, t }) => {
-  const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, image_url, background_color } = section.content || {};
+  const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color } = section.content || {};
   const lang = currentLang || 'en';
   
   const bgClass = background_color === 'dark' ? 'bg-[#0A1628] text-white' 
