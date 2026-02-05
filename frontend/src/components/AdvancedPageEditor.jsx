@@ -1034,8 +1034,15 @@ export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) 
   const updateSection = (index, updatedSection) => {
     setEditedPage(prev => {
       if (!prev) return prev;
-      const newSections = [...(prev.sections || [])];
+      let newSections = [...(prev.sections || [])];
       newSections[index] = updatedSection;
+
+      // Ako je promijenjen order, posloži sekcije po orderu
+      newSections = newSections
+        .map((s, i) => ({ ...s, order: s.order ?? i }))
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+        .map((s, i) => ({ ...s, order: i }));
+
       return { ...prev, sections: newSections };
     });
   };
