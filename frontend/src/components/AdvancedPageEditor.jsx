@@ -1145,7 +1145,7 @@ export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) 
           </DndContext>
 
           {/* Add Section */}
-          <div className="pt-2">
+          <div id="editor-add-section" className="pt-2">
             <Label className="text-xs font-medium text-gray-600 mb-2 block">Add New Section</Label>
             <div className="flex flex-wrap gap-2">
               {Object.entries(SECTION_TYPES).map(([key, type]) => (
