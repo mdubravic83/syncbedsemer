@@ -1651,6 +1651,10 @@ Write approximately 400-500 words per language. Use HTML formatting (<p>, <h2>, 
             
             await db.blog_posts.insert_one(blog_post)
             
+            # Remove MongoDB _id before returning
+            if '_id' in blog_post:
+                del blog_post['_id']
+            
             return {"success": True, "blog_post": blog_post, "ai_suggestion": blog_data.get("featured_image_suggestion", "")}
             
         except json.JSONDecodeError as e:
