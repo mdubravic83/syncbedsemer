@@ -724,7 +724,7 @@ export const BenefitsSection = ({ section, currentLang }) => {
 
 // CTA Section Component
 export const CTASection = ({ section, currentLang }) => {
-  const { headline, body, button_text, button_url, background_color } = section.content || {};
+  const { headline, body, button_text, button_url, background_color, background_gradient } = section.content || {};
   const lang = currentLang || 'en';
   
   const bgClass = background_color === 'dark' ? 'bg-[#0A1628]' 
