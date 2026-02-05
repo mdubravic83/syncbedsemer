@@ -1021,6 +1021,157 @@ export const CustomHTMLSection = ({ section, currentLang }) => {
   );
 };
 
+// Pricing Section Component
+const PricingSection = ({ section, currentLang }) => {
+  const { content } = section;
+  const lang = currentLang || 'en';
+  
+  const {
+    headline,
+    headline_highlight,
+    headline_highlight_color = 'primary',
+    subheadline,
+    tabs = [],
+    plans = [],
+    background_color = 'white'
+  } = content || {};
+
+  const [activeTab, setActiveTab] = React.useState(0);
+  
+  const bgClass = background_color === 'dark' 
+    ? 'bg-[#1a1a2e] text-white' 
+    : background_color === 'primary'
+    ? 'bg-[#00BFB3] text-white'
+    : 'bg-white text-gray-900';
+
+  // Get plans for active tab
+  const currentPlans = tabs.length > 0 && tabs[activeTab]?.plans 
+    ? tabs[activeTab].plans 
+    : plans;
+
+  return (
+    <section className={`py-16 md:py-24 ${bgClass}`} data-testid={`section-${section.id}`}>
+      <div className="container mx-auto px-4 md:px-6">
+        {/* Header */}
+        <div className="text-center mb-12">
+          {getText(subheadline, lang) && (
+            <span className="text-[#00BFB3] text-xs md:text-sm font-semibold tracking-wider uppercase block mb-4">
+              {getText(subheadline, lang)}
+            </span>
+          )}
+          {getText(headline, lang) && (
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              {renderHighlightedHeadline(getText(headline, lang), getText(headline_highlight, lang), headline_highlight_color)}
+            </h2>
+          )}
+        </div>
+
+        {/* Tabs */}
+        {tabs.length > 0 && (
+          <div className="flex justify-center mb-12">
+            <div className="inline-flex bg-gray-100 rounded-full p-1">
+              {tabs.map((tab, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveTab(idx)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                    activeTab === idx 
+                      ? 'bg-[#00BFB3] text-white' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  {getText(tab.label, lang)}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Pricing Cards */}
+        <div className={`grid gap-6 ${
+          currentPlans.length === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+          currentPlans.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto' :
+          currentPlans.length === 3 ? 'grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto' :
+          'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+        }`}>
+          {currentPlans.map((plan, idx) => (
+            <div 
+              key={idx}
+              className={`rounded-2xl p-6 ${
+                plan.featured 
+                  ? 'bg-[#1a1a2e] text-white ring-2 ring-[#00BFB3]' 
+                  : 'bg-white text-gray-900 shadow-lg'
+              }`}
+            >
+              {/* Plan Icon/Image */}
+              {plan.icon && (
+                <div className="w-12 h-12 bg-[#00BFB3]/10 rounded-xl flex items-center justify-center mb-4">
+                  {React.createElement(getIcon(plan.icon), { className: 'w-6 h-6 text-[#00BFB3]' })}
+                </div>
+              )}
+              
+              {/* Plan Name */}
+              <h3 className="text-xl font-bold mb-2">{getText(plan.name, lang)}</h3>
+              
+              {/* Plan Description */}
+              {getText(plan.description, lang) && (
+                <p className={`text-sm mb-4 ${plan.featured ? 'text-gray-300' : 'text-gray-600'}`}>
+                  {getText(plan.description, lang)}
+                </p>
+              )}
+              
+              {/* Price */}
+              <div className="mb-6">
+                <span className="text-4xl font-bold">{plan.currency || '€'}{plan.price}</span>
+                {plan.period && (
+                  <span className={`text-sm ${plan.featured ? 'text-gray-300' : 'text-gray-500'}`}>
+                    /{getText(plan.period, lang) || 'month'}
+                  </span>
+                )}
+                {plan.unit && (
+                  <span className={`text-sm block ${plan.featured ? 'text-gray-300' : 'text-gray-500'}`}>
+                    {getText(plan.unit, lang)}
+                  </span>
+                )}
+              </div>
+              
+              {/* Features */}
+              {plan.features && plan.features.length > 0 && (
+                <ul className="space-y-3 mb-6">
+                  {plan.features.map((feature, fIdx) => (
+                    <li key={fIdx} className="flex items-start gap-2">
+                      <Check className="w-5 h-5 text-[#00BFB3] flex-shrink-0 mt-0.5" />
+                      <span className={`text-sm ${plan.featured ? 'text-gray-300' : 'text-gray-600'}`}>
+                        {getText(feature, lang)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              
+              {/* CTA Button */}
+              {plan.button_text && (
+                <Button 
+                  className={`w-full ${
+                    plan.featured 
+                      ? 'bg-[#00BFB3] hover:bg-[#00a89d] text-white' 
+                      : 'bg-gray-900 hover:bg-gray-800 text-white'
+                  }`}
+                  asChild
+                >
+                  <a href={plan.button_url || '/contact'}>
+                    {getText(plan.button_text, lang)}
+                  </a>
+                </Button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Main Section Renderer Component
 export const SectionRenderer = ({ section, currentLang, feature, t }) => {
   if (section.visible === false) return null;
