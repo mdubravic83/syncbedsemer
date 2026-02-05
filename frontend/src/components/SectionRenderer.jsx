@@ -2,6 +2,19 @@ import React from 'react';
 import { Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight, Play } from 'lucide-react';
 import { Button } from './ui/button';
 
+// API URL for images
+const API_URL = process.env.REACT_APP_BACKEND_URL || '';
+
+// Helper to get full image URL
+const getImageUrl = (url) => {
+  if (!url) return null;
+  // If URL starts with /api/, prepend the backend URL
+  if (url.startsWith('/api/')) {
+    return `${API_URL}${url}`;
+  }
+  return url;
+};
+
 // Icon mapping for dynamic icon rendering
 const ICONS = {
   Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight, Play
