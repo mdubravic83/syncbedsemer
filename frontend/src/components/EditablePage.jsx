@@ -20,6 +20,7 @@ const EditablePage = ({ slug, FallbackContent, fallbackData }) => {
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editOpen, setEditOpen] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState(null);
   const { isCmsAdmin } = useAuth();
 
   const currentLang = i18n.language?.split('-')[0] || 'en';
@@ -76,12 +77,22 @@ const EditablePage = ({ slug, FallbackContent, fallbackData }) => {
       {/* Render sections from CMS if available */}
       {hasCmsContent ? (
         sortedSections.map((section) => (
-          <SectionRenderer
+          <div
             key={section.id}
-            section={section}
-            currentLang={currentLang}
-            feature={fallbackData}
-          />
+            id={`page-section-${section.id}`}
+            className={editOpen && isCmsAdmin ? 'cursor-pointer group' : ''}
+            onClick={() => {
+              if (editOpen && isCmsAdmin) {
+                setActiveSectionId(section.id);
+              }
+            }}
+          >
+            <SectionRenderer
+              section={section}
+              currentLang={currentLang}
+              feature={fallbackData}
+            />
+          </div>
         ))
       ) : (
         // Fallback content if no CMS sections exist
