@@ -1,0 +1,101 @@
+<svg id="ec8ZKLPMtvS1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1500 1200" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" project-id="4ea844ac717d4d829ecfe6616815ecb7" export-id="1076a96e1f6248e0bcb07c0dbbc82ed1" cached="false">
+  <!-- Animated circles around center -->
+  <ellipse id="ec8ZKLPMtvS2" rx="186.4795" ry="186.4795" transform="matrix(1.102447 0 0 1.102447 750 614.5)" opacity="0.478545" fill="none" stroke="#5fc4d1" stroke-width="2"></ellipse>
+  <ellipse id="ec8ZKLPMtvS3" rx="186.4795" ry="186.4795" transform="matrix(0.583615 0 0 0.583615 750 614.5)" opacity="0.568" fill="none" stroke="#5fc4d1" stroke-width="2"></ellipse>
+  
+  <!-- Dashed lines radiating from center -->
+  <g transform="translate(.000001 0)">
+    <path d="M762.233001,205.5v295.5" transform="translate(-12.233001 0)" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M750.718509,729v266.5" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M685.911509,709.434905L548.992272,941.422915" transform="translate(.000001 0)" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M641.630184,664.102781L388.705001,783.774689" transform="matrix(1.035084 0 0 1.070858-18.150629-51.151776)" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M636,600L355.284001,564.401" transform="translate(.000001 0)" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M658.050031,547.663L405.913001,403.41249" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M840.21348,545.508l254.276521-142.09551" transform="translate(.000001 0)" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M862.884031,600l281.61597-32.133" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M854.009509,660.008L1115.5,786.384" transform="translate(.000001 0)" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+    <path d="M814.509509,709.434905l136.839522,231.98801" fill="none" stroke="#52ecec" stroke-width="3" stroke-dasharray="5,10"></path>
+  </g>
+  
+  <!-- Colored dots on the dashed lines -->
+  <g transform="translate(.000001 0)">
+    <ellipse id="ec8ZKLPMtvS16" rx="13.317837" ry="13.317837" transform="translate(749.99845 519.315837)" fill="#489edd" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS17" rx="13.317837" ry="13.317837" transform="translate(1035.510027 435.869675)" fill="#35a852" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS18" rx="13.317837" ry="13.317837" transform="translate(1077.493984 575.202291)" fill="#c71c27" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS19" rx="13.317837" ry="13.317837" transform="translate(1053.639617 756.838827)" fill="#181e3a" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS20" rx="13.317837" ry="13.317837" transform="translate(919.582224 887.309055)" fill="#e45f75" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS21" rx="13.317837" ry="13.317837" transform="translate(750.99845 931.224206)" fill="#932fe0" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS22" rx="13.317837" ry="13.317837" transform="translate(581.681877 886.507451)" fill="#00809e" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS23" rx="13.317837" ry="13.317837" transform="translate(447.021276 757.37323)" fill="#d1f311" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS24" rx="13.317837" ry="13.317837" transform="translate(424.166909 573.003895)" fill="#4d8ce7" stroke-width="0"></ellipse>
+    <ellipse id="ec8ZKLPMtvS25" rx="13.317837" ry="13.317837" transform="translate(467.013254 438.533667)" fill="#fe5a5e" stroke-width="0"></ellipse>
+  </g>
+
+  <!-- CENTER SYNCBEDS LOGO - Replaced -->
+  <g id="ec8ZKLPMtvS185" transform="translate(750 615)">
+    <!-- Dark circle background -->
+    <circle r="65" fill="#212529"></circle>
+    <!-- White "S" letter -->
+    <path fill="#29abe2" transform="translate(-32.33 -32.33) scale(1)" d="M32.46,47.2c-5.81,0-9.89-2.48-11.47-7a3.21,3.21,0,0,1,.39-2.87,3.17,3.17,0,0,1,4.41-.74A3.21,3.21,0,0,1,27,38.22c.48,1.54,1.61,3.6,5.72,3.6,2.24,0,4.85-.75,4.85-2.91,0-1.4-.46-2.67-6.16-3.93h0a19.13,19.13,0,0,1-6.62-2.69,7.2,7.2,0,0,1-3.17-6.08c0-5.14,4.39-8.74,10.69-8.74,5.18,0,9.08,2.37,10.68,6.51a3.14,3.14,0,0,1-1.78,4.07,3.05,3.05,0,0,1-1.15.22h-.06a3.13,3.13,0,0,1-3-2.08c-.77-2.24-2.38-3.28-5-3.28-.95,0-4.06.21-4.06,3,0,1.45.89,2.48,5.38,3.52,5.21,1.19,10.55,3.21,10.55,9.28C43.82,43.86,39.37,47.2,32.46,47.2Z"/>
+  </g>
+
+  <!-- Expedia card - top right -->
+  <g transform="translate(-1.882202 0)">
+    <g>
+      <rect width="361.996" height="99" rx="17.5" ry="17.5" transform="translate(1115.5 733.5)" fill="#fff"></rect>
+      <rect id="ec8ZKLPMtvS30" width="361.996" height="99" rx="17.5" ry="17.5" transform="translate(1115.5 733.5)" fill="none" stroke="#ddd" stroke-width="1"></rect>
+      <path d="M1164.82,757c10.41,0,20.81,0,31.2,0c4.91.561,8.11,3.194,9.59,7.9.14.559.24,1.125.3,1.698.05,10.582.05,21.165,0,31.747-.64,4.622-3.16,7.686-7.57,9.192-.63.187-1.27.309-1.92.369-10.63.049-21.26.049-31.89,0-4.14-.56-7.06-2.738-8.75-6.534-.4-1.023-.64-2.081-.74-3.175-.07-10.707-.05-21.412.07-32.116.67-3.859,2.77-6.603,6.32-8.232c1.1-.439,2.23-.722,3.39-.849Z" opacity="0.998" clip-rule="evenodd" fill="#fcda32" fill-rule="evenodd"></path>
+      <text x="1300" y="795" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="bold" fill="#191e3b">expedia</text>
+    </g>
+    
+    <!-- Airbnb card - top left -->
+    <g>
+      <rect width="290.483" height="99" rx="17.5" ry="17.5" transform="translate(120.5 310.5)" fill="#fff"></rect>
+      <rect id="ec8ZKLPMtvS45" width="290.483" height="99" rx="17.5" ry="17.5" transform="translate(120.5 310.5)" fill="none" stroke="#ddd" stroke-width="1"></rect>
+      <text x="200" y="370" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="#ff5a5f">airbnb</text>
+    </g>
+    
+    <!-- Google card - top right corner -->
+    <g transform="translate(.000001 0)">
+      <rect id="ec8ZKLPMtvS48" width="261.271" height="99" rx="17.5" ry="17.5" transform="translate(1088.98 310.5)" fill="#fff" stroke="#ddd" stroke-width="1"></rect>
+      <text x="1150" y="370" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold">
+        <tspan fill="#4285f4">G</tspan><tspan fill="#ea4335">o</tspan><tspan fill="#fbbc05">o</tspan><tspan fill="#4285f4">g</tspan><tspan fill="#34a853">l</tspan><tspan fill="#ea4335">e</tspan>
+      </text>
+    </g>
+    
+    <!-- Holidu card - bottom center -->
+    <g transform="translate(.000001 0)">
+      <rect width="291.78" height="99" rx="17.5" ry="17.5" transform="translate(262.5 935.5)" fill="#fff"></rect>
+      <rect id="ec8ZKLPMtvS57" width="291.78" height="99" rx="17.5" ry="17.5" transform="translate(262.5 935.5)" fill="none" stroke="#ddd" stroke-width="1"></rect>
+      <text x="340" y="995" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="bold" fill="#00809e">HOLIDU</text>
+    </g>
+    
+    <!-- Rentals United card - bottom left -->
+    <g>
+      <rect width="298.558" height="99" rx="17.5" ry="17.5" transform="translate(85.5 733.5)" fill="#fff"></rect>
+      <rect id="ec8ZKLPMtvS70" width="298.558" height="99" rx="17.5" ry="17.5" transform="translate(85.5 733.5)" fill="none" stroke="#ddd" stroke-width="1"></rect>
+      <text x="150" y="793" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#231f20">Rentals United</text>
+    </g>
+    
+    <!-- Ostrovok card - right side -->
+    <g transform="translate(.000001 0)">
+      <rect width="245.363" height="99" rx="17.5" ry="17.5" transform="translate(1144.5 515.5)" fill="#fff"></rect>
+      <rect id="ec8ZKLPMtvS83" width="245.363" height="99" rx="17.5" ry="17.5" transform="translate(1144.5 515.5)" fill="none" stroke="#ddd" stroke-width="1"></rect>
+      <text x="1200" y="575" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="bold" fill="#c71c27">ostrovok</text>
+    </g>
+    
+    <!-- Home to go card - bottom right -->
+    <g transform="translate(.490509 0)">
+      <rect width="208.019" height="99" rx="17.5" ry="17.5" transform="translate(645.5 995.5)" fill="#fff"></rect>
+      <rect id="ec8ZKLPMtvS96" width="208.019" height="99" rx="17.5" ry="17.5" transform="translate(645.5 995.5)" fill="none" stroke="#ddd" stroke-width="1"></rect>
+      <text x="680" y="1055" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#1d1d1b">HomeToGo</text>
+    </g>
+    
+    <!-- Booking.com card - left side -->
+    <g transform="translate(.000001 0)">
+      <rect width="248.784" height="99" rx="17.5" ry="17.5" transform="translate(106.5 515.5)" fill="#fff"></rect>
+      <rect id="ec8ZKLPMtvS100" width="248.784" height="99" rx="17.5" ry="17.5" transform="translate(106.5 515.5)" fill="none" stroke="#ddd" stroke-width="1"></rect>
+      <text x="140" y="575" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#003580">Booking.com</text>
+    </g>
+  </g>
+</svg>
