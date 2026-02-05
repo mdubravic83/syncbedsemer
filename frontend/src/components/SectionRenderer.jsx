@@ -108,6 +108,67 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
   );
 };
 
+// Hero 2 Section Component - image below content, centered (used e.g. for feature pages)
+export const Hero2Section = ({ section, currentLang }) => {
+  const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, image_url, background_color } = section.content || {};
+  const lang = currentLang || 'en';
+
+  const bgClass = background_color === 'dark' ? 'bg-[#0A1628] text-white'
+    : background_color === 'primary' ? 'bg-[#00BFB3] text-white'
+    : background_color === 'light' ? 'bg-gray-100'
+    : 'bg-white';
+
+  return (
+    <section className={`py-16 md:py-24 ${bgClass}`} data-testid={`section-${section.id}`}>
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          {getText(subheadline, lang) && (
+            <span className="inline-block text-[#00BFB3] text-xs md:text-sm font-semibold tracking-wider uppercase">
+              {getText(subheadline, lang)}
+            </span>
+          )}
+          {getText(headline, lang) && (
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-tight">
+              {renderHighlightedHeadline(
+                getText(headline, lang),
+                getText(headline_highlight, lang),
+                headline_highlight_color || 'primary'
+              )}
+            </h1>
+          )}
+          {getText(body, lang) && (
+            <p className={`text-base md:text-lg max-w-2xl mx-auto ${background_color === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+              {getText(body, lang)}
+            </p>
+          )}
+          {getText(button_text, lang) && (
+            <Button
+              className="bg-[#00BFB3] hover:bg-[#00A399] text-white font-semibold py-6 px-10 rounded-lg text-base mt-2"
+              onClick={() => button_url && (window.location.href = button_url)}
+            >
+              {getText(button_text, lang)}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          )}
+        </div>
+
+        {image_url && (
+          <div className="mt-10 max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-[#112240] to-[#0A1628] rounded-2xl p-4 shadow-2xl">
+              <img
+                src={image_url}
+                alt={getText(headline, lang) || 'Hero image'}
+                className="rounded-xl w-full object-cover"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+
 // Content Block Component
 export const ContentSection = ({ section, currentLang, feature }) => {
   const { headline, headline_highlight, headline_highlight_color, body, html_content, image_url, image_position } = section.content || {};
