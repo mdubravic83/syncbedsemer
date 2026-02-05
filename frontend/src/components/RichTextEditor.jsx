@@ -244,6 +244,9 @@ export const RichTextEditor = ({
           class: 'text-[#00BFB3] underline',
         },
       }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
       Placeholder.configure({
         placeholder,
       }),
