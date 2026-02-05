@@ -818,6 +818,37 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
                   )}
                 </div>
               )}
+
+              {/* Size and Alignment Controls */}
+              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200">
+                <div className="space-y-1">
+                  <Label className="text-xs font-medium text-gray-600">Maksimalna širina</Label>
+                  <select
+                    value={section.content?.max_width || '100%'}
+                    onChange={(e) => updateContent('max_width', e.target.value)}
+                    className="w-full text-sm border border-gray-200 rounded-md p-2"
+                  >
+                    <option value="100%">Puna širina (100%)</option>
+                    <option value="1200px">Velika (1200px)</option>
+                    <option value="900px">Srednja (900px)</option>
+                    <option value="700px">Mala (700px)</option>
+                    <option value="500px">Kompaktna (500px)</option>
+                    <option value="400px">Mini (400px)</option>
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs font-medium text-gray-600">Poravnanje</Label>
+                  <select
+                    value={section.content?.alignment || 'center'}
+                    onChange={(e) => updateContent('alignment', e.target.value)}
+                    className="w-full text-sm border border-gray-200 rounded-md p-2"
+                  >
+                    <option value="left">Lijevo</option>
+                    <option value="center">Centar</option>
+                    <option value="right">Desno</option>
+                  </select>
+                </div>
+              </div>
             </div>
           )}
 
