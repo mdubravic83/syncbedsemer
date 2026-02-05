@@ -1,10 +1,10 @@
 import React from 'react';
-import { Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
+import { Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight, Play } from 'lucide-react';
 import { Button } from './ui/button';
 
 // Icon mapping for dynamic icon rendering
 const ICONS = {
-  Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight
+  Check, ArrowRight, Calendar, Users, Globe, Zap, RefreshCw, Shield, BarChart, Clock, Quote, ChevronDown, ChevronUp, ChevronRight, Play
 };
 
 const getIcon = (iconName) => {
