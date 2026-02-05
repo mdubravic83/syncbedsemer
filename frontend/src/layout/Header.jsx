@@ -125,7 +125,7 @@ const Header = () => {
     { path: '/contact', label: t('nav.contact') },
   ];
 
-  const hasCmsMenu = processedMenuItems.length > 0;
+  const hasCmsMenu = enhancedMenuItems.length > 0;
 
   const isActive = (path) => location.pathname === path;
 
