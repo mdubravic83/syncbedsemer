@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import EditablePage from '../components/EditablePage';
 
 // Fallback content component if CMS page for feature is missing
@@ -14,7 +14,12 @@ const FeatureFallbackContent = () => (
 
 const FeaturePage = () => {
   const { featureSlug } = useParams();
-  return <EditablePage slug={featureSlug} FallbackContent={FeatureFallbackContent} />;
+  const location = useLocation();
+  
+  // If no featureSlug from params, use the pathname (e.g., /channel-manager -> channel-manager)
+  const slug = featureSlug || location.pathname.replace('/', '');
+  
+  return <EditablePage slug={slug} FallbackContent={FeatureFallbackContent} />;
 };
 
 export default FeaturePage;
