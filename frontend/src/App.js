@@ -29,6 +29,10 @@ function App() {
           
           {/* Features */}
           <Route path="/features/:featureSlug" element={<FeaturePage />} />
+          <Route path="/channel-manager" element={<FeaturePage />} />
+          <Route path="/evisitor" element={<FeaturePage />} />
+          <Route path="/website" element={<FeaturePage />} />
+          <Route path="/smart-apartment" element={<FeaturePage />} />
           
           {/* Pricing */}
           <Route path="/pricing" element={<PricingPage />} />
