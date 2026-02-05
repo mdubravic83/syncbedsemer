@@ -782,6 +782,23 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
             </div>
           )}
 
+          {sectionType.fields.includes('background_gradient') && (
+            <div className="flex items-center gap-2">
+              <input
+                id={`bg-gradient-${section.id}`}
+                type="checkbox"
+                checked={Boolean(section.content?.background_gradient)}
+                onChange={(e) => updateContent('background_gradient', e.target.checked)}
+              />
+              <Label
+                htmlFor={`bg-gradient-${section.id}`}
+                className="text-xs font-medium text-gray-600 cursor-pointer"
+              >
+                Use vertical gradient to white below
+              </Label>
+            </div>
+          )}
+
           {/* Columns selector for features_list, benefits, testimonials, gallery */}
           {sectionType.fields.includes('columns') && (
             <div className="space-y-1">
