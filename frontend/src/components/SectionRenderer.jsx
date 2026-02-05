@@ -200,7 +200,7 @@ export const Hero2Section = ({ section, currentLang }) => {
 
 // Hero 3 Section Component - layout inspired by Figma (overlap & video button)
 export const Hero3Section = ({ section, currentLang }) => {
-  const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color } = section.content || {};
+  const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color, background_gradient } = section.content || {};
   const lang = currentLang || 'en';
 
   const bgClass = background_color === 'dark' ? 'bg-[#0A1628] text-white' 
