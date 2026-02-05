@@ -431,6 +431,9 @@ const createInitialContent = (sectionType) => {
       case 'headline_highlight_color':
         content[field] = 'primary';
         break;
+      case 'background_gradient':
+        content[field] = false;
+        break;
       case 'html_content':
         content[field] = { en: '', hr: '', de: '' };
         break;
