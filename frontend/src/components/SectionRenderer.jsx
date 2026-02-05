@@ -968,6 +968,8 @@ export const SectionRenderer = ({ section, currentLang, feature, t }) => {
       return <HeroSection {...props} />;
     case 'hero_2':
       return <Hero2Section {...props} />;
+    case 'hero_3':
+      return <Hero3Section {...props} />;
     case 'content':
       return <ContentSection {...props} />;
     case 'features_list':
