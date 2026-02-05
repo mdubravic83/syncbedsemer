@@ -31,6 +31,10 @@ const SECTION_TYPES = {
     label: 'Hero Section',
     fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
   },
+  hero_2: {
+    label: 'Hero Section (Image Below)',
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
+  },
   content: {
     label: 'Content Block',
     fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'body', 'html_content', 'image_url', 'image_position']
@@ -521,6 +525,9 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
         return ['question', 'answer'];
       case 'benefits':
         // U benefits gridu želimo i ikonu i opcionalnu custom sliku + kontrolu veličine slike
+        return ['title', 'description', 'icon', 'image_url', 'image_size'];
+      case 'promo_grid':
+        // U promo gridu želimo imati mogućnost custom ikona/slika (npr. logotipi "Trusted by")
         return ['title', 'description', 'icon', 'image_url', 'image_size'];
       default:
         return ['title', 'description', 'icon'];
