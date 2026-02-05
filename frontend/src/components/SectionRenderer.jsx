@@ -978,17 +978,22 @@ export const GallerySection = ({ section, currentLang }) => {
 
 // Custom HTML Section Component
 export const CustomHTMLSection = ({ section, currentLang }) => {
-  const { html_content } = section.content || {};
+  const { html_content, use_raw_code, raw_code } = section.content || {};
   const lang = currentLang || 'en';
   
-  if (!getText(html_content, lang)) return null;
+  // Decide which content to render: raw_code (if use_raw_code is true) or html_content
+  const contentToRender = use_raw_code 
+    ? getText(raw_code, lang) 
+    : getText(html_content, lang);
+  
+  if (!contentToRender) return null;
   
   return (
     <section className="py-16 md:py-24" data-testid={`section-${section.id}`}>
       <div className="container mx-auto px-4 md:px-6">
         <div 
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: getText(html_content, lang) }}
+          className={use_raw_code ? "w-full" : "prose prose-lg max-w-none"}
+          dangerouslySetInnerHTML={{ __html: contentToRender }}
         />
       </div>
     </section>
