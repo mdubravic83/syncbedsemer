@@ -653,6 +653,50 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
             />
           )}
 
+          {sectionType.fields.includes('button_text') && (
+            <MultiLangInput
+              label="Primary Button Text"
+              value={section.content?.button_text}
+              onChange={(v) => updateContent('button_text', v)}
+              currentLang={currentLang}
+              placeholder="Enter primary button text..."
+            />
+          )}
+
+          {sectionType.fields.includes('button_url') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Primary Button URL</Label>
+              <Input
+                value={section.content?.button_url || ''}
+                onChange={(e) => updateContent('button_url', e.target.value)}
+                placeholder="/contact or full URL"
+                className="text-sm"
+              />
+            </div>
+          )}
+
+          {sectionType.fields.includes('secondary_button_text') && (
+            <MultiLangInput
+              label="Secondary Button Text (e.g. Watch video)"
+              value={section.content?.secondary_button_text}
+              onChange={(v) => updateContent('secondary_button_text', v)}
+              currentLang={currentLang}
+              placeholder="Enter secondary button text..."
+            />
+          )}
+
+          {sectionType.fields.includes('secondary_button_url') && (
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Secondary Button URL</Label>
+              <Input
+                value={section.content?.secondary_button_url || ''}
+                onChange={(e) => updateContent('secondary_button_url', e.target.value)}
+                placeholder="Video URL or page path"
+                className="text-sm"
+              />
+            </div>
+          )}
+
           {sectionType.fields.includes('html_content') && (
             <div className="space-y-1">
               <Label className="text-xs font-medium text-gray-600">HTML Content ({currentLang.toUpperCase()})</Label>
