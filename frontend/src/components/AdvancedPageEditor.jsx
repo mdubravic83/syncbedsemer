@@ -736,17 +736,82 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
           )}
 
           {sectionType.fields.includes('html_content') && (
-            <div className="space-y-1">
-              <Label className="text-xs font-medium text-gray-600">HTML Content ({currentLang.toUpperCase()})</Label>
-              <RichTextEditor
-                content={section.content?.html_content?.[currentLang] || ''}
-                onChange={(html) => updateContent('html_content', { 
-                  ...section.content?.html_content, 
-                  [currentLang]: html 
-                })}
-                placeholder="Enter rich content..."
-                minHeight="200px"
-              />
+            <div className="space-y-3">
+              {/* Toggle between WYSIWYG and Raw Code */}
+              <div className="flex items-center gap-2 p-2 bg-gray-100 rounded-md">
+                <button
+                  type="button"
+                  onClick={() => updateContent('use_raw_code', false)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                    !section.content?.use_raw_code
+                      ? 'bg-white shadow text-gray-900'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <FileText className="h-3.5 w-3.5" />
+                  WYSIWYG Editor
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updateContent('use_raw_code', true)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                    section.content?.use_raw_code
+                      ? 'bg-white shadow text-gray-900'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <Code className="h-3.5 w-3.5" />
+                  Raw HTML / SVG
+                </button>
+              </div>
+
+              {/* WYSIWYG Editor */}
+              {!section.content?.use_raw_code && (
+                <div className="space-y-1">
+                  <Label className="text-xs font-medium text-gray-600">HTML Content ({currentLang.toUpperCase()})</Label>
+                  <RichTextEditor
+                    content={section.content?.html_content?.[currentLang] || ''}
+                    onChange={(html) => updateContent('html_content', { 
+                      ...section.content?.html_content, 
+                      [currentLang]: html 
+                    })}
+                    placeholder="Enter rich content..."
+                    minHeight="200px"
+                  />
+                </div>
+              )}
+
+              {/* Raw HTML/SVG Code Editor */}
+              {section.content?.use_raw_code && (
+                <div className="space-y-1">
+                  <Label className="text-xs font-medium text-gray-600">
+                    Raw HTML / SVG Code ({currentLang.toUpperCase()})
+                  </Label>
+                  <p className="text-xs text-gray-500 mb-1">
+                    Zalijepite HTML ili SVG kod ovdje. Podržava &lt;svg&gt;, &lt;div&gt;, &lt;style&gt; i druge HTML elemente.
+                  </p>
+                  <textarea
+                    value={section.content?.raw_code?.[currentLang] || ''}
+                    onChange={(e) => updateContent('raw_code', {
+                      ...section.content?.raw_code,
+                      [currentLang]: e.target.value
+                    })}
+                    placeholder="<svg>...</svg> ili <div>...</div>"
+                    className="w-full h-64 text-sm font-mono border border-gray-200 rounded-md p-3 bg-gray-900 text-green-400 focus:outline-none focus:ring-2 focus:ring-[#00BFB3]"
+                    spellCheck="false"
+                  />
+                  {/* SVG Preview */}
+                  {section.content?.raw_code?.[currentLang] && (
+                    <div className="mt-2">
+                      <Label className="text-xs font-medium text-gray-600 mb-1 block">Preview:</Label>
+                      <div 
+                        className="border border-gray-200 rounded-md p-4 bg-white overflow-auto max-h-48"
+                        dangerouslySetInnerHTML={{ __html: section.content?.raw_code?.[currentLang] || '' }}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
