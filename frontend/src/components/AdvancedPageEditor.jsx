@@ -1107,10 +1107,11 @@ export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) 
                     removeSection(actualIndex);
                   }}
                 >
-                  <SectionEditor
-                    section={section}
-                    index={index}
-                    totalSections={sortedSections.length}
+                  <div id={`editor-section-${section.id}`}>
+                    <SectionEditor
+                      section={section}
+                      index={index}
+                      totalSections={sortedSections.length}
                     onChange={(updated) => {
                       const actualIndex = editedPage.sections.findIndex(s => s.id === section.id);
                       updateSection(actualIndex, updated);
