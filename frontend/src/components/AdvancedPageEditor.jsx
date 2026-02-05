@@ -1062,6 +1062,255 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
   );
 };
 
+// Pricing Plans Editor Component
+const PricingPlansEditor = ({ plans = [], onChange }) => {
+  const [currentLang, setCurrentLang] = useState('en');
+  
+  const addPlan = () => {
+    const newPlan = {
+      id: Date.now().toString(),
+      name: { en: '', hr: '', de: '' },
+      description: { en: '', hr: '', de: '' },
+      price: '',
+      currency: '€',
+      period: { en: 'month', hr: 'mjesec', de: 'Monat' },
+      unit: { en: 'per unit', hr: 'po jedinici', de: 'pro Einheit' },
+      features: [],
+      button_text: { en: 'Get Started', hr: 'Započni', de: 'Loslegen' },
+      button_url: '/contact',
+      featured: false,
+      icon: 'Check'
+    };
+    onChange([...plans, newPlan]);
+  };
+
+  const updatePlan = (index, field, value) => {
+    const updated = [...plans];
+    updated[index] = { ...updated[index], [field]: value };
+    onChange(updated);
+  };
+
+  const removePlan = (index) => {
+    onChange(plans.filter((_, i) => i !== index));
+  };
+
+  const addFeature = (planIndex) => {
+    const updated = [...plans];
+    if (!updated[planIndex].features) updated[planIndex].features = [];
+    updated[planIndex].features.push({ en: '', hr: '', de: '' });
+    onChange(updated);
+  };
+
+  const updateFeature = (planIndex, featureIndex, value) => {
+    const updated = [...plans];
+    updated[planIndex].features[featureIndex] = {
+      ...updated[planIndex].features[featureIndex],
+      [currentLang]: value
+    };
+    onChange(updated);
+  };
+
+  const removeFeature = (planIndex, featureIndex) => {
+    const updated = [...plans];
+    updated[planIndex].features = updated[planIndex].features.filter((_, i) => i !== featureIndex);
+    onChange(updated);
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex justify-between items-center">
+        <Label className="text-xs font-medium text-gray-600">Pricing Plans ({plans.length})</Label>
+        <LanguageTabs currentLang={currentLang} onChange={setCurrentLang} />
+      </div>
+      
+      <div className="space-y-4 max-h-[500px] overflow-y-auto">
+        {plans.map((plan, planIndex) => (
+          <div key={plan.id || planIndex} className="p-4 bg-gray-50 rounded-lg space-y-3 border border-gray-200">
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium text-gray-700">Plan {planIndex + 1}</span>
+              <div className="flex gap-2">
+                <label className="flex items-center gap-1 text-xs">
+                  <input
+                    type="checkbox"
+                    checked={plan.featured || false}
+                    onChange={(e) => updatePlan(planIndex, 'featured', e.target.checked)}
+                  />
+                  Featured
+                </label>
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => removePlan(planIndex)}
+                  className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              </div>
+            </div>
+            
+            {/* Plan Name */}
+            <div>
+              <Label className="text-xs text-gray-500">Plan Name</Label>
+              <Input
+                value={plan.name?.[currentLang] || ''}
+                onChange={(e) => updatePlan(planIndex, 'name', { ...plan.name, [currentLang]: e.target.value })}
+                placeholder="e.g., Basic, Pro, Enterprise"
+                className="text-sm"
+              />
+            </div>
+            
+            {/* Description */}
+            <div>
+              <Label className="text-xs text-gray-500">Description</Label>
+              <Input
+                value={plan.description?.[currentLang] || ''}
+                onChange={(e) => updatePlan(planIndex, 'description', { ...plan.description, [currentLang]: e.target.value })}
+                placeholder="Short description"
+                className="text-sm"
+              />
+            </div>
+            
+            {/* Price & Currency */}
+            <div className="grid grid-cols-3 gap-2">
+              <div>
+                <Label className="text-xs text-gray-500">Price</Label>
+                <Input
+                  type="number"
+                  value={plan.price || ''}
+                  onChange={(e) => updatePlan(planIndex, 'price', e.target.value)}
+                  placeholder="10"
+                  className="text-sm"
+                />
+              </div>
+              <div>
+                <Label className="text-xs text-gray-500">Currency</Label>
+                <select
+                  value={plan.currency || '€'}
+                  onChange={(e) => updatePlan(planIndex, 'currency', e.target.value)}
+                  className="w-full text-sm border border-gray-200 rounded-md p-2"
+                >
+                  <option value="€">€ EUR</option>
+                  <option value="$">$ USD</option>
+                  <option value="£">£ GBP</option>
+                  <option value="kn">kn HRK</option>
+                </select>
+              </div>
+              <div>
+                <Label className="text-xs text-gray-500">Period</Label>
+                <Input
+                  value={plan.period?.[currentLang] || ''}
+                  onChange={(e) => updatePlan(planIndex, 'period', { ...plan.period, [currentLang]: e.target.value })}
+                  placeholder="month"
+                  className="text-sm"
+                />
+              </div>
+            </div>
+            
+            {/* Unit (per unit text) */}
+            <div>
+              <Label className="text-xs text-gray-500">Unit Text (optional)</Label>
+              <Input
+                value={plan.unit?.[currentLang] || ''}
+                onChange={(e) => updatePlan(planIndex, 'unit', { ...plan.unit, [currentLang]: e.target.value })}
+                placeholder="per unit, per property, etc."
+                className="text-sm"
+              />
+            </div>
+            
+            {/* Icon */}
+            <div>
+              <Label className="text-xs text-gray-500">Icon</Label>
+              <select
+                value={plan.icon || 'Check'}
+                onChange={(e) => updatePlan(planIndex, 'icon', e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                <option value="Check">✓ Check</option>
+                <option value="Globe">🌐 Globe</option>
+                <option value="Users">👥 Users</option>
+                <option value="Zap">⚡ Zap</option>
+                <option value="Shield">🛡 Shield</option>
+                <option value="BarChart">📊 BarChart</option>
+                <option value="Calendar">📅 Calendar</option>
+              </select>
+            </div>
+            
+            {/* Features */}
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <Label className="text-xs text-gray-500">Features</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addFeature(planIndex)}
+                  className="h-6 text-xs"
+                >
+                  <Plus className="h-3 w-3 mr-1" /> Add Feature
+                </Button>
+              </div>
+              <div className="space-y-1">
+                {(plan.features || []).map((feature, fIndex) => (
+                  <div key={fIndex} className="flex gap-1">
+                    <Input
+                      value={feature?.[currentLang] || ''}
+                      onChange={(e) => updateFeature(planIndex, fIndex, e.target.value)}
+                      placeholder={`Feature ${fIndex + 1}`}
+                      className="text-sm flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeFeature(planIndex, fIndex)}
+                      className="h-9 w-9 p-0 text-red-500"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Button */}
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <Label className="text-xs text-gray-500">Button Text</Label>
+                <Input
+                  value={plan.button_text?.[currentLang] || ''}
+                  onChange={(e) => updatePlan(planIndex, 'button_text', { ...plan.button_text, [currentLang]: e.target.value })}
+                  placeholder="Get Started"
+                  className="text-sm"
+                />
+              </div>
+              <div>
+                <Label className="text-xs text-gray-500">Button URL</Label>
+                <Input
+                  value={plan.button_url || ''}
+                  onChange={(e) => updatePlan(planIndex, 'button_url', e.target.value)}
+                  placeholder="/contact"
+                  className="text-sm"
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={addPlan}
+        className="w-full"
+      >
+        <Plus className="h-4 w-4 mr-2" /> Add Pricing Plan
+      </Button>
+    </div>
+  );
+};
+
 export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) => {
   const { i18n } = useTranslation();
   const [editedPage, setEditedPage] = useState(null);
