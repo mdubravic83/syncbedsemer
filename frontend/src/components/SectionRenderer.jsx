@@ -111,13 +111,17 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
             )}
           </div>
           {(image_url || feature?.image) && (
-            <div className="relative">
-              <div className="rounded-2xl shadow-2xl overflow-hidden">
-                <img 
-                  src={image_url || feature?.image} 
-                  alt={getText(headline, lang) || 'Hero image'}
-                  className="w-full h-full object-cover"
-                />
+            <div className="relative flex justify-end">
+              <div className="relative w-full max-w-xl">
+                {/* white card overlapping dark background and white section */}
+                <div className="absolute -bottom-10 left-0 right-0 h-10 bg-white rounded-b-2xl shadow-[0_20px_60px_rgba(15,23,42,0.4)]" />
+                <div className="relative bg-white rounded-2xl shadow-[0_20px_60px_rgba(15,23,42,0.4)] overflow-hidden">
+                  <img 
+                    src={image_url || feature?.image} 
+                    alt={getText(headline, lang) || 'Hero image'}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
           )}
