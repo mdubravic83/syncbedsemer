@@ -1203,6 +1203,8 @@ export const SectionRenderer = ({ section, currentLang, feature, t }) => {
       return <PromoGridSection {...props} />;
     case 'custom_html':
       return <CustomHTMLSection {...props} />;
+    case 'pricing':
+      return <PricingSection {...props} />;
     default:
       return <ContentSection {...props} />;
   }
