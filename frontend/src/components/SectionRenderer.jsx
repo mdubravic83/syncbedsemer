@@ -157,24 +157,40 @@ export const Hero2Section = ({ section, currentLang }) => {
               {getText(body, lang)}
             </p>
           )}
-          {getText(button_text, lang) && (
-            <Button
-              className="bg-[#00BFB3] hover:bg-[#00A399] text-white font-semibold py-6 px-10 rounded-lg text-base mt-2"
-              onClick={() => button_url && (window.location.href = button_url)}
-            >
-              {getText(button_text, lang)}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+          {(getText(button_text, lang) || getText(secondary_button_text, lang)) && (
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
+              {getText(button_text, lang) && (
+                <Button
+                  className="bg-[#00BFB3] hover:bg-[#00A399] text-white font-semibold py-6 px-10 rounded-lg text-base"
+                  onClick={() => button_url && (window.location.href = button_url)}
+                >
+                  {getText(button_text, lang)}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              )}
+              {getText(secondary_button_text, lang) && (
+                <button
+                  type="button"
+                  onClick={() => secondary_button_url && (window.location.href = secondary_button_url)}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A1628] hover:text-[#00BFB3]"
+                >
+                  <div className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center">
+                    <Play className="h-4 w-4" />
+                  </div>
+                  <span>{getText(secondary_button_text, lang)}</span>
+                </button>
+              )}
+            </div>
           )}
         </div>
 
         {image_url && (
           <div className="mt-10 max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-[#112240] to-[#0A1628] rounded-2xl p-4 shadow-2xl">
+            <div className="rounded-2xl shadow-2xl overflow-hidden">
               <img
                 src={image_url}
                 alt={getText(headline, lang) || 'Hero image'}
-                className="rounded-xl w-full object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
