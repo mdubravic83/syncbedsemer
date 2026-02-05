@@ -93,8 +93,22 @@ const Header = () => {
         }))
     }));
 
+  // Enhance CMS header menu: if there is a "Features" item without children,
+  // attach featureLinks as its dropdown items so feature pages are always visible.
+  const enhancedMenuItems = processedMenuItems.map((item) => {
+    const isFeaturesItem = item.url === '/#features' || item.url === '/features';
+    if (isFeaturesItem && (!item.children || item.children.length === 0)) {
+      return {
+        ...item,
+        hasDropdown: true,
+        children: featureLinks,
+      };
+    }
+    return item;
+  });
+
   // Nav links derived from CMS for mobile & fallback if CMS is empty
-  const navLinksFromMenu = processedMenuItems
+  const navLinksFromMenu = enhancedMenuItems
     .filter(item => !item.hasDropdown)
     .map(item => ({
       path: item.url,
@@ -102,7 +116,7 @@ const Header = () => {
     }));
   
   // Dropdown menus from CMS (items with children)
-  const dropdownMenus = processedMenuItems.filter(item => item.hasDropdown);
+  const dropdownMenus = enhancedMenuItems.filter(item => item.hasDropdown);
   
   const navLinks = navLinksFromMenu.length > 0 ? navLinksFromMenu : [
     { path: '/pricing', label: t('nav.pricing') },
