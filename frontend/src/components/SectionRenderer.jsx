@@ -49,7 +49,23 @@ const renderHighlightedHeadline = (headline, highlight, colorKey = 'primary') =>
 
 // Hero Section Component
 export const HeroSection = ({ section, currentLang, feature, t }) => {
-  const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color, background_gradient } = section.content || {};
+  const {
+    headline,
+    headline_highlight,
+    headline_highlight_color,
+    subheadline,
+    body,
+    button_text,
+    button_url,
+    secondary_button_text,
+    secondary_button_url,
+    image_url,
+    background_color,
+    background_gradient,
+    image_display_size = 'large',
+    image_frame = false,
+    image_shadow = 'strong',
+  } = section.content || {};
   const lang = currentLang || 'en';
   
   const baseBg = background_color === 'dark' ? 'from-[#0A1628] text-white' 
@@ -60,6 +76,20 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
   const bgClass = background_gradient
     ? `bg-gradient-to-b ${baseBg} to-white`
     : baseBg.replace('from-', 'bg-');
+
+  const imageWidthClass = image_display_size === 'small'
+    ? 'max-w-sm'
+    : image_display_size === 'medium'
+      ? 'max-w-md'
+      : image_display_size === 'full'
+        ? 'w-full'
+        : 'max-w-lg';
+
+  const shadowClass = image_shadow === 'none'
+    ? 'shadow-none'
+    : image_shadow === 'soft'
+      ? 'shadow-xl'
+      : 'shadow-2xl';
 
   return (
     <section className={`py-16 md:py-24 ${bgClass}`} data-testid={`section-${section.id}`}>
