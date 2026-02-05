@@ -73,7 +73,7 @@ const SECTION_TYPES = {
   },
   custom_html: {
     label: 'Custom HTML / SVG',
-    fields: ['html_content', 'use_raw_code', 'raw_code']
+    fields: ['html_content', 'use_raw_code', 'raw_code', 'max_width', 'alignment']
   }
 };
 
