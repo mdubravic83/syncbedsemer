@@ -1125,6 +1125,7 @@ export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) 
                       moveSection(actualIndex, dir);
                     }}
                   />
+                  </div>
                 </SortableSectionItem>
               ))}
             </SortableContext>
