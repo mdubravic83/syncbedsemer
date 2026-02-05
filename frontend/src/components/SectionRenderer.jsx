@@ -242,7 +242,7 @@ export const Hero2Section = ({ section, currentLang }) => {
             <div className="relative">
               {/* slika prelazi iz tamnog dijela u bijeli ispod */}
               <img
-                src={image_url}
+                src={getImageUrl(image_url)}
                 alt={getText(headline, lang) || 'Hero image'}
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover translate-y-6 md:translate-y-10"
               />
@@ -326,7 +326,7 @@ export const Hero3Section = ({ section, currentLang }) => {
               <div className="relative w-full max-w-xl">
                 <div className="relative rounded-3xl shadow-[0_40px_80px_rgba(15,23,42,0.55)] overflow-hidden">
                   <img
-                    src={image_url}
+                    src={getImageUrl(image_url)}
                     alt={getText(headline, lang) || 'Hero image'}
                     className="w-full h-full object-cover"
                   />
@@ -468,7 +468,7 @@ export const FeaturesListSection = ({ section, currentLang }) => {
           {image_url && (
             <div className="mb-12 max-w-4xl mx-auto">
               <img 
-                src={image_url} 
+                src={getImageUrl(image_url)} 
                 alt={getText(headline, lang) || 'Features'}
                 className="rounded-xl shadow-lg w-full"
               />
@@ -526,7 +526,7 @@ export const FeaturesListSection = ({ section, currentLang }) => {
           {image_url && (
             <div className="mt-8 lg:mt-0">
               <img 
-                src={image_url} 
+                src={getImageUrl(image_url)} 
                 alt={getText(headline, lang) || 'Features'}
                 className="rounded-xl shadow-lg w-full sticky top-24"
               />
@@ -576,7 +576,7 @@ export const PromoGridSection = ({ section, currentLang }) => {
         {image_url && (
           <div className="mb-10 flex justify-center">
             <img
-              src={image_url}
+              src={getImageUrl(image_url)}
               alt={getText(headline, lang) || 'Promo image'}
               className="rounded-xl shadow-lg max-w-full h-auto"
             />
