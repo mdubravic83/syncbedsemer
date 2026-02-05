@@ -17,6 +17,7 @@ const languages = [
   { code: 'hr', name: 'Hrvatski', flag: '🇭🇷' },
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'sl', name: 'Slovenščina', flag: '🇸🇮' },
 ];
 
 const Header = () => {
