@@ -145,7 +145,7 @@ const Header = () => {
           <nav className="hidden lg:flex items-center space-x-8" data-testid="desktop-nav">
             {hasCmsMenu ? (
               // Render CMS-driven menu items in exact order (mixed links + dropdowns)
-              processedMenuItems.map((item, index) => (
+              enhancedMenuItems.map((item, index) => (
                 item.hasDropdown ? (
                   <DropdownMenu key={item.id}>
                     <DropdownMenuTrigger asChild>
