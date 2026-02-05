@@ -880,7 +880,7 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
   );
 };
 
-export const AdvancedPageEditor = ({ page, onClose, onSaved }) => {
+export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) => {
   const { i18n } = useTranslation();
   const [editedPage, setEditedPage] = useState(null);
   const [saving, setSaving] = useState(false);
