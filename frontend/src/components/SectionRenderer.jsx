@@ -977,7 +977,7 @@ export const GallerySection = ({ section, currentLang }) => {
           {(images || []).map((img, index) => (
             <div key={img.id || index} className="overflow-hidden rounded-xl">
               <img 
-                src={img.image_url} 
+                src={getImageUrl(img.image_url)} 
                 alt={getText(img.title, lang) || `Image ${index + 1}`}
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />
