@@ -3,9 +3,11 @@ import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
+import TextAlign from '@tiptap/extension-text-align';
 import { 
   Bold, Italic, List, ListOrdered, Link as LinkIcon, 
-  Image as ImageIcon, Undo, Redo, Code, Quote
+  Image as ImageIcon, Undo, Redo, Code, Quote,
+  AlignLeft, AlignCenter, AlignRight, AlignJustify
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
@@ -97,6 +99,48 @@ const MenuBar = ({ editor }) => {
         title="Code Block"
       >
         <Code className="h-4 w-4" />
+      </Button>
+
+      {/* Text alignment */}
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={() => editor.chain().focus().setTextAlign('left').run()}
+        className={`h-8 w-8 p-0 ${editor.isActive({ textAlign: 'left' }) ? 'bg-gray-200' : ''}`}
+        title="Align Left"
+      >
+        <AlignLeft className="h-4 w-4" />
+      </Button>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={() => editor.chain().focus().setTextAlign('center').run()}
+        className={`h-8 w-8 p-0 ${editor.isActive({ textAlign: 'center' }) ? 'bg-gray-200' : ''}`}
+        title="Align Center"
+      >
+        <AlignCenter className="h-4 w-4" />
+      </Button>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={() => editor.chain().focus().setTextAlign('right').run()}
+        className={`h-8 w-8 p-0 ${editor.isActive({ textAlign: 'right' }) ? 'bg-gray-200' : ''}`}
+        title="Align Right"
+      >
+        <AlignRight className="h-4 w-4" />
+      </Button>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+        className={`h-8 w-8 p-0 ${editor.isActive({ textAlign: 'justify' }) ? 'bg-gray-200' : ''}`}
+        title="Justify"
+      >
+        <AlignJustify className="h-4 w-4" />
       </Button>
       
       <div className="w-px h-6 bg-gray-300 mx-1 self-center" />
