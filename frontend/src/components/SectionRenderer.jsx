@@ -749,6 +749,8 @@ export const SectionRenderer = ({ section, currentLang, feature, t }) => {
   switch (section.section_type) {
     case 'hero':
       return <HeroSection {...props} />;
+    case 'hero_2':
+      return <Hero2Section {...props} />;
     case 'content':
       return <ContentSection {...props} />;
     case 'features_list':
