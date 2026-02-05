@@ -56,7 +56,7 @@ class BlogPostBase(BaseModel):
     slug: str
     excerpt: Dict[str, str]
     content: Dict[str, str]
-    category: str
+    category: str = "general"
     featured_image: Optional[str] = None
     tags: List[str] = []
     status: BlogStatus = BlogStatus.DRAFT
