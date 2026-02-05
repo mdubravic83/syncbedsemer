@@ -160,7 +160,7 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
                 className={`relative ${image_frame ? 'bg-white rounded-3xl p-3' : ''} ${shadowClass} overflow-hidden`}
               >
                 <img 
-                  src={image_url || feature?.image} 
+                  src={getImageUrl(image_url) || feature?.image} 
                   alt={getText(headline, lang) || 'Hero image'}
                   className="w-full h-auto object-cover rounded-2xl"
                 />
