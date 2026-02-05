@@ -182,15 +182,45 @@ const MenuBar = ({ editor }) => {
           <ImageIcon className="h-4 w-4" />
         </Button>
         {showImageInput && (
-          <div className="absolute top-full left-0 mt-1 p-2 bg-white border border-gray-200 rounded-lg shadow-lg z-10 flex gap-2">
-            <input
-              type="url"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="Image URL..."
-              className="text-sm border border-gray-200 rounded px-2 py-1 w-48"
-            />
-            <Button type="button" size="sm" onClick={addImage}>Add</Button>
+          <div className="absolute top-full left-0 mt-1 p-2 bg-white border border-gray-200 rounded-lg shadow-lg z-10 flex flex-col gap-2 w-64">
+            <div className="flex gap-2">
+              <input
+                type="url"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="Image URL..."
+                className="text-sm border border-gray-200 rounded px-2 py-1 flex-1"
+              />
+              <Button type="button" size="sm" onClick={addImage}>Add</Button>
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/media/upload`, {
+                      method: 'POST',
+                      body: formData,
+                    });
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    if (data.url) {
+                      setImageUrl(data.url);
+                      editor.chain().focus().setImage({ src: data.url }).run();
+                      setShowImageInput(false);
+                    }
+                  } catch (err) {
+                    console.error('Image upload error', err);
+                  }
+                }}
+                className="text-xs"
+              />
+            </div>
           </div>
         )}
       </div>
