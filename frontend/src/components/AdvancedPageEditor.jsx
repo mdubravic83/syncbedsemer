@@ -452,6 +452,12 @@ const createInitialContent = (sectionType) => {
       case 'raw_code':
         content[field] = { en: '', hr: '', de: '' };
         break;
+      case 'max_width':
+        content[field] = '100%';
+        break;
+      case 'alignment':
+        content[field] = 'center';
+        break;
       case 'button_url':
       case 'secondary_button_url':
       case 'image_url':
