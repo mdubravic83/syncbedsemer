@@ -1036,6 +1036,19 @@ export const AdvancedPageEditor = ({ page, onClose, onSaved, activeSectionId }) 
         <div className="flex items-center gap-2">
           <Button
             type="button"
+            variant="outline"
+            onClick={() => {
+              // Scroll to section chooser at bottom
+              const el = document.getElementById('editor-add-section');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+          >
+            + Add section
+          </Button>
+          <Button
+            type="button"
             onClick={handleSave}
             disabled={saving}
             className="bg-[#00BFB3] hover:bg-[#00A399]"
