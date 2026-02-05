@@ -264,7 +264,7 @@ export const Hero3Section = ({ section, currentLang }) => {
           {(image_url) && (
             <div className="relative flex justify-end">
               <div className="relative w-full max-w-xl">
-                <div className="relative bg-white rounded-3xl shadow-[0_40px_80px_rgba(15,23,42,0.55)] overflow-hidden">
+                <div className="relative rounded-3xl shadow-[0_40px_80px_rgba(15,23,42,0.55)] overflow-hidden">
                   <img
                     src={image_url}
                     alt={getText(headline, lang) || 'Hero image'}
@@ -272,7 +272,7 @@ export const Hero3Section = ({ section, currentLang }) => {
                   />
                 </div>
                 {/* soft reflection */}
-                <div className="mt-6 h-10 bg-gradient-to-b from-white/60 to-transparent rounded-3xl blur-[2px]" />
+                <div className="mt-6 h-10 bg-gradient-to-b from-black/20 to-transparent rounded-3xl blur-[2px]" />
               </div>
             </div>
           )}

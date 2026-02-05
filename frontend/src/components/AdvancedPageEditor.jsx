@@ -29,7 +29,7 @@ import { CSS } from '@dnd-kit/utilities';
 const SECTION_TYPES = {
   hero: {
     label: 'Hero Section',
-    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color', 'background_gradient']
   },
   hero_2: {
     label: 'Hero Section (Image Below)',
@@ -37,7 +37,7 @@ const SECTION_TYPES = {
   },
   hero_3: {
     label: 'Hero Section (Video & Overlap)',
-    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'secondary_button_text', 'secondary_button_url', 'image_url', 'background_color']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'secondary_button_text', 'secondary_button_url', 'image_url', 'background_color', 'background_gradient']
   },
   content: {
     label: 'Content Block',
