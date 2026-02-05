@@ -192,11 +192,12 @@ export const Hero2Section = ({ section, currentLang }) => {
 
         {image_url && (
           <div className="mt-10 max-w-4xl mx-auto">
-            <div className="rounded-2xl shadow-2xl overflow-hidden">
+            <div className="relative">
+              {/* slika prelazi iz tamnog dijela u bijeli ispod */}
               <img
                 src={image_url}
                 alt={getText(headline, lang) || 'Hero image'}
-                className="w-full h-full object-cover"
+                className="w-full h-auto rounded-2xl shadow-2xl object-cover translate-y-6 md:translate-y-10"
               />
             </div>
           </div>
