@@ -978,7 +978,7 @@ export const GallerySection = ({ section, currentLang }) => {
 
 // Custom HTML Section Component
 export const CustomHTMLSection = ({ section, currentLang }) => {
-  const { html_content, use_raw_code, raw_code } = section.content || {};
+  const { html_content, use_raw_code, raw_code, max_width, alignment } = section.content || {};
   const lang = currentLang || 'en';
   
   // Decide which content to render: raw_code (if use_raw_code is true) or html_content
@@ -987,12 +987,20 @@ export const CustomHTMLSection = ({ section, currentLang }) => {
     : getText(html_content, lang);
   
   if (!contentToRender) return null;
+
+  // Determine alignment class
+  const alignmentClass = {
+    'left': 'mr-auto',
+    'center': 'mx-auto',
+    'right': 'ml-auto'
+  }[alignment || 'center'];
   
   return (
     <section className="py-16 md:py-24" data-testid={`section-${section.id}`}>
       <div className="container mx-auto px-4 md:px-6">
         <div 
-          className={use_raw_code ? "w-full" : "prose prose-lg max-w-none"}
+          className={`${use_raw_code ? "w-full" : "prose prose-lg max-w-none"} ${alignmentClass}`}
+          style={{ maxWidth: max_width || '100%' }}
           dangerouslySetInnerHTML={{ __html: contentToRender }}
         />
       </div>
