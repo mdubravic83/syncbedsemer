@@ -168,6 +168,94 @@ export const Hero2Section = ({ section, currentLang }) => {
             <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
               {getText(button_text, lang) && (
                 <Button
+
+// Hero 3 Section Component - layout inspired by Figma (overlap & video button)
+export const Hero3Section = ({ section, currentLang }) => {
+  const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color } = section.content || {};
+  const lang = currentLang || 'en';
+
+  const bgClass = background_color === 'dark'
+    ? 'bg-gradient-to-b from-[#0A1628] via-[#0A1628] to-white text-white'
+    : background_color === 'primary'
+      ? 'bg-[#00BFB3] text-white'
+      : background_color === 'light'
+        ? 'bg-gray-100'
+        : 'bg-white';
+
+  return (
+    <section className={`py-16 md:py-24 ${bgClass}`} data-testid={`section-${section.id}`}>
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: text */}
+          <div className="space-y-6">
+            {getText(subheadline, lang) && (
+              <span className="inline-block text-[#00BFB3] text-xs md:text-sm font-semibold tracking-wider uppercase">
+                {getText(subheadline, lang)}
+              </span>
+            )}
+            {getText(headline, lang) && (
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading leading-tight">
+                {renderHighlightedHeadline(
+                  getText(headline, lang),
+                  getText(headline_highlight, lang),
+                  headline_highlight_color || 'primary'
+                )}
+              </h1>
+            )}
+            {getText(body, lang) && (
+              <p className={`text-base md:text-lg max-w-lg ${background_color === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                {getText(body, lang)}
+              </p>
+            )}
+            {(getText(button_text, lang) || getText(secondary_button_text, lang)) && (
+              <div className="flex flex-wrap items-center gap-4">
+                {getText(button_text, lang) && (
+                  <Button
+                    className="bg-[#00BFB3] hover:bg-[#00A399] text-white font-semibold py-6 px-8 rounded-lg text-base"
+                    onClick={() => button_url && (window.location.href = button_url)}
+                  >
+                    {getText(button_text, lang)}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                )}
+                {getText(secondary_button_text, lang) && (
+                  <button
+                    type="button"
+                    onClick={() => secondary_button_url && (window.location.href = secondary_button_url)}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white"
+                  >
+                    <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center bg-white/10 backdrop-blur-sm">
+                      <Play className="h-4 w-4" />
+                    </div>
+                    <span>{getText(secondary_button_text, lang)}</span>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Right: image card overlapping dark & light */}
+          {(image_url) && (
+            <div className="relative flex justify-end">
+              <div className="relative w-full max-w-xl">
+                <div className="relative bg-white rounded-3xl shadow-[0_40px_80px_rgba(15,23,42,0.55)] overflow-hidden">
+                  <img
+                    src={image_url}
+                    alt={getText(headline, lang) || 'Hero image'}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* soft reflection */}
+                <div className="mt-6 h-10 bg-gradient-to-b from-white/60 to-transparent rounded-3xl blur-[2px]" />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
                   className="bg-[#00BFB3] hover:bg-[#00A399] text-white font-semibold py-6 px-10 rounded-lg text-base"
                   onClick={() => button_url && (window.location.href = button_url)}
                 >
