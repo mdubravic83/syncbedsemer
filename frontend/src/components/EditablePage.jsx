@@ -117,6 +117,7 @@ const EditablePage = ({ slug, FallbackContent, fallbackData }) => {
       {editOpen && pageData && (
         <AdvancedPageEditor
           page={pageData}
+          activeSectionId={activeSectionId}
           onClose={() => setEditOpen(false)}
           onSaved={(updated) => {
             setPageData(updated);
