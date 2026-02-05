@@ -29,7 +29,7 @@ import { CSS } from '@dnd-kit/utilities';
 const SECTION_TYPES = {
   hero: {
     label: 'Hero Section',
-    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color', 'background_gradient']
+    fields: ['headline', 'headline_highlight', 'headline_highlight_color', 'subheadline', 'body', 'button_text', 'button_url', 'image_url', 'background_color', 'background_gradient', 'image_display_size', 'image_frame', 'image_shadow']
   },
   hero_2: {
     label: 'Hero Section (Image Below)',
@@ -433,6 +433,15 @@ const createInitialContent = (sectionType) => {
         break;
       case 'background_gradient':
         content[field] = false;
+        break;
+      case 'image_display_size':
+        content[field] = 'large';
+        break;
+      case 'image_frame':
+        content[field] = false;
+        break;
+      case 'image_shadow':
+        content[field] = 'strong';
         break;
       case 'html_content':
         content[field] = { en: '', hr: '', de: '' };
