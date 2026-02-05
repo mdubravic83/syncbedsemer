@@ -584,18 +584,34 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
       {/* Section Content */}
       {expanded && (
         <div className="p-4 space-y-4">
-          {/* Section Type Selector */}
-          <div className="space-y-1">
-            <Label className="text-xs font-medium text-gray-600">Section Type</Label>
-            <select
-              value={section.section_type}
-              onChange={(e) => handleTypeChange(e.target.value)}
-              className="w-full text-sm border border-gray-200 rounded-md p-2"
-            >
-              {Object.entries(SECTION_TYPES).map(([key, type]) => (
-                <option key={key} value={key}>{type.label}</option>
-              ))}
-            </select>
+          {/* Section Type & Order */}
+          <div className="grid grid-cols-1 sm:grid-cols-[2fr_minmax(0,1fr)] gap-3">
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Section Type</Label>
+              <select
+                value={section.section_type}
+                onChange={(e) => handleTypeChange(e.target.value)}
+                className="w-full text-sm border border-gray-200 rounded-md p-2"
+              >
+                {Object.entries(SECTION_TYPES).map(([key, type]) => (
+                  <option key={key} value={key}>{type.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="space-y-1">
+              <Label className="text-xs font-medium text-gray-600">Section Order</Label>
+              <Input
+                type="number"
+                min={0}
+                value={section.order ?? index}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value, 10);
+                  if (Number.isNaN(value)) return;
+                  onChange({ ...section, order: value });
+                }}
+                className="text-sm"
+              />
+            </div>
           </div>
 
           {/* Language Tabs for multi-lang fields */}
