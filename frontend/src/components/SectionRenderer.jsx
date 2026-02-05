@@ -595,7 +595,7 @@ export const PromoGridSection = ({ section, currentLang }) => {
                 {hasImage ? (
                   <div className="w-16 h-16 mb-4 rounded-xl overflow-hidden bg-[#00BFB3]/10 flex items-center justify-center">
                     <img
-                      src={item.image_url}
+                      src={getImageUrl(item.image_url)}
                       alt={getText(item.title, lang) || 'Promo icon'}
                       className="w-full h-full object-contain"
                     />
@@ -742,7 +742,7 @@ export const BenefitsSection = ({ section, currentLang }) => {
                 >
                   {hasImage ? (
                     <img
-                      src={item.image_url}
+                      src={getImageUrl(item.image_url)}
                       alt={getText(item.title, lang) || 'Benefit icon'}
                       className={size === 'original' ? 'max-w-full max-h-full object-contain' : 'w-full h-full object-contain'}
                     />
@@ -898,7 +898,7 @@ export const TestimonialsSection = ({ section, currentLang }) => {
               )}
               <div className="flex items-center gap-3">
                 {item.image_url && (
-                  <img src={item.image_url} alt={item.author} className="w-10 h-10 rounded-full" />
+                  <img src={getImageUrl(item.image_url)} alt={item.author} className="w-10 h-10 rounded-full" />
                 )}
                 {item.author && (
                   <span className="font-semibold text-[#0A1628]">{item.author}</span>
