@@ -52,13 +52,10 @@ export const HeroSection = ({ section, currentLang, feature, t }) => {
   const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color } = section.content || {};
   const lang = currentLang || 'en';
   
-  const bgClass = background_color === 'dark'
-    ? 'bg-gradient-to-b from-[#0A1628] via-[#0A1628] to-white text-white'
-    : background_color === 'primary'
-      ? 'bg-[#00BFB3] text-white'
-      : background_color === 'light'
-        ? 'bg-gray-100'
-        : 'bg-white';
+  const bgClass = background_color === 'dark' ? 'bg-[#0A1628] text-white' 
+    : background_color === 'primary' ? 'bg-[#00BFB3] text-white'
+    : background_color === 'light' ? 'bg-gray-100'
+    : 'bg-white';
 
   return (
     <section className={`py-16 md:py-24 ${bgClass}`} data-testid={`section-${section.id}`}>
@@ -174,13 +171,10 @@ export const Hero3Section = ({ section, currentLang }) => {
   const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color } = section.content || {};
   const lang = currentLang || 'en';
 
-  const bgClass = background_color === 'dark'
-    ? 'bg-gradient-to-b from-[#0A1628] via-[#0A1628] to-white text-white'
-    : background_color === 'primary'
-      ? 'bg-[#00BFB3] text-white'
-      : background_color === 'light'
-        ? 'bg-gray-100'
-        : 'bg-white';
+  const bgClass = background_color === 'dark' ? 'bg-[#0A1628] text-white' 
+    : background_color === 'primary' ? 'bg-[#00BFB3] text-white'
+    : background_color === 'light' ? 'bg-gray-100'
+    : 'bg-white';
 
   return (
     <section className={`py-16 md:py-24 ${bgClass}`} data-testid={`section-${section.id}`}>
