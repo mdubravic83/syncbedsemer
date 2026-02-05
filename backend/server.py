@@ -1462,6 +1462,206 @@ async def health_check():
         return {"status": "unhealthy", "database": str(e)}
 
 
+# ==================== AI CONTENT GENERATION ====================
+
+class AIGenerateRequest(BaseModel):
+    prompt: str
+    content_type: str = "blog_post"  # blog_post, page_section, translation
+    languages: List[str] = ["en", "hr", "de", "sl"]
+    tone: str = "professional"  # professional, casual, formal
+    length: str = "medium"  # short, medium, long
+
+class AITranslateRequest(BaseModel):
+    text: str
+    source_lang: str = "en"
+    target_langs: List[str] = ["hr", "de", "sl"]
+
+@api_router.post("/ai/generate")
+async def generate_ai_content(request: AIGenerateRequest):
+    """Generate content using AI (OpenAI GPT)"""
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        if not api_key:
+            raise HTTPException(status_code=500, detail="AI API key not configured")
+        
+        # Determine length
+        length_guide = {
+            "short": "Keep it concise, around 100-150 words.",
+            "medium": "Write a moderate length, around 300-400 words.",
+            "long": "Write a comprehensive piece, around 600-800 words."
+        }
+        
+        # System message based on content type
+        if request.content_type == "blog_post":
+            system_msg = f"""You are a professional content writer for SyncBeds, a vacation rental management software company.
+Write engaging, SEO-friendly blog posts about vacation rentals, property management, and hospitality technology.
+Tone: {request.tone}. {length_guide.get(request.length, length_guide['medium'])}
+Always structure content with clear headings and paragraphs.
+Return content as JSON with keys for each language: {request.languages}
+Each language version should have: title, excerpt (short summary), content (full blog post in HTML), tags (array of relevant tags)."""
+        else:
+            system_msg = f"""You are a professional content writer for SyncBeds.
+Tone: {request.tone}. {length_guide.get(request.length, length_guide['medium'])}
+Return content as JSON with keys for each language: {request.languages}"""
+        
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"ai-gen-{uuid.uuid4()}",
+            system_message=system_msg
+        ).with_model("openai", "gpt-4o")
+        
+        user_message = UserMessage(text=f"Generate content about: {request.prompt}\n\nReturn ONLY valid JSON, no markdown code blocks.")
+        
+        response = await chat.send_message(user_message)
+        
+        # Try to parse JSON from response
+        import json
+        try:
+            # Clean up response if it has markdown code blocks
+            clean_response = response.strip()
+            if clean_response.startswith("```"):
+                clean_response = clean_response.split("```")[1]
+                if clean_response.startswith("json"):
+                    clean_response = clean_response[4:]
+            content = json.loads(clean_response)
+        except json.JSONDecodeError:
+            # Return raw response if not valid JSON
+            content = {"raw": response}
+        
+        return {"success": True, "content": content}
+        
+    except Exception as e:
+        logger.error(f"AI generation error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"AI generation failed: {str(e)}")
+
+@api_router.post("/ai/translate")
+async def translate_content(request: AITranslateRequest):
+    """Translate content to multiple languages using AI"""
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        if not api_key:
+            raise HTTPException(status_code=500, detail="AI API key not configured")
+        
+        language_names = {
+            "en": "English",
+            "hr": "Croatian",
+            "de": "German",
+            "sl": "Slovenian"
+        }
+        
+        target_names = [language_names.get(l, l) for l in request.target_langs]
+        
+        system_msg = f"""You are a professional translator. Translate the given text accurately while maintaining the tone and meaning.
+Return translations as a JSON object with language codes as keys ({request.target_langs}).
+Maintain any HTML formatting in the original text."""
+        
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"ai-translate-{uuid.uuid4()}",
+            system_message=system_msg
+        ).with_model("openai", "gpt-4o")
+        
+        user_message = UserMessage(
+            text=f"Translate from {language_names.get(request.source_lang, request.source_lang)} to {', '.join(target_names)}:\n\n{request.text}\n\nReturn ONLY valid JSON."
+        )
+        
+        response = await chat.send_message(user_message)
+        
+        import json
+        try:
+            clean_response = response.strip()
+            if clean_response.startswith("```"):
+                clean_response = clean_response.split("```")[1]
+                if clean_response.startswith("json"):
+                    clean_response = clean_response[4:]
+            translations = json.loads(clean_response)
+        except json.JSONDecodeError:
+            translations = {"error": "Failed to parse translations", "raw": response}
+        
+        # Add source language
+        translations[request.source_lang] = request.text
+        
+        return {"success": True, "translations": translations}
+        
+    except Exception as e:
+        logger.error(f"Translation error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
+
+@api_router.post("/ai/generate-blog")
+async def generate_blog_post(topic: str = Body(..., embed=True)):
+    """Generate a complete blog post with AI"""
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        if not api_key:
+            raise HTTPException(status_code=500, detail="AI API key not configured")
+        
+        system_msg = """You are a professional blog writer for SyncBeds, a vacation rental management platform.
+Write engaging, informative blog posts about vacation rentals, property management, hospitality, and travel technology.
+Return content as a valid JSON object with this exact structure:
+{
+  "title": {"en": "...", "hr": "...", "de": "...", "sl": "..."},
+  "excerpt": {"en": "...", "hr": "...", "de": "...", "sl": "..."},
+  "content": {"en": "<p>...</p>", "hr": "<p>...</p>", "de": "<p>...</p>", "sl": "<p>...</p>"},
+  "tags": ["tag1", "tag2", "tag3"],
+  "featured_image_suggestion": "description of ideal image"
+}
+Write approximately 400-500 words per language. Use HTML formatting (<p>, <h2>, <h3>, <ul>, <li>, <strong>) in content."""
+        
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"blog-gen-{uuid.uuid4()}",
+            system_message=system_msg
+        ).with_model("openai", "gpt-4o")
+        
+        user_message = UserMessage(text=f"Write a blog post about: {topic}\n\nReturn ONLY valid JSON, no markdown.")
+        
+        response = await chat.send_message(user_message)
+        
+        import json
+        try:
+            clean_response = response.strip()
+            if clean_response.startswith("```"):
+                parts = clean_response.split("```")
+                if len(parts) > 1:
+                    clean_response = parts[1]
+                    if clean_response.startswith("json"):
+                        clean_response = clean_response[4:]
+            blog_data = json.loads(clean_response)
+            
+            # Create blog post in database
+            blog_post = {
+                "id": str(uuid.uuid4()),
+                "title": blog_data.get("title", {}),
+                "slug": blog_data.get("title", {}).get("en", "untitled").lower().replace(" ", "-")[:50],
+                "excerpt": blog_data.get("excerpt", {}),
+                "content": blog_data.get("content", {}),
+                "featured_image": "",
+                "author": "SyncBeds Team",
+                "tags": blog_data.get("tags", []),
+                "status": "draft",
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }
+            
+            await db.blog_posts.insert_one(blog_post)
+            
+            return {"success": True, "blog_post": blog_post, "ai_suggestion": blog_data.get("featured_image_suggestion", "")}
+            
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON parse error: {e}, Response: {response[:500]}")
+            return {"success": False, "error": "Failed to parse AI response", "raw": response}
+        
+    except Exception as e:
+        logger.error(f"Blog generation error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Blog generation failed: {str(e)}")
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
