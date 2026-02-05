@@ -131,10 +131,14 @@ export const Hero2Section = ({ section, currentLang }) => {
   const { headline, headline_highlight, headline_highlight_color, subheadline, body, button_text, button_url, secondary_button_text, secondary_button_url, image_url, background_color, background_gradient } = section.content || {};
   const lang = currentLang || 'en';
 
-  const bgClass = background_color === 'dark' ? 'bg-[#0A1628] text-white'
-    : background_color === 'primary' ? 'bg-[#00BFB3] text-white'
-    : background_color === 'light' ? 'bg-gray-100'
-    : 'bg-white';
+  const baseBg = background_color === 'dark' ? 'from-[#0A1628] text-white' 
+    : background_color === 'primary' ? 'from-[#00BFB3] text-white'
+    : background_color === 'light' ? 'from-gray-100'
+    : 'from-white';
+
+  const bgClass = background_gradient
+    ? `bg-gradient-to-b ${baseBg} to-white`
+    : baseBg.replace('from-', 'bg-');
 
   return (
     <section className={`py-16 md:py-24 ${bgClass}`} data-testid={`section-${section.id}`}>
