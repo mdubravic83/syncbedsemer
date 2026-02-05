@@ -767,11 +767,56 @@ const SectionEditor = ({ section, index, onChange, onRemove, onMove, totalSectio
           )}
 
           {sectionType.fields.includes('image_url') && (
-            <ImageField
-              label="Featured Image"
-              value={section.content?.image_url}
-              onChange={(v) => updateContent('image_url', v)}
-            />
+            <div className="space-y-2">
+              <ImageField
+                label="Featured Image"
+                value={section.content?.image_url}
+                onChange={(v) => updateContent('image_url', v)}
+              />
+
+              {/* Hero-only image display options */}
+              {section.section_type === 'hero' && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs mt-1">
+                  <div className="space-y-1">
+                    <Label className="text-[11px] font-medium text-gray-600">Image size</Label>
+                    <select
+                      value={section.content?.image_display_size || 'large'}
+                      onChange={(e) => updateContent('image_display_size', e.target.value)}
+                      className="w-full text-xs border border-gray-200 rounded-md p-1.5"
+                    >
+                      <option value="small">Small</option>
+                      <option value="medium">Medium</option>
+                      <option value="large">Large</option>
+                      <option value="full">Full width</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      id={`hero-frame-${section.id}`}
+                      type="checkbox"
+                      checked={Boolean(section.content?.image_frame)}
+                      onChange={(e) => updateContent('image_frame', e.target.checked)}
+                      className="h-3 w-3"
+                    />
+                    <Label htmlFor={`hero-frame-${section.id}`} className="text-[11px] text-gray-600">
+                      Show image frame
+                    </Label>
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-[11px] font-medium text-gray-600">Shadow</Label>
+                    <select
+                      value={section.content?.image_shadow || 'strong'}
+                      onChange={(e) => updateContent('image_shadow', e.target.value)}
+                      className="w-full text-xs border border-gray-200 rounded-md p-1.5"
+                    >
+                      <option value="none">None</option>
+                      <option value="soft">Soft</option>
+                      <option value="strong">Strong</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
 
           {sectionType.fields.includes('image_position') && (
