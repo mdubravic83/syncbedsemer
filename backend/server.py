@@ -1601,44 +1601,40 @@ async def generate_blog_post(topic: str = Body(..., embed=True)):
         if not api_key:
             raise HTTPException(status_code=500, detail="AI API key not configured")
         
-        system_msg = """You are a professional blog writer for SyncBeds, a vacation rental management platform.
-Write engaging, informative blog posts about vacation rentals, property management, hospitality, and travel technology.
-Return content as a valid JSON object with this exact structure:
-{
-  "title": {"en": "...", "hr": "...", "de": "...", "sl": "..."},
-  "excerpt": {"en": "...", "hr": "...", "de": "...", "sl": "..."},
-  "content": {"en": "<p>...</p>", "hr": "<p>...</p>", "de": "<p>...</p>", "sl": "<p>...</p>"},
-  "tags": ["tag1", "tag2", "tag3"],
-  "featured_image_suggestion": "description of ideal image"
-}
-Write approximately 400-500 words per language. Use HTML formatting (<p>, <h2>, <h3>, <ul>, <li>, <strong>) in content."""
+        system_msg = """You are a blog writer for SyncBeds vacation rental software.
+Write a short blog post (200 words max per language).
+Return ONLY valid JSON:
+{"title":{"en":"...","hr":"...","de":"...","sl":"..."},"excerpt":{"en":"...","hr":"...","de":"...","sl":"..."},"content":{"en":"<p>...</p>","hr":"<p>...</p>","de":"<p>...</p>","sl":"<p>...</p>"},"tags":["tag1","tag2"]}"""
         
         chat = LlmChat(
             api_key=api_key,
-            session_id=f"blog-gen-{uuid.uuid4()}",
+            session_id=f"blog-{uuid.uuid4()}",
             system_message=system_msg
-        ).with_model("openai", "gpt-4o")
+        ).with_model("openai", "gpt-4o-mini")
         
-        user_message = UserMessage(text=f"Write a blog post about: {topic}\n\nReturn ONLY valid JSON, no markdown.")
+        user_message = UserMessage(text=f"Topic: {topic}")
         
         response = await chat.send_message(user_message)
         
         import json
         try:
             clean_response = response.strip()
-            if clean_response.startswith("```"):
+            if "```" in clean_response:
                 parts = clean_response.split("```")
-                if len(parts) > 1:
-                    clean_response = parts[1]
-                    if clean_response.startswith("json"):
-                        clean_response = clean_response[4:]
+                for part in parts:
+                    part = part.strip()
+                    if part.startswith("json"):
+                        part = part[4:].strip()
+                    if part.startswith("{"):
+                        clean_response = part
+                        break
+            
             blog_data = json.loads(clean_response)
             
-            # Create blog post in database
             blog_post = {
                 "id": str(uuid.uuid4()),
-                "title": blog_data.get("title", {}),
-                "slug": blog_data.get("title", {}).get("en", "untitled").lower().replace(" ", "-")[:50],
+                "title": blog_data.get("title", {"en": topic}),
+                "slug": topic.lower().replace(" ", "-")[:50],
                 "excerpt": blog_data.get("excerpt", {}),
                 "content": blog_data.get("content", {}),
                 "featured_image": "",
@@ -1649,21 +1645,18 @@ Write approximately 400-500 words per language. Use HTML formatting (<p>, <h2>, 
                 "updated_at": datetime.now(timezone.utc).isoformat()
             }
             
-            await db.blog_posts.insert_one(blog_post)
+            result = await db.blog_posts.insert_one(blog_post)
+            blog_post.pop('_id', None)
             
-            # Remove MongoDB _id before returning
-            if '_id' in blog_post:
-                del blog_post['_id']
-            
-            return {"success": True, "blog_post": blog_post, "ai_suggestion": blog_data.get("featured_image_suggestion", "")}
+            return {"success": True, "blog_post": blog_post}
             
         except json.JSONDecodeError as e:
-            logger.error(f"JSON parse error: {e}, Response: {response[:500]}")
-            return {"success": False, "error": "Failed to parse AI response", "raw": response}
+            logger.error(f"JSON error: {e}")
+            return {"success": False, "error": str(e), "raw": response[:500]}
         
     except Exception as e:
         logger.error(f"Blog generation error: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Blog generation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # Include the router in the main app
