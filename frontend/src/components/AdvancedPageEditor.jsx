@@ -431,6 +431,7 @@ const createInitialContent = (sectionType) => {
         content[field] = { en: '', hr: '', de: '' };
         break;
       case 'button_url':
+      case 'secondary_button_url':
       case 'image_url':
         content[field] = '';
         break;
