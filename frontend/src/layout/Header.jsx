@@ -379,7 +379,7 @@ const Header = () => {
                       {menu.children.map((child) => (
                         <Link
                           key={child.path}
-                          to={child.path}
+                          to={buildLocalizedPath(child.path, currentLangCode)}
                           className="block pl-4 py-2 text-sm text-gray-700 hover:text-[#00D9FF]"
                           onClick={() => setIsOpen(false)}
                         >
