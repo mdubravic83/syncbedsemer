@@ -69,9 +69,9 @@ const Header = () => {
     navigate({ pathname: location.pathname, search: search ? `?${search}` : '' }, { replace: true });
   };
 
-  const currentLang = languages.find(l => l.code === i18n.language) || languages[1];
+  const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
 
-  const supportedLangs = ['en', 'hr', 'de', 'sl'];
+  const supportedLangs = SUPPORTED_LANGS;
 
   const changeLanguage = (code) => {
     const path = location.pathname;
@@ -80,9 +80,8 @@ const Header = () => {
     if (parts.length > 0 && supportedLangs.includes(parts[0])) {
       restParts = parts.slice(1);
     }
-    const prefix = code === 'en' ? '' : `/${code}`;
-    const newPath = `${prefix}/${restParts.join('/')}`.replace(/\/+$|^$/g, '') || '/';
-    navigate(newPath, { replace: true });
+    const newPath = '/' + [code, ...restParts].join('/');
+    navigate(newPath.replace(/\/+$/g, '') || '/', { replace: true });
     i18n.changeLanguage(code);
   };
 
