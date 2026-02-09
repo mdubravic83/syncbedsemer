@@ -168,10 +168,10 @@ const Header = () => {
   const dropdownMenus = enhancedMenuItems.filter(item => item.hasDropdown);
   
   const navLinks = navLinksFromMenu.length > 0 ? navLinksFromMenu : [
-    { path: '/pricing', label: t('nav.pricing') },
-    { path: '/blog', label: t('nav.blog') },
-    { path: '/about', label: t('nav.aboutUs') },
-    { path: '/contact', label: t('nav.contact') },
+    { path: buildLocalizedPath('/pricing', currentLangCode), label: t('nav.pricing') },
+    { path: buildLocalizedPath('/blog', currentLangCode), label: t('nav.blog') },
+    { path: buildLocalizedPath('/about', currentLangCode), label: t('nav.aboutUs') },
+    { path: buildLocalizedPath('/contact', currentLangCode), label: t('nav.contact') },
   ];
 
   const hasCmsMenu = enhancedMenuItems.length > 0;
