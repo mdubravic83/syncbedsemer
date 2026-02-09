@@ -176,7 +176,15 @@ const Header = () => {
 
   const hasCmsMenu = enhancedMenuItems.length > 0;
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    const normalized = normalizeInternalPath(path);
+    const current = location.pathname;
+    const parts = current.split('/').filter(Boolean);
+    if (parts.length > 0 && SUPPORTED_LANGS.includes(parts[0])) {
+      return '/' + parts.slice(1).join('/') === normalized;
+    }
+    return current === normalized;
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm" data-testid="header">
