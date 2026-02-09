@@ -200,7 +200,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8" data-testid="desktop-nav">
+          <nav className="hidden lg:flex items-center gap-8" data-testid="desktop-nav">
             {hasCmsMenu ? (
               // Render CMS-driven menu items in exact order (mixed links + dropdowns)
               enhancedMenuItems.map((item, index) => (
@@ -277,7 +277,7 @@ const Header = () => {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`text-sm font-medium transition-colors hover:text-[#00D9FF] ${
+                    className={`text-sm font-medium transition-colors hover:text-[#00D9FF] ml-4 ${
                       isActive(link.path) ? 'text-[#00D9FF]' : 'text-gray-700'
                     }`}
                     data-testid={`nav-link-${link.path.slice(1)}`}
