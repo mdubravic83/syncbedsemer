@@ -160,7 +160,7 @@ const Header = () => {
   const navLinksFromMenu = enhancedMenuItems
     .filter(item => !item.hasDropdown)
     .map(item => ({
-      path: item.url,
+      path: buildLocalizedPath(item.url, currentLangCode),
       label: item.label,
     }));
   
