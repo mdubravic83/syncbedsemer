@@ -20,6 +20,31 @@ const languages = [
   { code: 'sl', name: 'Slovenščina', flag: '🇸🇮' },
 ];
 
+const SUPPORTED_LANGS = ['hr', 'en', 'de', 'sl'];
+
+const normalizeInternalPath = (path) => {
+  if (!path) return '/';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('mailto:')) {
+    return path;
+  }
+  const parts = path.split('/').filter(Boolean);
+  if (parts.length > 0 && SUPPORTED_LANGS.includes(parts[0])) {
+    return '/' + parts.slice(1).join('/');
+  }
+  return path.startsWith('/') ? path : `/${path}`;
+};
+
+const buildLocalizedPath = (path, currentLang) => {
+  if (!path) return `/${currentLang}`;
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('mailto:')) {
+    return path;
+  }
+  const base = normalizeInternalPath(path);
+  const segments = base.split('/').filter(Boolean);
+  return '/' + [currentLang, ...segments].join('/');
+};
+
+
 const Header = () => {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -66,8 +91,7 @@ const Header = () => {
     const path = location.pathname;
     const parts = path.split('/').filter(Boolean);
     const maybeLang = parts[0];
-    const supportedLangs = ['en', 'hr', 'de', 'sl'];
-    const targetLang = supportedLangs.includes(maybeLang) ? maybeLang : 'en';
+    const targetLang = SUPPORTED_LANGS.includes(maybeLang) ? maybeLang : 'hr';
     if (targetLang !== i18n.language) {
       i18n.changeLanguage(targetLang);
     }
@@ -87,16 +111,18 @@ const Header = () => {
   }, []);
 
   // Feature links from CMS or fallback
+  const currentLangCode = SUPPORTED_LANGS.includes(i18n.language) ? i18n.language : 'hr';
+
   const featureLinksFromMenu = headerMenu?.items?.filter(item => item.visible !== false && item.url?.startsWith('/features')).map(item => ({
-    path: item.url,
+    path: buildLocalizedPath(item.url, currentLangCode),
     label: item.label?.[i18n.language] || item.label?.en || item.url,
   })) || [];
   
   const featureLinks = featureLinksFromMenu.length > 0 ? featureLinksFromMenu : [
-    { path: '/features/channel-manager', label: t('features.channelManager.title') },
-    { path: '/features/evisitor', label: t('features.eVisitor.title') },
-    { path: '/features/website', label: t('features.website.title') },
-    { path: '/features/smart-apartment', label: t('features.smartApartment.title') },
+    { path: buildLocalizedPath('/features/channel-manager', currentLangCode), label: t('features.channelManager.title') },
+    { path: buildLocalizedPath('/features/evisitor', currentLangCode), label: t('features.eVisitor.title') },
+    { path: buildLocalizedPath('/features/website', currentLangCode), label: t('features.website.title') },
+    { path: buildLocalizedPath('/features/smart-apartment', currentLangCode), label: t('features.smartApartment.title') },
   ];
 
   // Process menu items - separate dropdowns (with children) from regular links
@@ -112,7 +138,7 @@ const Header = () => {
         .filter(c => c.visible !== false)
         .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
         .map(child => ({
-          path: child.url,
+          path: buildLocalizedPath(child.url, currentLangCode),
           label: child.label?.[i18n.language] || child.label?.en || child.url,
         }))
     }));
