@@ -1,0 +1,176 @@
+{
+  "nav": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "contact": "Contact",
+    "aboutUs": "About us",
+    "login": "Log in"
+  },
+  "hero": {
+    "badge": "CHANNEL MANAGER FOR VACATION RENTALS",
+    "title": "All in one platform for vacation rentals owners, tourist agencies, hotels and Villas",
+    "subtitle": "All your bookings in one place. View all your property details, reservations, inquiries and revenues.",
+    "cta": "Get started",
+    "watchVideo": "Watch video",
+    "trustedBy": "Trusted by"
+  },
+  "features": {
+    "title": "Powerful Features for Effortless Management",
+    "subtitle": "Key information overview in a simple and intuitive interface – quick navigation with just a few clicks.",
+    "channelManager": {
+      "title": "Channel Manager",
+      "description": "Connect with over a hundred booking portals with one central calendar.",
+      "heroTitle": "Manage all bookings from one place",
+      "heroSubtitle": "SyncBeds Channel Manager allows you to synchronize all bookings in real-time across leading platforms such as Booking.com, Airbnb, Expedia, and many more."
+    },
+    "eVisitor": {
+      "title": "eVisitor Integration",
+      "description": "Automated guest check-in with mobile app for scanning QR codes.",
+      "heroTitle": "eVisitor registration: Quick and easy guest check-in",
+      "heroSubtitle": "The system allows for tracking tourist arrivals, calculating accommodation taxes, and statistical analysis, available in real-time."
+    },
+    "website": {
+      "title": "Booking System & Website",
+      "description": "Website with booking tool – become a website owner in just a few minutes.",
+      "heroTitle": "A High-Performing Website for Direct Bookings",
+      "heroSubtitle": "Your website is a booking channel that maximizes revenue and reduces dependency on third-party platforms."
+    },
+    "smartApartment": {
+      "title": "Smart Apartment Features",
+      "description": "Automate check-in/check-out processes using smart locks.",
+      "heroTitle": "Turn Your Rental Property into a Smart Space",
+      "heroSubtitle": "Enhance your property with smart technology that improves guest experience and streamlines operations."
+    },
+    "centralizedBooking": "Centralized Booking Management",
+    "automatedGuest": "Automated Guest Communication",
+    "multiPlatform": "Multi-Platform Integration",
+    "smartRevenue": "Smart Revenue Optimization",
+    "mobileApp": "Mobile App",
+    "learnMore": "Learn more"
+  },
+  "howItWorks": {
+    "title": "How does it work?",
+    "description": "Managing multiple booking platforms can be overwhelming, but with SyncBeds Channel Manager, you can automate and streamline the entire process."
+  },
+  "keyFeatures": {
+    "title": "Key Features",
+    "realTime": "Real-Time Synchronization",
+    "realTimeDesc": "Any changes made to availability, pricing, or bookings are instantly updated across all connected platforms.",
+    "multiChannel": "Multi-Channel Integration",
+    "multiChannelDesc": "SyncBeds connects with major OTAs like Booking.com, Airbnb, Expedia, Agoda, and more.",
+    "automatedRate": "Automated Rate Adjustments",
+    "automatedRateDesc": "Set dynamic pricing strategies to maximize occupancy and revenue based on market demand.",
+    "unifiedCalendar": "Unified Calendar & Dashboard",
+    "unifiedCalendarDesc": "Monitor and manage bookings, guest details, and check-in/check-out schedules from one interface.",
+    "noOverbookings": "No More Overbookings",
+    "noOverbookingsDesc": "Avoid scheduling conflicts and revenue loss by keeping your availability up-to-date."
+  },
+  "benefits": {
+    "title": "Why Choose SyncBeds Channel Manager?",
+    "subtitle": "BENEFITS",
+    "saveTime": "Save Time & Reduce Errors",
+    "saveTimeDesc": "Automate tedious manual updates and eliminate the risk of human mistakes.",
+    "increaseRevenue": "Increase Revenue & Occupancy",
+    "increaseRevenueDesc": "Optimize pricing and reach a broader audience with seamless multi-channel distribution.",
+    "userFriendly": "User-Friendly & Scalable",
+    "userFriendlyDesc": "Whether you manage a single property or multiple listings, SyncBeds is designed to grow with your business."
+  },
+  "partners": {
+    "title": "Our platform is integrated with the biggest booking providers",
+    "subtitle": "Easily connect your vacation rentals with 50+ vacation booking portals to keep your properties in sync."
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Trusted by property owners and hospitality managers. SyncBeds simplifies booking management. Here are some stories from clients who have transformed their businesses with our platform."
+  },
+  "blog": {
+    "title": "Latest Insights & Blog Posts",
+    "subtitle": "Don't miss our blog tips. Authors share knowledge on various topics: Travel, tech, or art, our posts inspire. Follow us, stay informed!",
+    "readMore": "Read more",
+    "allPosts": "All Posts",
+    "search": "Search",
+    "enterKeyword": "Enter keyword...",
+    "sharePost": "Share this post"
+  },
+  "faq": {
+    "title": "FAQs",
+    "subtitle": "Can't find an answer to your question? Feel free to just reach out.",
+    "contactUs": "Contact us",
+    "q1": "What is SyncBeds and how does it help property owners?",
+    "a1": "SyncBeds is an all-in-one property management solution that helps rental property owners manage their bookings. The platform includes a channel manager, eVisitor integration, a direct booking website, smart apartment features, and more.",
+    "q2": "How does the Channel Manager prevent double bookings?",
+    "a2": "The channel manager synchronizes your calendar across all platforms in real-time, ensuring that when a booking is made on one platform, the availability is instantly updated on all others.",
+    "q3": "Is SyncBeds eVisitor integration compliant with Croatian regulations?",
+    "a3": "Yes, SyncBeds eVisitor integration is fully compliant with Croatian guest registration regulations, automating the entire check-in process.",
+    "q4": "Can I accept direct bookings through my website?",
+    "a4": "Absolutely! SyncBeds provides you with a customizable booking website that allows guests to book directly with you, avoiding third-party commission fees.",
+    "q5": "How do smart apartment features improve my rental business?",
+    "a5": "Smart apartment features like keyless entry, automated climate control, and energy management help reduce operational costs while improving guest experience.",
+    "q6": "What level of support does SyncBeds provide?",
+    "a6": "SyncBeds provides comprehensive support including free training, technical support during business hours, and dedicated account managers for enterprise clients."
+  },
+  "cta": {
+    "title": "Ready to Simplify Your Rental Management?",
+    "subtitle": "Take control of your bookings, automate tasks, and maximize your revenue with SyncBeds.",
+    "button": "Get started now"
+  },
+  "pricing": {
+    "badge": "PRICING",
+    "title": "Flexible Plans Tailored to Your Needs",
+    "subtitle": "At SyncBeds, we offer transparent and scalable pricing designed to fit properties of all sizes.",
+    "packagesTitle": "Optimize your rentals with leading PMS software",
+    "packagesSubtitle": "Choose the right level for your business.",
+    "basicPackages": "Basic packages",
+    "byBusinessType": "Packages by business type",
+    "websites": "Websites",
+    "privateRenters": "Private renters",
+    "travelAgencies": "Travel agencies",
+    "hotels": "Hotels",
+    "webPortals": "Web portals",
+    "perProperty": "/property /month",
+    "perRoom": "/room /month",
+    "choose": "Choose",
+    "features": {
+      "unlimitedAccess": "Unlimited access to MyRent channel manager & property management application",
+      "freeTraining": "Free training on the MyRent application and all its features",
+      "technicalSupport": "Availability of MyRent technical support during business hours (09:00-17:00)",
+      "mobileApp": "Free mobile app for you and your cleaners",
+      "guestPortal": "Free portal for your guests",
+      "bookingEngine": "Free booking engine for your website",
+      "onlinePayment": "Free integration for online payment",
+      "emailSending": "Free system for automated email sending"
+    }
+  },
+  "contact": {
+    "badge": "CONTACT",
+    "title": "Get in Touch",
+    "subtitle": "Whether you have questions, need support, or want to learn more about how SyncBeds can optimize your rental management, our team is ready to assist you.",
+    "formTitle": "Send inquiry",
+    "fullName": "Full name",
+    "email": "Email address",
+    "phone": "Phone number (optional)",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "placeholders": {
+      "fullName": "Enter your full name",
+      "email": "Enter email address",
+      "phone": "Enter phone number",
+      "subject": "Enter subject",
+      "message": "Write message..."
+    }
+  },
+  "footer": {
+    "company": "Company",
+    "help": "Help",
+    "api": "API",
+    "newsletter": "Sign up for our newsletter",
+    "newsletterDesc": "Subscribe to our newsletter for the latest updates, insights, and tips to optimize your rental business.",
+    "enterEmail": "Enter email",
+    "signUp": "Sign up",
+    "termsAndConditions": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "SyncBeds 2025 © All rights reserved."
+  }
+}

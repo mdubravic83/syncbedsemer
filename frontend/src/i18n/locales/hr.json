@@ -1,0 +1,176 @@
+{
+  "nav": {
+    "features": "Značajke",
+    "pricing": "Cijene",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "aboutUs": "O nama",
+    "login": "Prijava"
+  },
+  "hero": {
+    "badge": "CHANNEL MANAGER ZA SMJEŠTAJ",
+    "title": "Sve u jednoj platformi za vlasnike apartmana, turističke agencije, hotele i vile",
+    "subtitle": "Sve vaše rezervacije na jednom mjestu. Pregledajte sve detalje o nekretninama, rezervacijama, upitima i prihodima.",
+    "cta": "Započnite",
+    "watchVideo": "Pogledajte video",
+    "trustedBy": "Vjeruju nam"
+  },
+  "features": {
+    "title": "Moćne značajke za jednostavno upravljanje",
+    "subtitle": "Pregled ključnih informacija u jednostavnom i intuitivnom sučelju – brza navigacija sa samo nekoliko klikova.",
+    "channelManager": {
+      "title": "Channel Manager",
+      "description": "Povežite se s više od stotinu booking portala uz jedan središnji kalendar.",
+      "heroTitle": "Upravljajte svim rezervacijama s jednog mjesta",
+      "heroSubtitle": "SyncBeds Channel Manager omogućuje vam sinkronizaciju svih rezervacija u stvarnom vremenu na vodećim platformama kao što su Booking.com, Airbnb, Expedia i mnoge druge."
+    },
+    "eVisitor": {
+      "title": "eVisitor integracija",
+      "description": "Automatizirana prijava gostiju uz mobilnu aplikaciju za skeniranje QR kodova.",
+      "heroTitle": "eVisitor registracija: Brza i jednostavna prijava gostiju",
+      "heroSubtitle": "Sustav omogućuje praćenje dolazaka turista, izračun boravišne pristojbe i statističku analizu, dostupno u stvarnom vremenu."
+    },
+    "website": {
+      "title": "Sustav rezervacija i web stranica",
+      "description": "Web stranica s alatom za rezervacije – postanite vlasnik web stranice u samo nekoliko minuta.",
+      "heroTitle": "Web stranica visokih performansi za izravne rezervacije",
+      "heroSubtitle": "Vaša web stranica je kanal za rezervacije koji maksimizira prihod i smanjuje ovisnost o platformama trećih strana."
+    },
+    "smartApartment": {
+      "title": "Pametni apartman",
+      "description": "Automatizirajte procese prijave i odjave pomoću pametnih brava.",
+      "heroTitle": "Pretvorite svoju nekretninu u pametan prostor",
+      "heroSubtitle": "Poboljšajte svoju nekretninu pametnom tehnologijom koja poboljšava iskustvo gostiju i pojednostavljuje operacije."
+    },
+    "centralizedBooking": "Centralizirano upravljanje rezervacijama",
+    "automatedGuest": "Automatizirana komunikacija s gostima",
+    "multiPlatform": "Integracija više platformi",
+    "smartRevenue": "Pametna optimizacija prihoda",
+    "mobileApp": "Mobilna aplikacija",
+    "learnMore": "Saznajte više"
+  },
+  "howItWorks": {
+    "title": "Kako to funkcionira?",
+    "description": "Upravljanje s više booking platformi može biti zahtjevno, ali sa SyncBeds Channel Managerom možete automatizirati i pojednostaviti cijeli proces."
+  },
+  "keyFeatures": {
+    "title": "Ključne značajke",
+    "realTime": "Sinkronizacija u stvarnom vremenu",
+    "realTimeDesc": "Sve promjene dostupnosti, cijena ili rezervacija trenutno se ažuriraju na svim povezanim platformama.",
+    "multiChannel": "Integracija više kanala",
+    "multiChannelDesc": "SyncBeds se povezuje s glavnim OTA-ima kao što su Booking.com, Airbnb, Expedia, Agoda i drugi.",
+    "automatedRate": "Automatizirano prilagođavanje cijena",
+    "automatedRateDesc": "Postavite strategije dinamičnih cijena za maksimiziranje popunjenosti i prihoda na temelju potražnje na tržištu.",
+    "unifiedCalendar": "Jedinstveni kalendar i nadzorna ploča",
+    "unifiedCalendarDesc": "Pratite i upravljajte rezervacijama, podacima o gostima i rasporedima prijave/odjave s jednog sučelja.",
+    "noOverbookings": "Nema više dvostrukih rezervacija",
+    "noOverbookingsDesc": "Izbjegnite konflikte u rasporedu i gubitak prihoda održavajući svoju dostupnost ažurnom."
+  },
+  "benefits": {
+    "title": "Zašto odabrati SyncBeds Channel Manager?",
+    "subtitle": "PREDNOSTI",
+    "saveTime": "Uštedite vrijeme i smanjite greške",
+    "saveTimeDesc": "Automatizirajte zamorne ručne ažuriranja i eliminirajte rizik od ljudskih pogrešaka.",
+    "increaseRevenue": "Povećajte prihod i popunjenost",
+    "increaseRevenueDesc": "Optimizirajte cijene i dosegnite širu publiku uz besprijekornu distribuciju na više kanala.",
+    "userFriendly": "Jednostavno za korištenje i skalabilno",
+    "userFriendlyDesc": "Bilo da upravljate jednom nekretninom ili više objekata, SyncBeds je dizajniran da raste s vašim poslovanjem."
+  },
+  "partners": {
+    "title": "Naša platforma je integrirana s najvećim booking pružateljima",
+    "subtitle": "Jednostavno povežite svoje apartmane za odmor s 50+ portala za rezervacije kako biste sinkronizirali sve svoje objekte."
+  },
+  "testimonials": {
+    "title": "Što kažu naši klijenti",
+    "subtitle": "Vjeruju nam vlasnici nekretnina i upravitelji ugostiteljstva. SyncBeds pojednostavljuje upravljanje rezervacijama. Evo nekih priča od klijenata koji su transformirali svoje poslovanje s našom platformom."
+  },
+  "blog": {
+    "title": "Najnoviji uvidi i blog postovi",
+    "subtitle": "Ne propustite naše savjete na blogu. Autori dijele znanje o raznim temama: putovanja, tehnologija ili umjetnost, naši postovi inspiriraju. Pratite nas, budite informirani!",
+    "readMore": "Pročitaj više",
+    "allPosts": "Svi postovi",
+    "search": "Pretraži",
+    "enterKeyword": "Unesite ključnu riječ...",
+    "sharePost": "Podijeli ovaj post"
+  },
+  "faq": {
+    "title": "Česta pitanja",
+    "subtitle": "Ne možete pronaći odgovor na svoje pitanje? Slobodno nam se obratite.",
+    "contactUs": "Kontaktirajte nas",
+    "q1": "Što je SyncBeds i kako pomaže vlasnicima nekretnina?",
+    "a1": "SyncBeds je sveobuhvatno rješenje za upravljanje nekretninama koje pomaže vlasnicima iznajmljivanja u upravljanju njihovim rezervacijama. Platforma uključuje channel manager, eVisitor integraciju, web stranicu za izravne rezervacije, značajke pametnog apartmana i više.",
+    "q2": "Kako Channel Manager sprječava dvostruke rezervacije?",
+    "a2": "Channel manager sinkronizira vaš kalendar na svim platformama u stvarnom vremenu, osiguravajući da kada se rezervacija napravi na jednoj platformi, dostupnost se trenutno ažurira na svim ostalima.",
+    "q3": "Je li SyncBeds eVisitor integracija u skladu s hrvatskim propisima?",
+    "a3": "Da, SyncBeds eVisitor integracija je u potpunosti u skladu s hrvatskim propisima o prijavi gostiju, automatizirajući cijeli proces prijave.",
+    "q4": "Mogu li primati izravne rezervacije putem svoje web stranice?",
+    "a4": "Apsolutno! SyncBeds vam pruža prilagodljivu web stranicu za rezervacije koja omogućuje gostima da rezerviraju izravno kod vas, izbjegavajući provizije trećih strana.",
+    "q5": "Kako značajke pametnog apartmana poboljšavaju moje poslovanje iznajmljivanja?",
+    "a5": "Značajke pametnog apartmana kao što su ulaz bez ključa, automatizirana kontrola klime i upravljanje energijom pomažu smanjiti operativne troškove dok poboljšavaju iskustvo gostiju.",
+    "q6": "Koju razinu podrške pruža SyncBeds?",
+    "a6": "SyncBeds pruža sveobuhvatnu podršku uključujući besplatnu obuku, tehničku podršku tijekom radnog vremena i posvećene account managere za enterprise klijente."
+  },
+  "cta": {
+    "title": "Spremni pojednostaviti upravljanje iznajmljivanjem?",
+    "subtitle": "Preuzmite kontrolu nad svojim rezervacijama, automatizirajte zadatke i maksimizirajte svoj prihod sa SyncBeds.",
+    "button": "Započnite sada"
+  },
+  "pricing": {
+    "badge": "CIJENE",
+    "title": "Fleksibilni planovi prilagođeni vašim potrebama",
+    "subtitle": "U SyncBeds-u nudimo transparentne i skalabilne cijene dizajnirane za nekretnine svih veličina.",
+    "packagesTitle": "Optimizirajte svoje iznajmljivanje s vodećim PMS softverom",
+    "packagesSubtitle": "Odaberite pravu razinu za svoje poslovanje.",
+    "basicPackages": "Osnovni paketi",
+    "byBusinessType": "Paketi po vrsti poslovanja",
+    "websites": "Web stranice",
+    "privateRenters": "Privatni iznajmljivači",
+    "travelAgencies": "Turističke agencije",
+    "hotels": "Hoteli",
+    "webPortals": "Web portali",
+    "perProperty": "/objekt /mjesečno",
+    "perRoom": "/soba /mjesečno",
+    "choose": "Odaberi",
+    "features": {
+      "unlimitedAccess": "Neograničen pristup MyRent channel manageru i aplikaciji za upravljanje nekretninama",
+      "freeTraining": "Besplatna obuka za MyRent aplikaciju i sve njene značajke",
+      "technicalSupport": "Dostupnost MyRent tehničke podrške tijekom radnog vremena (09:00-17:00)",
+      "mobileApp": "Besplatna mobilna aplikacija za vas i vaše čistače",
+      "guestPortal": "Besplatan portal za vaše goste",
+      "bookingEngine": "Besplatan booking engine za vašu web stranicu",
+      "onlinePayment": "Besplatna integracija za online plaćanje",
+      "emailSending": "Besplatan sustav za automatizirano slanje e-pošte"
+    }
+  },
+  "contact": {
+    "badge": "KONTAKT",
+    "title": "Kontaktirajte nas",
+    "subtitle": "Bilo da imate pitanja, trebate podršku ili želite saznati više o tome kako SyncBeds može optimizirati vaše upravljanje iznajmljivanjem, naš tim je spreman pomoći.",
+    "formTitle": "Pošaljite upit",
+    "fullName": "Ime i prezime",
+    "email": "Email adresa",
+    "phone": "Broj telefona (opcionalno)",
+    "subject": "Predmet",
+    "message": "Poruka",
+    "send": "Pošalji",
+    "placeholders": {
+      "fullName": "Unesite ime i prezime",
+      "email": "Unesite email adresu",
+      "phone": "Unesite broj telefona",
+      "subject": "Unesite predmet",
+      "message": "Napišite poruku..."
+    }
+  },
+  "footer": {
+    "company": "Tvrtka",
+    "help": "Pomoć",
+    "api": "API",
+    "newsletter": "Prijavite se na naš newsletter",
+    "newsletterDesc": "Pretplatite se na naš newsletter za najnovije vijesti, uvide i savjete za optimizaciju vašeg poslovanja iznajmljivanja.",
+    "enterEmail": "Unesite email",
+    "signUp": "Prijavi se",
+    "termsAndConditions": "Uvjeti korištenja",
+    "privacyPolicy": "Politika privatnosti",
+    "copyright": "SyncBeds 2025 © Sva prava pridržana."
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "nav": {
+    "features": "Funktionen",
+    "pricing": "Preise",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "aboutUs": "Über uns",
+    "login": "Anmelden"
+  },
+  "hero": {
+    "badge": "CHANNEL MANAGER FÜR FERIENWOHNUNGEN",
+    "title": "Alles-in-einem Plattform für Ferienwohnungsbesitzer, Reisebüros, Hotels und Villen",
+    "subtitle": "Alle Ihre Buchungen an einem Ort. Sehen Sie alle Ihre Immobiliendetails, Reservierungen, Anfragen und Einnahmen.",
+    "cta": "Jetzt starten",
+    "watchVideo": "Video ansehen",
+    "trustedBy": "Vertraut von"
+  },
+  "features": {
+    "title": "Leistungsstarke Funktionen für müheloses Management",
+    "subtitle": "Übersicht der wichtigsten Informationen in einer einfachen und intuitiven Oberfläche – schnelle Navigation mit nur wenigen Klicks.",
+    "channelManager": {
+      "title": "Channel Manager",
+      "description": "Verbinden Sie sich mit über hundert Buchungsportalen mit einem zentralen Kalender.",
+      "heroTitle": "Verwalten Sie alle Buchungen von einem Ort aus",
+      "heroSubtitle": "SyncBeds Channel Manager ermöglicht es Ihnen, alle Buchungen in Echtzeit über führende Plattformen wie Booking.com, Airbnb, Expedia und viele mehr zu synchronisieren."
+    },
+    "eVisitor": {
+      "title": "eVisitor Integration",
+      "description": "Automatisierte Gästeanmeldung mit mobiler App zum Scannen von QR-Codes.",
+      "heroTitle": "eVisitor Registrierung: Schneller und einfacher Gäste-Check-in",
+      "heroSubtitle": "Das System ermöglicht die Verfolgung von Touristenankünften, die Berechnung von Unterkunftssteuern und statistische Analysen in Echtzeit."
+    },
+    "website": {
+      "title": "Buchungssystem & Webseite",
+      "description": "Webseite mit Buchungstool – werden Sie in nur wenigen Minuten Webseitenbesitzer.",
+      "heroTitle": "Eine leistungsstarke Webseite für Direktbuchungen",
+      "heroSubtitle": "Ihre Webseite ist ein Buchungskanal, der den Umsatz maximiert und die Abhängigkeit von Drittanbieter-Plattformen reduziert."
+    },
+    "smartApartment": {
+      "title": "Smart Apartment Funktionen",
+      "description": "Automatisieren Sie Check-in/Check-out Prozesse mit intelligenten Schlössern.",
+      "heroTitle": "Verwandeln Sie Ihre Mietimmobilie in einen intelligenten Raum",
+      "heroSubtitle": "Verbessern Sie Ihre Immobilie mit intelligenter Technologie, die das Gästeerlebnis verbessert und die Abläufe optimiert."
+    },
+    "centralizedBooking": "Zentralisierte Buchungsverwaltung",
+    "automatedGuest": "Automatisierte Gästekommunikation",
+    "multiPlatform": "Multi-Plattform Integration",
+    "smartRevenue": "Intelligente Umsatzoptimierung",
+    "mobileApp": "Mobile App",
+    "learnMore": "Mehr erfahren"
+  },
+  "howItWorks": {
+    "title": "Wie funktioniert es?",
+    "description": "Die Verwaltung mehrerer Buchungsplattformen kann überwältigend sein, aber mit SyncBeds Channel Manager können Sie den gesamten Prozess automatisieren und rationalisieren."
+  },
+  "keyFeatures": {
+    "title": "Hauptfunktionen",
+    "realTime": "Echtzeit-Synchronisation",
+    "realTimeDesc": "Alle Änderungen an Verfügbarkeit, Preisen oder Buchungen werden sofort auf allen verbundenen Plattformen aktualisiert.",
+    "multiChannel": "Multi-Channel Integration",
+    "multiChannelDesc": "SyncBeds verbindet sich mit großen OTAs wie Booking.com, Airbnb, Expedia, Agoda und mehr.",
+    "automatedRate": "Automatisierte Preisanpassungen",
+    "automatedRateDesc": "Legen Sie dynamische Preisstrategien fest, um die Auslastung und den Umsatz basierend auf der Marktnachfrage zu maximieren.",
+    "unifiedCalendar": "Einheitlicher Kalender & Dashboard",
+    "unifiedCalendarDesc": "Überwachen und verwalten Sie Buchungen, Gästedaten und Check-in/Check-out Zeitpläne über eine Oberfläche.",
+    "noOverbookings": "Keine Überbuchungen mehr",
+    "noOverbookingsDesc": "Vermeiden Sie Terminkonflikte und Umsatzverluste, indem Sie Ihre Verfügbarkeit aktuell halten."
+  },
+  "benefits": {
+    "title": "Warum SyncBeds Channel Manager wählen?",
+    "subtitle": "VORTEILE",
+    "saveTime": "Zeit sparen & Fehler reduzieren",
+    "saveTimeDesc": "Automatisieren Sie mühsame manuelle Aktualisierungen und eliminieren Sie das Risiko menschlicher Fehler.",
+    "increaseRevenue": "Umsatz & Auslastung steigern",
+    "increaseRevenueDesc": "Optimieren Sie Preise und erreichen Sie ein breiteres Publikum mit nahtloser Multi-Channel-Distribution.",
+    "userFriendly": "Benutzerfreundlich & Skalierbar",
+    "userFriendlyDesc": "Ob Sie eine einzelne Immobilie oder mehrere Objekte verwalten, SyncBeds ist darauf ausgelegt, mit Ihrem Unternehmen zu wachsen."
+  },
+  "partners": {
+    "title": "Unsere Plattform ist mit den größten Buchungsanbietern integriert",
+    "subtitle": "Verbinden Sie Ihre Ferienwohnungen einfach mit 50+ Buchungsportalen, um alle Ihre Objekte zu synchronisieren."
+  },
+  "testimonials": {
+    "title": "Was unsere Kunden sagen",
+    "subtitle": "Vertraut von Immobilienbesitzern und Hospitality-Managern. SyncBeds vereinfacht das Buchungsmanagement. Hier sind einige Geschichten von Kunden, die ihr Geschäft mit unserer Plattform transformiert haben."
+  },
+  "blog": {
+    "title": "Neueste Einblicke & Blog-Beiträge",
+    "subtitle": "Verpassen Sie nicht unsere Blog-Tipps. Autoren teilen Wissen zu verschiedenen Themen: Reisen, Technik oder Kunst, unsere Beiträge inspirieren. Folgen Sie uns, bleiben Sie informiert!",
+    "readMore": "Mehr lesen",
+    "allPosts": "Alle Beiträge",
+    "search": "Suchen",
+    "enterKeyword": "Suchbegriff eingeben...",
+    "sharePost": "Diesen Beitrag teilen"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Können Sie keine Antwort auf Ihre Frage finden? Kontaktieren Sie uns gerne.",
+    "contactUs": "Kontaktieren Sie uns",
+    "q1": "Was ist SyncBeds und wie hilft es Immobilienbesitzern?",
+    "a1": "SyncBeds ist eine All-in-One-Immobilienverwaltungslösung, die Vermietern hilft, ihre Buchungen zu verwalten. Die Plattform umfasst einen Channel Manager, eVisitor-Integration, eine Direktbuchungswebseite, Smart Apartment-Funktionen und mehr.",
+    "q2": "Wie verhindert der Channel Manager Doppelbuchungen?",
+    "a2": "Der Channel Manager synchronisiert Ihren Kalender in Echtzeit über alle Plattformen, sodass bei einer Buchung auf einer Plattform die Verfügbarkeit sofort auf allen anderen aktualisiert wird.",
+    "q3": "Ist die SyncBeds eVisitor-Integration konform mit kroatischen Vorschriften?",
+    "a3": "Ja, die SyncBeds eVisitor-Integration entspricht vollständig den kroatischen Gästeregistrierungsvorschriften und automatisiert den gesamten Check-in-Prozess.",
+    "q4": "Kann ich Direktbuchungen über meine Webseite annehmen?",
+    "a4": "Absolut! SyncBeds bietet Ihnen eine anpassbare Buchungswebseite, die es Gästen ermöglicht, direkt bei Ihnen zu buchen und Provisionen von Drittanbietern zu vermeiden.",
+    "q5": "Wie verbessern Smart Apartment-Funktionen mein Vermietungsgeschäft?",
+    "a5": "Smart Apartment-Funktionen wie schlüsselloser Zugang, automatische Klimakontrolle und Energiemanagement helfen, die Betriebskosten zu senken und gleichzeitig das Gästeerlebnis zu verbessern.",
+    "q6": "Welche Unterstützung bietet SyncBeds?",
+    "a6": "SyncBeds bietet umfassenden Support einschließlich kostenloser Schulung, technischem Support während der Geschäftszeiten und dedizierten Account-Managern für Enterprise-Kunden."
+  },
+  "cta": {
+    "title": "Bereit, Ihr Vermietungsmanagement zu vereinfachen?",
+    "subtitle": "Übernehmen Sie die Kontrolle über Ihre Buchungen, automatisieren Sie Aufgaben und maximieren Sie Ihren Umsatz mit SyncBeds.",
+    "button": "Jetzt starten"
+  },
+  "pricing": {
+    "badge": "PREISE",
+    "title": "Flexible Pläne, die auf Ihre Bedürfnisse zugeschnitten sind",
+    "subtitle": "Bei SyncBeds bieten wir transparente und skalierbare Preise, die für Immobilien aller Größen konzipiert sind.",
+    "packagesTitle": "Optimieren Sie Ihre Vermietungen mit führender PMS-Software",
+    "packagesSubtitle": "Wählen Sie die richtige Stufe für Ihr Unternehmen.",
+    "basicPackages": "Basispakete",
+    "byBusinessType": "Pakete nach Geschäftsart",
+    "websites": "Webseiten",
+    "privateRenters": "Private Vermieter",
+    "travelAgencies": "Reisebüros",
+    "hotels": "Hotels",
+    "webPortals": "Webportale",
+    "perProperty": "/Objekt /Monat",
+    "perRoom": "/Zimmer /Monat",
+    "choose": "Auswählen",
+    "features": {
+      "unlimitedAccess": "Unbegrenzter Zugang zu MyRent Channel Manager & Immobilienverwaltungs-App",
+      "freeTraining": "Kostenlose Schulung zur MyRent-Anwendung und allen Funktionen",
+      "technicalSupport": "Verfügbarkeit des MyRent technischen Supports während der Geschäftszeiten (09:00-17:00)",
+      "mobileApp": "Kostenlose mobile App für Sie und Ihre Reinigungskräfte",
+      "guestPortal": "Kostenloses Portal für Ihre Gäste",
+      "bookingEngine": "Kostenlose Buchungsmaschine für Ihre Webseite",
+      "onlinePayment": "Kostenlose Integration für Online-Zahlung",
+      "emailSending": "Kostenloses System für automatisierten E-Mail-Versand"
+    }
+  },
+  "contact": {
+    "badge": "KONTAKT",
+    "title": "Kontaktieren Sie uns",
+    "subtitle": "Ob Sie Fragen haben, Unterstützung benötigen oder mehr darüber erfahren möchten, wie SyncBeds Ihr Vermietungsmanagement optimieren kann, unser Team ist bereit zu helfen.",
+    "formTitle": "Anfrage senden",
+    "fullName": "Vollständiger Name",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefonnummer (optional)",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "send": "Senden",
+    "placeholders": {
+      "fullName": "Geben Sie Ihren vollständigen Namen ein",
+      "email": "Geben Sie Ihre E-Mail-Adresse ein",
+      "phone": "Geben Sie Ihre Telefonnummer ein",
+      "subject": "Geben Sie den Betreff ein",
+      "message": "Nachricht schreiben..."
+    }
+  },
+  "footer": {
+    "company": "Unternehmen",
+    "help": "Hilfe",
+    "api": "API",
+    "newsletter": "Melden Sie sich für unseren Newsletter an",
+    "newsletterDesc": "Abonnieren Sie unseren Newsletter für die neuesten Updates, Einblicke und Tipps zur Optimierung Ihres Vermietungsgeschäfts.",
+    "enterEmail": "E-Mail eingeben",
+    "signUp": "Anmelden",
+    "termsAndConditions": "Allgemeine Geschäftsbedingungen",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "copyright": "SyncBeds 2025 © Alle Rechte vorbehalten."
+  }
+}
