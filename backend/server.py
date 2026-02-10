@@ -111,6 +111,46 @@ class NewsletterSubscription(BaseModel):
 
 # ==================== MAILCHIMP SETTINGS ====================
 
+class OpenAISettings(BaseModel):
+    api_key: Optional[str] = None
+    model: Optional[str] = "gpt-4o"
+    enabled: bool = False
+
+
+class OpenAISettingsUpdate(BaseModel):
+    api_key: Optional[str] = None
+    model: Optional[str] = None
+    enabled: Optional[bool] = None
+
+
+async def get_openai_settings() -> OpenAISettings:
+    raw = await db.settings.find_one({"key": "openai"}, {"_id": 0})
+    if not raw:
+        return OpenAISettings()
+    data = raw.get("value") or {}
+    return OpenAISettings(**data)
+
+
+async def save_openai_settings(update: OpenAISettingsUpdate) -> OpenAISettings:
+    current = await get_openai_settings()
+    data = current.model_dump()
+
+    for field, value in update.model_dump(exclude_unset=True).items():
+        if field == "api_key":
+            if value:
+                data["api_key"] = value
+        else:
+            data[field] = value
+
+    await db.settings.update_one(
+        {"key": "openai"},
+        {"$set": {"key": "openai", "value": data}},
+        upsert=True,
+    )
+    return OpenAISettings(**data)
+
+
+
 
 class MailchimpSettings(BaseModel):
     api_key: Optional[str] = None
@@ -1956,12 +1996,16 @@ class AITranslateRequest(BaseModel):
 async def generate_ai_content(request: AIGenerateRequest):
     """Generate content using AI (OpenAI GPT)"""
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-        
-        api_key = os.environ.get('EMERGENT_LLM_KEY')
-        if not api_key:
-            raise HTTPException(status_code=500, detail="AI API key not configured")
-        
+        from openai import AsyncOpenAI
+        import json
+
+        settings = await get_openai_settings()
+        if not settings.enabled or not settings.api_key:
+            raise HTTPException(status_code=500, detail="OpenAI API key not configured in admin settings")
+
+        client = AsyncOpenAI(api_key=settings.api_key)
+        model_name = settings.model or "gpt-4o"
+
         # Determine length
         length_guide = {
             "short": "Keep it concise, around 100-150 words.",
@@ -1981,88 +2025,104 @@ Each language version should have: title, excerpt (short summary), content (full
             system_msg = f"""You are a professional content writer for SyncBeds.
 Tone: {request.tone}. {length_guide.get(request.length, length_guide['medium'])}
 Return content as JSON with keys for each language: {request.languages}"""
-        
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=f"ai-gen-{uuid.uuid4()}",
-            system_message=system_msg
-        ).with_model("openai", "gpt-4o")
-        
-        user_message = UserMessage(text=f"Generate content about: {request.prompt}\n\nReturn ONLY valid JSON, no markdown code blocks.")
-        
-        response = await chat.send_message(user_message)
-        
-        # Try to parse JSON from response
-        import json
+
+        messages = [
+            {"role": "system", "content": system_msg},
+            {
+                "role": "user",
+                "content": f"Generate content about: {request.prompt}\n\nReturn ONLY valid JSON, no markdown code blocks.",
+            },
+        ]
+
+        completion = await client.chat.completions.create(
+            model=model_name,
+            messages=messages,
+            temperature=0.4,
+        )
+
+        response_text = completion.choices[0].message.content or ""
+
         try:
-            # Clean up response if it has markdown code blocks
-            clean_response = response.strip()
+            clean_response = response_text.strip()
             if clean_response.startswith("```"):
                 clean_response = clean_response.split("```")[1]
                 if clean_response.startswith("json"):
                     clean_response = clean_response[4:]
             content = json.loads(clean_response)
         except json.JSONDecodeError:
-            # Return raw response if not valid JSON
-            content = {"raw": response}
-        
+            content = {"raw": response_text}
+
         return {"success": True, "content": content}
-        
+
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"AI generation error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"AI generation failed: {str(e)}")
 
 @api_router.post("/ai/translate")
 async def translate_content(request: AITranslateRequest):
-    """Translate content to multiple languages using AI"""
+    """Translate content to multiple languages using AI (OpenAI)"""
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-        
-        api_key = os.environ.get('EMERGENT_LLM_KEY')
-        if not api_key:
-            raise HTTPException(status_code=500, detail="AI API key not configured")
-        
+        from openai import AsyncOpenAI
+        import json
+
+        settings = await get_openai_settings()
+        if not settings.enabled or not settings.api_key:
+            raise HTTPException(status_code=500, detail="OpenAI API key not configured in admin settings")
+
+        client = AsyncOpenAI(api_key=settings.api_key)
+        model_name = settings.model or "gpt-4o"
+
         language_names = {
             "en": "English",
             "hr": "Croatian",
             "de": "German",
-            "sl": "Slovenian"
+            "sl": "Slovenian",
         }
-        
+
         target_names = [language_names.get(l, l) for l in request.target_langs]
-        
-        system_msg = f"""You are a professional translator. Translate the given text accurately while maintaining the tone and meaning.
-Return translations as a JSON object with language codes as keys ({request.target_langs}).
-Maintain any HTML formatting in the original text."""
-        
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=f"ai-translate-{uuid.uuid4()}",
-            system_message=system_msg
-        ).with_model("openai", "gpt-4o")
-        
-        user_message = UserMessage(
-            text=f"Translate from {language_names.get(request.source_lang, request.source_lang)} to {', '.join(target_names)}:\n\n{request.text}\n\nReturn ONLY valid JSON."
+
+        system_msg = (
+            "You are a professional translator. Translate the given text accurately while maintaining the tone and meaning. "
+            f"Return translations as a JSON object with language codes as keys ({request.target_langs}). "
+            "Maintain any HTML formatting in the original text."
         )
-        
-        response = await chat.send_message(user_message)
-        
-        import json
+
+        user_text = (
+            f"Translate from {language_names.get(request.source_lang, request.source_lang)} "
+            f"to {', '.join(target_names)}:\n\n{request.text}\n\nReturn ONLY valid JSON."
+        )
+
+        messages = [
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": user_text},
+        ]
+
+        completion = await client.chat.completions.create(
+            model=model_name,
+            messages=messages,
+            temperature=0.2,
+        )
+
+        response_text = completion.choices[0].message.content or ""
+
         try:
-            clean_response = response.strip()
+            clean_response = response_text.strip()
             if clean_response.startswith("```"):
                 clean_response = clean_response.split("```")[1]
                 if clean_response.startswith("json"):
                     clean_response = clean_response[4:]
             translations = json.loads(clean_response)
         except json.JSONDecodeError:
-            translations = {"error": "Failed to parse translations", "raw": response}
-        
-        # Add source language
+            translations = {"error": "Failed to parse translations", "raw": response_text}
+
         translations[request.source_lang] = request.text
-        
+
         return {"success": True, "translations": translations}
-        
+
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Translation error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Translation failed: {str(e)}")
