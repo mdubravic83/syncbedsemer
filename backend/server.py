@@ -418,7 +418,6 @@ class PageSection(PageSectionBase):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-
 @api_router.get("/admin/settings/openai", response_model=SettingsOpenAIResponse)
 async def get_openai_settings_route():
     settings = await get_openai_settings()
