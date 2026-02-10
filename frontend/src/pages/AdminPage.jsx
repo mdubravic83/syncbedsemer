@@ -84,6 +84,15 @@ const AdminPage = () => {
       // ignore for now
     }
   }, []);
+  const loadOpenAISettings = useCallback(async () => {
+    try {
+      const settings = await api.admin.getOpenAISettings();
+      setOpenAISettings(settings || { enabled: false, model: 'gpt-4o', has_api_key: false });
+    } catch (err) {
+      // ignore
+    }
+  }, []);
+
 
   const loadMailchimpSettings = useCallback(async () => {
     try {
