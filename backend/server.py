@@ -123,6 +123,14 @@ class OpenAISettingsUpdate(BaseModel):
     enabled: Optional[bool] = None
 
 
+class SettingsOpenAIResponse(BaseModel):
+    """Response model for OpenAI settings (hides API key value)."""
+
+    enabled: bool = False
+    model: Optional[str] = "gpt-4o"
+    has_api_key: bool = False
+
+
 async def get_openai_settings() -> OpenAISettings:
     raw = await db.settings.find_one({"key": "openai"}, {"_id": 0})
     if not raw:
