@@ -575,105 +575,6 @@ const AdminPage = () => {
                                   toast.success('Pravilo spremljeno.');
                                 } catch (err) {
                                   toast.error('Neuspješno spremanje pravila.');
-                {/* OpenAI settings */}
-                <div className="space-y-3 border-t pt-4 mt-4">
-                  <h3 className="text-lg font-semibold">OpenAI postavke (AI sadržaj)</h3>
-                  <p className="text-sm text-gray-600">
-                    Ovdje možeš unijeti vlastiti OpenAI API ključ. Ključ se sprema samo na backend (u bazu),
-                    nikad u frontend. Bez ovoga AI generiranje sadržaja i prijevodi neće raditi.
-                  </p>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>OpenAI API ključ</Label>
-                      <Input
-                        type="password"
-                        placeholder={openAISettings.has_api_key ? 'Ključ je već postavljen - unesi novi za promjenu' : 'sk-...'}
-                        onChange={(e) => {
-                          setOpenAISettings({ ...openAISettings, api_key_input: e.target.value });
-                        }}
-                      />
-                      <p className="text-xs text-gray-500">
-                        Ključ se NE prikazuje iz sigurnosnih razloga. Ako želiš promijeniti ključ, samo unesi novi i spremi.
-                      </p>
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Model</Label>
-                      <Input
-                        value={openAISettings.model || 'gpt-4o'}
-                        onChange={(e) => setOpenAISettings({ ...openAISettings, model: e.target.value })}
-                      />
-                      <p className="text-xs text-gray-500">
-                        Preporučeno: gpt-4o (ili drugi model iz tvog OpenAI računa koji podržava chat completions).
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2 mt-2">
-                    <input
-                      id="openai-enabled"
-                      type="checkbox"
-                      className="h-4 w-4"
-                      checked={!!openAISettings.enabled}
-                      onChange={(e) => setOpenAISettings({ ...openAISettings, enabled: e.target.checked })}
-                    />
-                    <Label htmlFor="openai-enabled">AI generiranje i prijevodi su aktivni</Label>
-                  </div>
-
-                  <div className="flex gap-3 mt-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={async () => {
-                        try {
-                          const payload = {
-                            enabled: !!openAISettings.enabled,
-                            model: openAISettings.model || 'gpt-4o',
-                          };
-                          if (openAISettings.api_key_input && openAISettings.api_key_input.trim()) {
-                            payload.api_key = openAISettings.api_key_input.trim();
-                          }
-                          const saved = await api.admin.updateOpenAISettings(payload);
-                          setOpenAISettings({ ...saved, api_key_input: '' });
-                          toast.success('OpenAI postavke spremljene.');
-                        } catch (err) {
-                          toast.error('Neuspješno spremanje OpenAI postavki.');
-                        }
-                      }}
-                    >
-                      Spremi OpenAI postavke
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={async () => {
-                        try {
-                          const res = await apiCall('/ai/generate', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                              prompt: 'AI health check',
-                              content_type: 'blog_post',
-                              languages: ['en'],
-                              tone: 'professional',
-                              length: 'short',
-                            }),
-                          });
-                          if (res && res.success) {
-                            toast.success('OpenAI konfiguracija je ispravna.');
-                          } else {
-                            toast.error('OpenAI je odgovorio, ali sadržaj nije očekivan.');
-                          }
-                        } catch (err) {
-                          toast.error('OpenAI health check nije uspio: ' + (err.message || '')); 
-                        }
-                      }}
-                    >
-                      Testiraj OpenAI ključ
-                    </Button>
-                  </div>
-                </div>
-
-
                                 }
                               }}
                             >
@@ -784,6 +685,105 @@ const AdminPage = () => {
                 <p className="text-sm text-gray-600 mb-4">
                   Samo trenutni admin (ulogirani korisnik) smije dodavati i uređivati dodatne admin korisnike.
                 </p>
+
+                {/* OpenAI settings */}
+                <div className="space-y-3 border-t pt-4 mt-4">
+                  <h3 className="text-lg font-semibold">OpenAI postavke (AI sadržaj)</h3>
+                  <p className="text-sm text-gray-600">
+                    Ovdje možeš unijeti vlastiti OpenAI API ključ. Ključ se sprema samo na backend (u bazu),
+                    nikad u frontend. Bez ovoga AI generiranje sadržaja i prijevodi neće raditi.
+                  </p>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>OpenAI API ključ</Label>
+                      <Input
+                        type="password"
+                        placeholder={openAISettings.has_api_key ? 'Ključ je već postavljen - unesi novi za promjenu' : 'sk-...'}
+                        onChange={(e) => {
+                          setOpenAISettings({ ...openAISettings, api_key_input: e.target.value });
+                        }}
+                      />
+                      <p className="text-xs text-gray-500">
+                        Ključ se NE prikazuje iz sigurnosnih razloga. Ako želiš promijeniti ključ, samo unesi novi i spremi.
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Model</Label>
+                      <Input
+                        value={openAISettings.model || 'gpt-4o'}
+                        onChange={(e) => setOpenAISettings({ ...openAISettings, model: e.target.value })}
+                      />
+                      <p className="text-xs text-gray-500">
+                        Preporučeno: gpt-4o (ili drugi model iz tvog OpenAI računa koji podržava chat completions).
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2 mt-2">
+                    <input
+                      id="openai-enabled"
+                      type="checkbox"
+                      className="h-4 w-4"
+                      checked={!!openAISettings.enabled}
+                      onChange={(e) => setOpenAISettings({ ...openAISettings, enabled: e.target.checked })}
+                    />
+                    <Label htmlFor="openai-enabled">AI generiranje i prijevodi su aktivni</Label>
+                  </div>
+
+                  <div className="flex gap-3 mt-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={async () => {
+                        try {
+                          const payload = {
+                            enabled: !!openAISettings.enabled,
+                            model: openAISettings.model || 'gpt-4o',
+                          };
+                          if (openAISettings.api_key_input && openAISettings.api_key_input.trim()) {
+                            payload.api_key = openAISettings.api_key_input.trim();
+                          }
+                          const saved = await api.admin.updateOpenAISettings(payload);
+                          setOpenAISettings({ ...saved, api_key_input: '' });
+                          toast.success('OpenAI postavke spremljene.');
+                        } catch (err) {
+                          toast.error('Neuspješno spremanje OpenAI postavki.');
+                        }
+                      }}
+                    >
+                      Spremi OpenAI postavke
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={async () => {
+                        try {
+                          const res = await apiCall('/ai/generate', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                              prompt: 'AI health check',
+                              content_type: 'blog_post',
+                              languages: ['en'],
+                              tone: 'professional',
+                              length: 'short',
+                            }),
+                          });
+                          if (res && res.success) {
+                            toast.success('OpenAI konfiguracija je ispravna.');
+                          } else {
+                            toast.error('OpenAI je odgovorio, ali sadržaj nije očekivan.');
+                          }
+                        } catch (err) {
+                          toast.error('OpenAI health check nije uspio: ' + (err.message || ''));
+                        }
+                      }}
+                    >
+                      Testiraj OpenAI ključ
+                    </Button>
+                  </div>
+                </div>
+
 
                 <div className="space-y-3 mb-4">
                   {adminUsers.map((user) => (
