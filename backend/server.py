@@ -437,9 +437,6 @@ async def update_openai_settings_route(payload: OpenAISettingsUpdate):
         has_api_key=bool(settings.api_key),
     )
 
-
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-
 class PageBase(BaseModel):
     slug: str  # URL path like "home", "about", "pricing"
     title: Dict[str, str]  # Page title in multiple languages
