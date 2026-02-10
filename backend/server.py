@@ -405,9 +405,6 @@ async def send_contact_notification_email(message: ContactMessage) -> None:
     finally:
         server.quit()
 
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
 
 # ==================== PAGE MODELS ====================
 
