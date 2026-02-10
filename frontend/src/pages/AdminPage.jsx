@@ -34,6 +34,7 @@ const AdminPage = () => {
 
   const [snippetSettings, setSnippetSettings] = useState({ global_head_html: '', global_body_html: '', rules: [] });
   const [mailchimpSettings, setMailchimpSettings] = useState({ enabled: false, server_prefix: '', audience_id: '', has_api_key: false });
+  const [openAISettings, setOpenAISettings] = useState({ enabled: false, model: 'gpt-4o', has_api_key: false });
 
 
 
