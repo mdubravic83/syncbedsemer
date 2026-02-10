@@ -373,5 +373,14 @@ export default {
         body: JSON.stringify(data),
       });
     },
+    async getOpenAISettings() {
+      return apiCall('/admin/settings/openai');
+    },
+    async updateOpenAISettings(data) {
+      return apiCall('/admin/settings/openai', {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      });
+    },
   },
 };
