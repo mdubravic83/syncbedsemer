@@ -772,8 +772,8 @@ const AdminPage = () => {
                   </Button>
 
                   <p className="text-xs text-gray-500">
-                    Napomena: za sve ove akcije, backend mora imati ispravno postavljen <code>EMERGENT_LLM_KEY</code>{' '}
-                    i pristup produkcijskom marketing CMS serveru.
+                    Napomena: za ove AI akcije backend sada koristi OpenAI API ključ koji postaviš iznad (u OpenAI postavkama),
+                    te pristup produkcijskom marketing CMS serveru.
                   </p>
                 </div>
               </div>
