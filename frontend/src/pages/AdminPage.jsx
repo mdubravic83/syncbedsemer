@@ -120,6 +120,7 @@ const AdminPage = () => {
     if (activeTab === 'settings') {
       loadEmailSettings();
       loadSnippetSettings();
+      loadOpenAISettings();
     }
     if (activeTab === 'newsletter') {
       loadMailchimpSettings();
