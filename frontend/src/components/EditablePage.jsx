@@ -40,6 +40,19 @@ const EditablePage = ({ slug, FallbackContent, fallbackData }) => {
     loadPage();
   }, [slug]);
 
+
+  useEffect(() => {
+    if (!pageData) return;
+    const title = pageData.title?.[currentLang] || pageData.title?.en || 'SyncBeds';
+    document.title = `${title} | SyncBeds`;
+
+    const meta = document.querySelector('meta[name="description"]');
+    const desc = pageData.meta_description?.[currentLang] || pageData.meta_description?.en;
+    if (meta && desc) {
+      meta.setAttribute('content', desc);
+    }
+  }, [pageData, currentLang]);
+
   // Sort sections by order and filter visible ones
   const sortedSections = pageData?.sections
     ?.filter(s => s.visible !== false)
