@@ -418,6 +418,27 @@ class PageSectionBase(BaseModel):
     content: Dict[str, Any]  # Flexible content with translations
 
 class PageSection(PageSectionBase):
+
+@api_router.get("/admin/settings/openai", response_model=SettingsOpenAIResponse)
+async def get_openai_settings_route():
+    settings = await get_openai_settings()
+    return SettingsOpenAIResponse(
+        enabled=settings.enabled or False,
+        model=settings.model or "gpt-4o",
+        has_api_key=bool(settings.api_key),
+    )
+
+
+@api_router.put("/admin/settings/openai", response_model=SettingsOpenAIResponse)
+async def update_openai_settings_route(payload: OpenAISettingsUpdate):
+    settings = await save_openai_settings(payload)
+    return SettingsOpenAIResponse(
+        enabled=settings.enabled or False,
+        model=settings.model or "gpt-4o",
+        has_api_key=bool(settings.api_key),
+    )
+
+
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
 
 class PageBase(BaseModel):
