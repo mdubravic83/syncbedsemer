@@ -42,6 +42,18 @@ const BlogPostPage = () => {
     return obj[lang] || obj.en || '';
   };
 
+  useEffect(() => {
+    if (!post) return;
+    const title = getContent(post?.title) || 'Blog';
+    document.title = `${title} | SyncBeds Blog`;
+
+    const meta = document.querySelector('meta[name="description"]');
+    const desc = getContent(post?.excerpt);
+    if (meta && desc) {
+      meta.setAttribute('content', desc);
+    }
+  }, [post, lang]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -62,18 +74,6 @@ const BlogPostPage = () => {
   const postTitle = getContent(post.title);
   const postExcerpt = getContent(post.excerpt);
   const rawContent = getContent(post.content);
-
-  useEffect(() => {
-    if (!post) return;
-    const title = getContent(post.title) || 'Blog';
-    document.title = `${title} | SyncBeds Blog`;
-
-    const meta = document.querySelector('meta[name="description"]');
-    const desc = getContent(post.excerpt);
-    if (meta && desc) {
-      meta.setAttribute('content', desc);
-    }
-  }, [post, lang]);
 
   const postImage = post.featured_image || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=600&fit=crop';
   const postDate = new Date(post.created_at).toLocaleDateString();
